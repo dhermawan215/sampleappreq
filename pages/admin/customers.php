@@ -7,7 +7,7 @@ session_start();
 <head>
     <!-- Basic Page Info -->
     <meta charset="utf-8" />
-    <title>Sample Request App - Departemen</title>
+    <title>Sample Request App - Customers</title>
 
     <?php include('../layouts/css.php') ?>
 </head>
@@ -38,7 +38,7 @@ session_start();
                                         <a href="index.html">Home</a>
                                     </li>
                                     <li class="breadcrumb-item active" aria-current="page">
-                                        Departemen
+                                        Customers
                                     </li>
                                 </ol>
                             </nav>
@@ -53,30 +53,30 @@ session_start();
                 <!-- Simple Datatable start -->
                 <div class="card-box mb-30">
                     <div class="pd-20">
-                        <h4 class="text-blue h4">Data Departemen</h4>
+                        <h4 class="text-blue h4">Data Customers</h4>
                     </div>
                     <div class="pb-20">
 
                         <!-- query -->
                         <?php
                         $no = 1;
-                        $queryDept = mysqli_query($conn, "SELECT * FROM departemen");
+                        $queryCustomer = mysqli_query($conn, "SELECT * FROM customer");
                         ?>
                         <table class="data-table table stripe hover nowrap">
                             <thead>
                                 <tr>
                                     <th class="table-plus datatable-nosort" style="width: 17px;">No</th>
-                                    <th>Dept Id</th>
+                                    <th>Customers Code</th>
                                     <th>Name</th>
                                     <th class="datatable-nosort">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php while ($row = mysqli_fetch_object($queryDept)) : ?>
+                                <?php while ($row = mysqli_fetch_object($queryCustomer)) : ?>
                                     <tr>
                                         <td class="table-plus"><?= $no++ ?></td>
-                                        <td><?= $row->DeptID ?></td>
-                                        <td><?= $row->Department ?></td>
+                                        <td><?= $row->CustomerCode ?></td>
+                                        <td><?= $row->CustomerName ?></td>
                                         <td>
                                             <div class="dropdown">
                                                 <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
@@ -84,10 +84,10 @@ session_start();
                                                 </a>
                                                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
                                                     <a class="dropdown-item" href="edit-departemen.php?IDNo=<?= ($row->IDNo) ?>"><i class="dw dw-edit2"></i> Edit</a>
-                                                    <!-- <a class="dropdown-item" href="#"><i class="dw dw-delete-3"></i> Delete</a> -->
+                                                    <a class="dropdown-item" href="customers-detail.php?cc=<?= $row->CustomerCode ?>"><i class="dw dw dw-eye"></i>Detail</a>
 
-                                                    <form action="delete-departemen.php" method="post" class="m-1 px-1 py-1">
-                                                        <input type="hidden" name="IDNo" value="<?= $row->IDNo ?>">
+                                                    <form action="customers-delete.php" method="post" class="m-1 px-1 py-1">
+                                                        <input type="hidden" name="CustomerCode" value="<?= $row->CustomerCode ?>">
                                                         <button class="dw dw-delete-3 btn-sm btn show_confirm" name="delete" type="delete" onclick="return confirm('Apakah anda yakin ingin menghapus?')">
                                                             Delete
                                                         </button>
@@ -114,7 +114,7 @@ session_start();
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h4 class="modal-title" id="myLargeModalLabel">
-                                        Form add departments
+                                        Form add Customers
                                     </h4>
                                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                                         ×
@@ -174,7 +174,7 @@ session_start();
         session_unset();
         ?>
 
-        <!-- query delete data -->
+        <!-- query insert data -->
         <?php
         if (isset($_POST['submit'])) {
             $DeptID = htmlspecialchars($_POST['DeptID']);

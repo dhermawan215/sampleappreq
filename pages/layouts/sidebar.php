@@ -203,7 +203,15 @@
                         <span class="micon bi bi-back"></span><span class="mtext">Departemen</span>
                     </a>
                     <ul class="submenu">
-                        <li><a href="400.html">Dashboard</a></li>
+                        <li><a href="/pages/admin/departemen.php">Dashboard</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="javascript:;" class="dropdown-toggle">
+                        <span class="micon bi bi-back"></span><span class="mtext">Customers</span>
+                    </a>
+                    <ul class="submenu">
+                        <li><a href="/pages/admin/customers.php">Dashboard</a></li>
                     </ul>
                 </li>
 

@@ -1,20 +1,19 @@
 <?php
 include('../../config/config.php');
 session_start();
+
 if (isset($_POST['delete'])) {
-    $IDNo = $_POST['IDNo'];
+    $CustomersCode = $_POST['CustomerCode'];
 
-    // query hapus data
-
-    $queryDelete = mysqli_query($conn, "DELETE FROM departemen WHERE IDNo='$IDNo'");
-
+    // query delete data
+    $queryDelete = mysqli_query($conn, "DELETE FROM customer WHERE CustomerCode='$CustomersCode'");
     if ($queryDelete != false) {
         $_SESSION['success'] = [
             "message" => "Data Was Deleted"
         ];
 
         echo "<script>
-        document.location.href='/pages/admin/departemen.php';
+        document.location.href='/pages/admin/customers.php';
         </script>";
     } else {
         $_SESSION['warning'] = [
@@ -22,7 +21,7 @@ if (isset($_POST['delete'])) {
         ];
 
         echo "<script>
-        document.location.href='/pages/admin/departemen.php';
+        document.location.href='/pages/admin/customers.php';
         </script>";
     }
 }
