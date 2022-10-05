@@ -56,7 +56,7 @@ if ($row->CustomerCode != $code) {
                     <div class="row">
                         <div class="col-md-8 col-sm-12">
                             <div class="title">
-                                <h4>Departemen</h4>
+                                <h4>Customer</h4>
                             </div>
                             <nav aria-label="breadcrumb" role="navigation">
                                 <ol class="breadcrumb">
@@ -67,7 +67,7 @@ if ($row->CustomerCode != $code) {
                                         <a class="text-decoration-none" href="/pages/admin/customers.php">Customers</a>
                                     </li>
                                     <li class="breadcrumb-item active" aria-current="page">
-                                        Add Data
+                                        Edit Data
                                     </li>
                                 </ol>
                             </nav>
@@ -78,7 +78,7 @@ if ($row->CustomerCode != $code) {
                 <!-- Simple Datatable start -->
                 <div class="card-box mb-30">
                     <div class="pd-20">
-                        <h4 class="text-blue h4">Add Data</h4>
+                        <h4 class="text-blue h4">Edit Data </h4>
                         <h5><a href="/pages/admin/customers.php" class="text-danger m-2"><i class="bi bi-arrow-left-circle"></i> Back</a></h5>
                     </div>
                     <div class="pd-20">

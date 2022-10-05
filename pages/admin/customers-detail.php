@@ -30,7 +30,7 @@ if ($row->CustomerCode != $code) {
 <head>
     <!-- Basic Page Info -->
     <meta charset="utf-8" />
-    <title>Sample Request App - Customers</title>
+    <title>Sample Request App - Customers-Detail</title>
 
     <?php include('../layouts/css.php') ?>
 </head>
@@ -53,7 +53,7 @@ if ($row->CustomerCode != $code) {
                     <div class="row">
                         <div class="col-md-8 col-sm-12">
                             <div class="title">
-                                <h4>Departemen</h4>
+                                <h4>Customers</h4>
                             </div>
                             <nav aria-label="breadcrumb" role="navigation">
                                 <ol class="breadcrumb">

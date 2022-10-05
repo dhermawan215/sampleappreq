@@ -237,21 +237,8 @@
                         <span class="micon bi bi-hdd-stack"></span><span class="mtext">Data Produk</span>
                     </a>
                     <ul class="submenu">
-                        <li><a href="javascript:;">Level 1</a></li>
-                        <li><a href="javascript:;">Level 1</a></li>
-                        <li><a href="javascript:;">Level 1</a></li>
-                        <li class="dropdown">
-                            <a href="javascript:;" class="dropdown-toggle">
-                                <span class="micon fa fa-plug"></span><span class="mtext">Level 2</span>
-                            </a>
-                            <ul class="submenu child">
-                                <li><a href="javascript:;">Level 2</a></li>
-                                <li><a href="javascript:;">Level 2</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="javascript:;">Level 1</a></li>
-                        <li><a href="javascript:;">Level 1</a></li>
-                        <li><a href="javascript:;">Level 1</a></li>
+                        <li><a href="javascript:;">Dashboard Produk</a></li>
+                        <li><a href="/pages/admin/unit.php">Dashboard Unit Produk</a></li>
                     </ul>
                 </li>
                 <li>
