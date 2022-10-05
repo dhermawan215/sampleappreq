@@ -30,7 +30,7 @@ session_start();
                     <div class="row">
                         <div class="col-md-8 col-sm-12">
                             <div class="title">
-                                <h4>Departemen</h4>
+                                <h4>Customers</h4>
                             </div>
                             <nav aria-label="breadcrumb" role="navigation">
                                 <ol class="breadcrumb">
