@@ -44,7 +44,7 @@ session_start();
                             </nav>
                         </div>
                         <div class="col-md-4 col-sm-12 text-right">
-                            <a href="#" class="btn btn-primary " data-toggle="modal" data-target="#bd-example-modal-lg" type="button">
+                            <a href="customers-add.php" class="btn btn-primary ">
                                 <i class="bi bi-plus"></i>Add Data
                             </a>
                         </div>
@@ -83,7 +83,7 @@ session_start();
                                                     <i class="dw dw-more"></i>
                                                 </a>
                                                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-                                                    <a class="dropdown-item" href="edit-departemen.php?IDNo=<?= ($row->IDNo) ?>"><i class="dw dw-edit2"></i> Edit</a>
+                                                    <a class="dropdown-item" href="customers-edit.php?cc=<?= $row->CustomerCode ?>"><i class="dw dw-edit2"></i> Edit</a>
                                                     <a class="dropdown-item" href="customers-detail.php?cc=<?= $row->CustomerCode ?>"><i class="dw dw dw-eye"></i>Detail</a>
 
                                                     <form action="customers-delete.php" method="post" class="m-1 px-1 py-1">
@@ -105,50 +105,7 @@ session_start();
             </div>
             <?php include('../layouts/footer.php'); ?>
 
-            <!-- modals tambah -->
-            <div class="col-md-4 col-sm-12 mb-30">
-                <div class="">
 
-                    <div class="modal fade bs-example-modal-lg" id="bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-lg modal-dialog-centered">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h4 class="modal-title" id="myLargeModalLabel">
-                                        Form add Customers
-                                    </h4>
-                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                                        ×
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <form action="" method="post">
-                                        <div class="col-lg-12 c0l-md-6 col-sm-12 px-2 py-2">
-                                            <label for="DeptID" class="font-weight-bold">Dept ID</label>
-                                            <input type="text" name="DeptID" id="DeptID" class="form-control mb-1" required placeholder="ex: IT ">
-                                            <label for="Department" class="font-weight-bold mt-1">Department Name</label>
-                                            <input type="text" name="Department" id="Department" class="form-control" required placeholder="Departments Name">
-
-                                        </div>
-                                        <div class="py-2 px-2 mt-1">
-                                            <button type="submit" name="submit" class="btn btn-primary">
-                                                <i class="bi bi-file-arrow-up"></i> Save
-                                            </button>
-                                        </div>
-
-
-                                    </form>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                                        Close
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
         </div>
 
         <!-- js -->
@@ -160,11 +117,13 @@ session_start();
                         swal('Data was deleted', 'Click OK to continue', 'success');
                         </script>";
         }
+        //cek sesion data kosong
         if (isset($_SESSION['danger'])) {
             echo "<script>
                         swal('Sory, Something Went Wrong', 'Click OK to continue', 'success');
                         </script>";
         }
+        //cek sesion data tidak ada di db
         if (isset($_SESSION['warning'])) {
             echo "<script>
                         swal('Sory, Data Not Found', 'Click OK to continue', 'success');
@@ -173,26 +132,6 @@ session_start();
 
         session_unset();
         ?>
-
-        <!-- query insert data -->
-        <?php
-        if (isset($_POST['submit'])) {
-            $DeptID = htmlspecialchars($_POST['DeptID']);
-            $name = htmlspecialchars($_POST['Department']);
-            $querySave = mysqli_query($conn, "INSERT INTO departemen(DeptID, Department) VALUES ('$DeptID','$name')");
-
-            // jika data berhasil dihapus, maka tampilkan alert berhasil dihapus
-            if ($querySave) {
-                echo "<script>
-                swal('Data Saved!', 'Click OK to continue', 'success')
-                .then((value) => {
-                document.location.href='/pages/admin/departemen.php';
-                });
-                </script>";
-            }
-        }
-        ?>
-
 </body>
 
 </html>

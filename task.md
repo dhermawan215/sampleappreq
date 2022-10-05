@@ -1,2 +1,2 @@
 -->fitur departemen sudah selesai
---> fitur customer, tinggal tambah data
+--> fitur customer, sudah selesai
