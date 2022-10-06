@@ -1,5 +1,5 @@
 <?php include('../../config/config.php');
-
+session_start();
 //cek autentikasi login, jika kosong dilarang akses 
 if (!isset($_SESSION['user'])) {
     echo "<script>

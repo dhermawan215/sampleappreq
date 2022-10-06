@@ -1,7 +1,8 @@
 <?php
 include('../../config/config.php');
-session_start();
+
 if (isset($_POST['delete'])) {
+    session_start();
     $IDNo = $_POST['IDNo'];
 
     // query hapus data

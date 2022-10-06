@@ -1,8 +1,9 @@
 <?php
 include('../../config/config.php');
-session_start();
+
 
 if (isset($_POST['delete'])) {
+    session_start();
     $CustomersCode = $_POST['CustomerCode'];
 
     // query delete data

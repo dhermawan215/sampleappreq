@@ -123,21 +123,24 @@ if (!isset($_SESSION['user'])) {
             echo "<script>
                         swal('Data was deleted', 'Click OK to continue', 'success');
                         </script>";
+            unset($_SESSION['success']);
         }
         //cek sesion data kosong
         if (isset($_SESSION['danger'])) {
             echo "<script>
                         swal('Sory, Something Went Wrong', 'Click OK to continue', 'success');
                         </script>";
+            unset($_SESSION['danger']);
         }
         //cek sesion data tidak ada di db
         if (isset($_SESSION['warning'])) {
             echo "<script>
                         swal('Sory, Data Not Found', 'Click OK to continue', 'success');
                         </script>";
+            unset($_SESSION['warning']);
         }
 
-        session_unset();
+
         ?>
 </body>
 

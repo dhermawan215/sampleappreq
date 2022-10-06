@@ -1,4 +1,5 @@
 <?php include('../../config/config.php');
+session_start();
 //cek id dari url
 //cek autentikasi login, jika kosong dilarang akses 
 if (!isset($_SESSION['user'])) {
@@ -7,7 +8,7 @@ if (!isset($_SESSION['user'])) {
             </script>";
 }
 
-session_start();
+
 if (isset($_GET["IDNo"]) == null) {
 
     $_SESSION['danger'] = [

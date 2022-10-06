@@ -2,12 +2,15 @@
 //cek id dari url
 session_start();
 
+var_dump($_SESSION['user']);
+exit;
+
 //cek autentikasi login, jika kosong dilarang akses 
-if (!isset($_SESSION['user'])) {
-    echo "<script>
-            document.location.href='/login.php';
-            </script>";
-}
+// if (isset($_SESSION['user']) == null) {
+//     echo "<script>
+//             document.location.href='/login.php';
+//             </script>";
+// }
 
 //jika id url kosong
 if (isset($_GET['uid']) == null) {

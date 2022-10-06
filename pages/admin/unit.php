@@ -165,19 +165,22 @@ if (!isset($_SESSION['user'])) {
             echo "<script>
                         swal('Data was deleted', 'Click OK to continue', 'success');
                         </script>";
+            unset($_SESSION['success']);
         }
         if (isset($_SESSION['danger'])) {
             echo "<script>
                         swal('Sory, Something Went Wrong', 'Click OK to continue', 'success');
                         </script>";
+            unset($_SESSION['danger']);
         }
         if (isset($_SESSION['warning'])) {
             echo "<script>
                         swal('Sory, Data Not Found', 'Click OK to continue', 'success');
                         </script>";
+            unset($_SESSION['warning']);
         }
 
-        session_unset();
+
         ?>
 
         <!-- query delete data -->
