@@ -10,10 +10,6 @@ if (!isset($_SESSION['user'])) {
 
 
 if (isset($_GET["IDNo"]) == null) {
-
-    $_SESSION['danger'] = [
-        "message" => "Data Was Deleted"
-    ];
     echo "<script>
     document.location.href='/pages/admin/departemen.php';
     </script>";
@@ -25,10 +21,7 @@ $querySelectData = mysqli_query($conn, "SELECT * FROM departemen WHERE IDNo='$ID
 $row = mysqli_fetch_object($querySelectData);
 
 //cek id yg di url sama atau tidak sama yang di db
-if ($row->IDNo != $IDNo) {
-    $_SESSION['warning'] = [
-        "message" => "Data Was Deleted"
-    ];
+if ($querySelectData->num_rows == 0) {
     echo "<script>
     document.location.href='/pages/admin/departemen.php';
     </script>";

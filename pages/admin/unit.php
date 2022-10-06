@@ -7,6 +7,7 @@ if (!isset($_SESSION['user'])) {
             </script>";
 }
 
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -159,6 +160,8 @@ if (!isset($_SESSION['user'])) {
 
         <!-- js -->
         <?php include('../layouts/js.php'); ?>
+
+
         <!-- cek session delete -->
         <?php
         if (isset($_SESSION['success'])) {

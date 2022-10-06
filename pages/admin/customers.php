@@ -7,6 +7,7 @@ if (!isset($_SESSION['user'])) {
             </script>";
 }
 
+
 ?>
 <!DOCTYPE html>
 <html>

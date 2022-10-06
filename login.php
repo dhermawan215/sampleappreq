@@ -9,6 +9,8 @@ if (isset($_SESSION['user'])) {
             </script>";
 }
 
+var_dump($_SESSION);
+
 //cek requeest login
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $email = $_POST['EmailId'];
@@ -16,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     //validasi email
     $resultEmail = mysqli_query($conn, "SELECT * FROM tblemployees WHERE EmailId='$email'");
-
+    //cek jika email belum terdaftar
     if ($resultEmail->num_rows != 1) {
         echo "<script>alert('can not find your account, try another!');
             document.location.href='login.php';

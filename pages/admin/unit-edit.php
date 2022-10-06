@@ -1,22 +1,15 @@
 <?php include('../../config/config.php');
 //cek id dari url
 session_start();
-
-var_dump($_SESSION['user']);
-exit;
-
-//cek autentikasi login, jika kosong dilarang akses 
-// if (isset($_SESSION['user']) == null) {
-//     echo "<script>
-//             document.location.href='/login.php';
-//             </script>";
-// }
+// cek autentikasi login, jika kosong dilarang akses 
+if (!isset($_SESSION['user'])) {
+    echo "<script>
+            document.location.href='/login.php';
+            </script>";
+}
 
 //jika id url kosong
 if (isset($_GET['uid']) == null) {
-    $_SESSION['danger'] = [
-        "message" => "Data Was Deleted"
-    ];
     echo "<script>
     document.location.href='/pages/admin/unit.php';
     </script>";
@@ -26,10 +19,7 @@ $id = $_GET["uid"];
 $queryDetails = mysqli_query($conn, "SELECT * FROM unit WHERE id='$id'");
 $row = mysqli_fetch_object($queryDetails);
 //jika data di db kosong
-if ($row->id != $id) {
-    $_SESSION['warning'] = [
-        "message" => "Data Was Deleted"
-    ];
+if ($queryDetails->num_rows == 0) {
     echo "<script>
     document.location.href='/pages/admin/unit.php';
     </script>";

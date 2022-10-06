@@ -1,7 +1,6 @@
 <?php include('../../config/config.php');
-//get id form url
 session_start();
-
+//get id form url
 //cek autentikasi login, jika kosong dilarang akses 
 if (!isset($_SESSION['user'])) {
     echo "<script>
@@ -10,21 +9,18 @@ if (!isset($_SESSION['user'])) {
 }
 
 if (isset($_GET["cc"]) == null) {
-
-    $_SESSION['danger'] = [
-        "message" => "Data Was Deleted"
-    ];
     echo "<script>
     document.location.href='/pages/admin/customers.php';
     </script>";
 }
+
 $code = $_GET["cc"];
 $queryDetails = mysqli_query($conn, "SELECT * FROM customer WHERE CustomerCode='$code'");
 $row = mysqli_fetch_object($queryDetails);
-if ($row->CustomerCode != $code) {
-    $_SESSION['warning'] = [
-        "message" => "Data Was Deleted"
-    ];
+
+//jika data di url tidak ada di db
+if ($queryDetails->num_rows == 0) {
+
     echo "<script>
     document.location.href='/pages/admin/customers.php';
     </script>";
