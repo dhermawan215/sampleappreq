@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     } else {
         $row = mysqli_fetch_object($resultEmail);
         if (password_verify($pwd, $row->passwords)) {
-            session_start();
+
             $_SESSION['user'] = [
                 'auth' => 'loged',
                 'email' => $row->EmailId,
