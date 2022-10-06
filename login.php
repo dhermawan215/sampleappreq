@@ -62,11 +62,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-md-6 col-lg-7">
-                    <img src="/public/img/3619024.png" alt="" />
+                    <img src="/sampleappreq/public/img/3619024.png" alt="" />
                 </div>
-                <!-- <div class="col-md-6 col-lg-7">
-                    <img src="/public/vendors/images/login-page-img.png" alt="" />
-                </div> -->
                 <div class="col-md-6 col-lg-5">
                     <div class="login-box bg-white box-shadow border-radius-10">
                         <div class="login-title">
