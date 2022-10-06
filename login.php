@@ -9,8 +9,6 @@ if (isset($_SESSION['user'])) {
             </script>";
 }
 
-var_dump($_SESSION);
-
 //cek requeest login
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $email = $_POST['EmailId'];
