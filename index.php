@@ -2,15 +2,10 @@
 include('config/config.php');
 session_start();
 
-
-
 //cek autentikasi login, jika kosong dilarang akses index
 if (!isset($_SESSION['user'])) {
-    $_SESSION['warning'] = [
-        "message" => "Data Was Deleted"
-    ];
     echo "<script>
-            document.location.href='login.php';
+            document.location.href='/login.php';
             </script>";
 }
 ?>

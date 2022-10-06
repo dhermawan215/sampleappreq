@@ -1,5 +1,12 @@
 <?php include('../../config/config.php');
 
+//cek autentikasi login, jika kosong dilarang akses 
+if (!isset($_SESSION['user'])) {
+    echo "<script>
+            document.location.href='/login.php';
+            </script>";
+}
+
 //query lats customers code
 $queryLastCo = mysqli_query($conn, "SELECT CustomerCode FROM customer ORDER BY CustomerId DESC LIMIT 1");
 $fetchDataLatsCo = mysqli_fetch_object($queryLastCo);

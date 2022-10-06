@@ -2,6 +2,13 @@
 //get id form url
 session_start();
 
+//cek autentikasi login, jika kosong dilarang akses 
+if (!isset($_SESSION['user'])) {
+    echo "<script>
+            document.location.href='/login.php';
+            </script>";
+}
+
 if (isset($_GET["cc"]) == null) {
 
     $_SESSION['danger'] = [

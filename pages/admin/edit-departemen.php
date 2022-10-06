@@ -1,5 +1,12 @@
 <?php include('../../config/config.php');
 //cek id dari url
+//cek autentikasi login, jika kosong dilarang akses 
+if (!isset($_SESSION['user'])) {
+    echo "<script>
+            document.location.href='/login.php';
+            </script>";
+}
+
 session_start();
 if (isset($_GET["IDNo"]) == null) {
 

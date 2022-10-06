@@ -119,15 +119,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </div>
 
     <?php include('layouts/js.php') ?>
-
-    <?php
-    if (isset($_SESSION['warning'])) {
-        echo "<script>
-                    swal('Sory, must be authenticated', 'Click OK to continue', 'success');
-                    </script>";
-    }
-
-    ?>
 </body>
 
 </html>
