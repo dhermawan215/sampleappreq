@@ -2,8 +2,8 @@
 include('config/config.php');
 
 session_start();
-//cek session login
-if ($_SESSION['user']) {
+//cek session login, jika ada maka tidak boleh akses halaman login
+if (isset($_SESSION['user'])) {
     echo "<script>
             document.location.href='index.php';
             </script>";
@@ -119,6 +119,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </div>
 
     <?php include('layouts/js.php') ?>
+
+    <?php
+    if (isset($_SESSION['warning'])) {
+        echo "<script>
+                    swal('Sory, must be authenticated', 'Click OK to continue', 'success');
+                    </script>";
+    }
+
+    ?>
 </body>
 
 </html>
