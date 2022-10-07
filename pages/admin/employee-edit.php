@@ -7,6 +7,24 @@ if (!isset($_SESSION['user'])) {
             </script>";
 }
 
+if (isset($_GET["cc"]) == null) {
+    echo "<script>
+    document.location.href='/pages/admin/employee.php';
+    </script>";
+}
+
+$code = $_GET["cc"];
+$queryDetails = mysqli_query($conn, "SELECT * FROM tblemployees WHERE emp_id='$code'");
+$row = mysqli_fetch_object($queryDetails);
+
+//jika data di url tidak ada di db
+if ($queryDetails->num_rows == 0) {
+
+    echo "<script>
+    document.location.href='/pages/admin/employee.php';
+    </script>";
+}
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -14,7 +32,7 @@ if (!isset($_SESSION['user'])) {
 <head>
     <!-- Basic Page Info -->
     <meta charset="utf-8" />
-    <title>Sample Request App - Employees-Add</title>
+    <title>Sample Request App - Employees-Edit</title>
 
     <?php include('../layouts/css.php') ?>
 </head>
@@ -48,7 +66,7 @@ if (!isset($_SESSION['user'])) {
                                         <a class="text-decoration-none" href="/pages/admin/employee.php">Employees</a>
                                     </li>
                                     <li class="breadcrumb-item active" aria-current="page">
-                                        Add Data
+                                        Edit Data
                                     </li>
                                 </ol>
                             </nav>
@@ -59,7 +77,7 @@ if (!isset($_SESSION['user'])) {
                 <!-- Simple Datatable start -->
                 <div class="card-box mb-30">
                     <div class="pd-20">
-                        <h4 class="text-blue h4">Add Data</h4>
+                        <h4 class="text-blue h4">Edit Data</h4>
                         <h5><a href="/pages/admin/employee.php" class="text-danger m-2"><i class="bi bi-arrow-left-circle"></i> Back</a></h5>
                     </div>
                     <div class="pd-20">
@@ -68,39 +86,25 @@ if (!isset($_SESSION['user'])) {
                                 <div class="col-lg-3 col-md-6 col-sm-12">
                                     <div class="card-body rounded-1">
                                         <label for="">NIP</label>
-                                        <input type="text" name="NIP" id="" class="form-control" placeholder="input NIP">
+                                        <input type="text" name="NIP" id="" class="form-control" placeholder="input NIP" value="<?= $row->NIP ?>">
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-md-6 col-sm-12">
                                     <div class="card-body rounded-1">
                                         <label for="">First Name</label>
-                                        <input type="text" name="FirstName" id="" class="form-control" placeholder="input first name">
+                                        <input type="text" name="FirstName" id="" class="form-control" placeholder="input first name" value="<?= $row->FirstName ?>">
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-md-6 col-sm-12">
                                     <div class="card-body rounded-1">
                                         <label for="">Last Name</label>
-                                        <input type="text" name="LastName" id="" class="form-control" placeholder="input last name">
+                                        <input type="text" name="LastName" id="" class="form-control" placeholder="input last name" value="<?= $row->LastName ?>">
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-md-6 col-sm-12">
                                     <div class="card-body rounded-1">
                                         <label for="">Nick Name</label>
-                                        <input type="text" name="NickName" id="" class="form-control" placeholder="input nick name">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row col-12 mt-2">
-                                <div class="col-lg-6 col-md-6 col-sm-12">
-                                    <div class="card-body rounded-1">
-                                        <label for="">Email</label>
-                                        <input type="email" name="EmailId" id="" class="form-control" placeholder="input email" required>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 col-md-6 col-sm-12">
-                                    <div class="card-body rounded-1">
-                                        <label for="">Password</label>
-                                        <input type="password" name="passwords" id="" class="form-control" placeholder="input password" required>
+                                        <input type="text" name="NickName" id="" class="form-control" placeholder="input nick name" value="<?= $row->NickName ?>">
                                     </div>
                                 </div>
                             </div>
@@ -109,6 +113,7 @@ if (!isset($_SESSION['user'])) {
                                     <div class="card-body rounded-1">
                                         <label for="">Gender</label>
                                         <select name="Gender" id="" class="form-control">
+                                            <option selected value="<?= $row->Gender ?>"><?= $row->Gender ?></option>
                                             <option value="">-select gender-</option>
                                             <option value="female">female</option>
                                             <option value="male">male</option>
@@ -118,7 +123,7 @@ if (!isset($_SESSION['user'])) {
                                 <div class="col-lg-4 col-md-6 col-sm-12">
                                     <div class="card-body rounded-1">
                                         <label for="">Date of Birth</label>
-                                        <input type="text" name="Dob" id="" class="form-control" placeholder="input date of birth">
+                                        <input type="text" name="Dob" id="" class="form-control" placeholder="input date of birth" value="<?= $row->Dob ?>">
                                     </div>
                                 </div>
                                 <div class="col-lg-4 col-md-6 col-sm-12">
@@ -129,9 +134,10 @@ if (!isset($_SESSION['user'])) {
                                         ?>
                                         <label for="">Department</label>
                                         <select name="Department" id="" class="form-control">
+                                            <option value="<?= $row->Department ?>"><?= $row->Department ?></option>
                                             <option value="">select</option>
-                                            <?php while ($row = mysqli_fetch_object($queryDept)) : ?>
-                                                <option value="<?= $row->Department ?>"><?= $row->Department ?></option>
+                                            <?php while ($row2 = mysqli_fetch_object($queryDept)) : ?>
+                                                <option value="<?= $row2->Department ?>"><?= $row2->Department ?></option>
                                             <?php endwhile; ?>
                                         </select>
                                     </div>
@@ -141,7 +147,7 @@ if (!isset($_SESSION['user'])) {
                                 <div class="col-lg-12 col-md-12 col-sm-12">
                                     <div class="card-body rounded-1">
                                         <label for="">Address</label>
-                                        <input type="text" name="Address" id="" class="form-control" placeholder="input address">
+                                        <input type="text" name="Address" id="" class="form-control" placeholder="input address" value="<?= $row->Address ?>">
                                     </div>
                                 </div>
                             </div>
@@ -149,20 +155,20 @@ if (!isset($_SESSION['user'])) {
                                 <div class="col-lg-6 col-md-6 col-sm-12">
                                     <div class="card-body rounded-1">
                                         <label for="">Phone</label>
-                                        <input type="text" name="Phonenumber" id="" class="form-control" placeholder="input phone">
+                                        <input type="text" name="Phonenumber" id="" class="form-control" placeholder="input phone" value="<?= $row->Phonenumber ?>">
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-12">
                                     <div class="card-body rounded-1">
                                         <label for="">Roles</label>
-                                        <input type="text" name="roles" id="" class="form-control" placeholder="input roles">
+                                        <input type="text" name="roles" id="" class="form-control" placeholder="input roles" value="<?= $row->roles ?>">
                                     </div>
                                 </div>
                             </div>
                             <div class="row col-12">
                                 <div class="col-lg-6 col-md-6 col-sm-12 d-flex m-2 p-2">
                                     <div class="card-body d-flex">
-                                        <button type="submit" class="btn btn-primary ml-2" name="save">Save</button>
+                                        <button type="submit" class="btn btn-primary ml-2" name="update">Update</button>
                                         <button type="reset" class="btn btn-danger ml-2" name="save">Reset</button>
                                     </div>
                                 </div>
@@ -177,10 +183,12 @@ if (!isset($_SESSION['user'])) {
         <!-- js -->
         <?php include('../layouts/js.php'); ?>
 
-        <!-- query save -->
+        <!-- query update -->
 
         <?php
-        if (isset($_POST['save'])) {
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST' || isset($_POST['update'])) {
+            $emp_id = $code;
             $NIP = htmlspecialchars($_POST['NIP']);
             $FirstName = htmlspecialchars($_POST['FirstName']);
             $LastName = htmlspecialchars($_POST['LastName']);
@@ -193,56 +201,26 @@ if (!isset($_SESSION['user'])) {
             $Phonenumber = htmlspecialchars($_POST['Phonenumber']);
             $roles = htmlspecialchars($_POST['roles']);
 
-            $email = $_POST['EmailId'];
-            $password = $_POST['passwords'];
+            $queryUpdateData = mysqli_query($conn, "UPDATE tblemployees SET
+            NIP='$NIP', FirstName='$FirstName', LastName='$LastName',
+            NickName='$NickName', Gender='$Gender', Dob='$Dob', Department='$Department',
+            Address='$Address', Phonenumber='$Phonenumber', roles='$roles'
+            WHERE emp_id='$emp_id'");
 
-            //cek request email kosong atau tidak
-            if (empty($email)) {
-                echo "<script>alert('Email is require');
-                .then((value) => {
-                    document.location.href='/pages/admin/employee-add.php';
-                });
-                </script>";
-            }
-
-            //cek email apakah valid
-            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-
+            if ($queryUpdateData) {
                 echo "<script>
-                 swal('Email does not valid').then((value) => {
-                    document.location.href='/pages/admin/employee-add.php';
-                });
-                </script>";
-            } else {
-                //validasi email terdaftar
-                $queryEmail = mysqli_query($conn, "SELECT EmailId FROM tblemployees WHERE EmailId='$email'");
-                //cek apakah email sudah terdaftar
-                if ($queryEmail->num_rows > 0) {
-                    echo "<script>alert('Email already exist, try another!');
-                    document.location.href='/pages/admin/employee-add.php';
-                    </script>";
-                } else {
-                    $pwd = password_hash($password, PASSWORD_DEFAULT);
-                    //registrasi user
-                    $queryRegister = mysqli_query($conn, "INSERT INTO tblemployees(
-                        NIP, FirstName, LastName, NickName, EmailId, passwords, Gender, Dob, Department, Address, Phonenumber, roles) 
-                        VALUES('$NIP', '$FirstName', '$LastName', '$NickName', '$email', '$pwd', '$Gender', '$Dob', '$Department', '$Address', '$Phonenumber', '$roles')");
-
-                    if ($queryRegister) {
-                        echo "<script>
-                        swal('Data Saved!', 'Click OK to continue', 'success')
+                        swal('Data was updated!', 'Click OK to continue', 'success')
                         .then((value) => {
                         document.location.href='/pages/admin/employee.php';
                         });
                         </script>";
-                    } else {
-                        echo "<script>alert('Email already exist, try another!');
-                    document.location.href='/pages/admin/employee-add.php';
-                    </script>";
-                    }
-                }
+            } else {
+                echo "<script>alert('Something went wrong, try again!');
+           
+                </script>";
             }
         }
+
         ?>
 
 

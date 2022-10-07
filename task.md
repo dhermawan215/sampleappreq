@@ -2,3 +2,4 @@
 --> fitur customer sudah selesai
 --> fitur unit produk sudah selesai
 --> fitur login, register dan deleted accont change password sudah selesai
+--> fitur employee, kurang delete

@@ -246,8 +246,8 @@
                         <span class="micon bi bi-person-square"></span><span class="mtext">Staff</span>
                     </a>
                     <ul class="submenu">
-                        <li><a href="introduction.html">Dashboard</a></li>
-                        <li><a href="getting-started.html">Register Staff</a></li>
+                        <li><a href="/pages/admin/employee.php">Dashboard</a></li>
+                        <li><a href="/pages/admin/employee-add.php">Register Staff</a></li>
                     </ul>
                 </li>
                 <li>
