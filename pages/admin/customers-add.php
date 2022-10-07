@@ -229,6 +229,10 @@ $fetchDataLatsCo = mysqli_fetch_object($queryLastCo);
                 document.location.href='/pages/admin/customers.php';
                 });
                 </script>";
+            } else {
+                echo "<script>
+                swal('Something went wrong', 'try again!', 'success')
+                </script>";
             }
         }
 

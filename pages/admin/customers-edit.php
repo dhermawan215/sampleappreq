@@ -261,6 +261,12 @@ if ($queryDetails->num_rows == 0) {
                 document.location.href='/pages/admin/customers.php';
                 });
                 </script>";
+            } else {
+                echo "<script>swal('Something went wrong', 'Try again', 'success')
+                    .then((value) => {
+                    document.location.href='/pages/admin/customers-edit.php?cc=$code';
+                    });
+                </script>";
             }
         }
 

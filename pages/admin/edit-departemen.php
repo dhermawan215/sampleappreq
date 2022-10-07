@@ -117,6 +117,12 @@ if ($querySelectData->num_rows == 0) {
                 document.location.href='/pages/admin/departemen.php';
                 });
                 </script>";
+            } else {
+                echo "<script> swal('Something Wrong!', 'Try again', 'success')
+                    .then((value) => {
+                    document.location.href='/pages/admin/edit-departemen.php?IDNo=$IDNo';
+                    });
+                </script>";
             }
         }
 

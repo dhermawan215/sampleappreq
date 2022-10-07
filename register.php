@@ -31,7 +31,7 @@ if (isset($_POST['register'])) {
         }
         //cek kesamaan password
         if ($password != $repassword) {
-            echo "<script>alert('Passowrd not match!');
+            echo "<script>alert('Password not match!');
                 document.location.href='register.php';
                 </script>";
         } else {

@@ -215,8 +215,10 @@ if ($queryDetails->num_rows == 0) {
                         });
                         </script>";
             } else {
-                echo "<script>alert('Something went wrong, try again!');
-           
+                echo "<script>swal('Something went wrong', 'Try again', 'success')
+                    .then((value) => {
+                    document.location.href='/pages/admin/employee-edit.php?cc=$code';
+                    });
                 </script>";
             }
         }
