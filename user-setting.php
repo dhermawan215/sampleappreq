@@ -81,7 +81,7 @@ if (!isset($_SESSION['user'])) {
                     <div class="card-box height-100-p">
                         <div class="card-body text-center">
                             <h5 class="card-title">Delete Account</h5>
-                            <a href="#" class="btn btn-primary"><i class="bi bi-gear"></i> Open Control Panel</a>
+                            <a href="/pages/users/delete-account-verification.php" class="btn btn-primary"><i class="bi bi-gear"></i> Open Control Panel</a>
                         </div>
                     </div>
                 </div>
