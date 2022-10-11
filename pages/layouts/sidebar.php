@@ -237,7 +237,7 @@
                         <span class="micon bi bi-hdd-stack"></span><span class="mtext">Data Produk</span>
                     </a>
                     <ul class="submenu">
-                        <li><a href="javascript:;">Dashboard Produk</a></li>
+                        <li><a href="/pages/admin/produk.php">Dashboard Produk</a></li>
                         <li><a href="/pages/admin/unit.php">Dashboard Unit Produk</a></li>
                     </ul>
                 </li>
