@@ -45,7 +45,7 @@ if (!isset($_SESSION['user'])) {
                             <div class="weight-600 font-30 text-blue"><?= $_SESSION['user']['name'] ?></div>
                         </h4>
                         <h4 class="font-18">PT Zeus Kimiatama</h4>
-                        <h5 class="font-18">Dept : Sales</h5>
+                        <h5 class="font-18">Dept : <?= $_SESSION['user']['dept'] ?></h5>
                         <p class="font-18 max-width-600 mt-1">
                             Setting Your Account Bellow
                         </p>

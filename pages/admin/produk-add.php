@@ -93,7 +93,7 @@ if (!isset($_SESSION['user'])) {
                                         $queryDept = mysqli_query($conn, "SELECT * FROM unit");
                                         ?>
                                         <label for="">Unit</label>
-                                        <select name="Unit1" id="" class="form-control">
+                                        <select name="Unit1" id="" class="form-control selectpicker" data-live-search="true">
                                             <option value="">select</option>
                                             <?php while ($row = mysqli_fetch_object($queryDept)) : ?>
                                                 <option value="<?= $row->Unit ?>"><?= $row->Unit ?></option>
@@ -114,7 +114,7 @@ if (!isset($_SESSION['user'])) {
                                         $queryDept = mysqli_query($conn, "SELECT * FROM unit");
                                         ?>
                                         <label for="">Unit Pack</label>
-                                        <select name="UnitPack" id="" class="form-control">
+                                        <select name="UnitPack" id="" class="form-control selectpicker" data-live-search="true">
                                             <option value="">select</option>
                                             <?php while ($row = mysqli_fetch_object($queryDept)) : ?>
                                                 <option value="<?= $row->Unit ?>"><?= $row->Unit ?></option>

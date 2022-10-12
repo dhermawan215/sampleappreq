@@ -22,7 +22,18 @@ if (!isset($_SESSION['user'])) {
 </head>
 
 <body>
-    <?php include('layouts/loading.php') ?>
+    <div class="pre-loader">
+        <div class="pre-loader-box">
+            <div class="loader-logo">
+                <img src="public/vendors/images/deskapp-logo.svg" alt="" />
+            </div>
+            <div class="loader-progress" id="progress_div">
+                <div class="bar" id="bar1"></div>
+            </div>
+            <div class="percent" id="percent1">0%</div>
+            <div class="loading-text">Loading...</div>
+        </div>
+    </div>
 
     <!-- header /navbar -->
     <?php include('layouts/header.php') ?>

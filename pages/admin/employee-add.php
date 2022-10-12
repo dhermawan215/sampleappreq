@@ -118,7 +118,7 @@ if (!isset($_SESSION['user'])) {
                                 <div class="col-lg-4 col-md-6 col-sm-12">
                                     <div class="card-body rounded-1">
                                         <label for="">Date of Birth</label>
-                                        <input type="text" name="Dob" id="" class="form-control" placeholder="input date of birth">
+                                        <input type="text" name="Dob" id="" class="date-picker form-control" placeholder="input date of birth">
                                     </div>
                                 </div>
                                 <div class="col-lg-4 col-md-6 col-sm-12">

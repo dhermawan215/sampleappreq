@@ -8,42 +8,6 @@ if (isset($_SESSION['user'])) {
             document.location.href='index.php';
             </script>";
 }
-
-//cek requeest login
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $email = $_POST['EmailId'];
-    $pwd = $_POST['passwords'];
-
-    //validasi email
-    $resultEmail = mysqli_query($conn, "SELECT * FROM tblemployees WHERE EmailId='$email'");
-    //cek jika email belum terdaftar
-    if ($resultEmail->num_rows != 1) {
-        echo "<script>alert('can not find your account, try another!');
-            document.location.href='login.php';
-            </script>";
-    } else {
-        $row = mysqli_fetch_object($resultEmail);
-        if (password_verify($pwd, $row->passwords)) {
-
-            $_SESSION['user'] = [
-                'auth' => 'loged',
-                'email' => $row->EmailId,
-                'role' => $row->roles,
-                'name' => $row->FirstName
-            ];
-
-            echo "<script>
-            document.location.href='index.php';
-            </script>";
-        } else {
-            echo "<script>alert('password wrong, try another!');
-            document.location.href='login.php';
-            </script>";
-        }
-    }
-}
-
-
 ?>
 
 <!DOCTYPE html>
@@ -116,6 +80,51 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </div>
 
     <?php include('layouts/js.php') ?>
+
+    <?php
+
+    //cek requeest login
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $email = $_POST['EmailId'];
+        $pwd = $_POST['passwords'];
+
+        //validasi email
+        $resultEmail = mysqli_query($conn, "SELECT * FROM tblemployees WHERE EmailId='$email'");
+        //cek jika email belum terdaftar
+        if ($resultEmail->num_rows != 1) {
+            echo "<script>
+                    swal('can not find your account, try another!')
+                    .then((value) => {
+                    document.location.href='/login.php';
+                    });
+                </script>";
+        } else {
+            $row = mysqli_fetch_object($resultEmail);
+            if (password_verify($pwd, $row->passwords)) {
+
+                $_SESSION['user'] = [
+                    'auth' => 'loged',
+                    'email' => $row->EmailId,
+                    'role' => $row->roles,
+                    'fname' => $row->FirstName,
+                    'lname' => $row->LastName,
+                    'dept' => $row->Department
+                ];
+
+                echo "<script>
+            document.location.href='index.php';
+            </script>";
+            } else {
+                echo "<script>
+                swal('password wrong, try another!')
+                .then((value) => {
+                document.location.href='/login.php';
+                });
+                </script>";
+            }
+        }
+    }
+    ?>
 </body>
 
 </html>
