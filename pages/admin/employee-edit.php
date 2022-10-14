@@ -137,7 +137,7 @@ if ($queryDetails->num_rows == 0) {
                                             <option value="<?= $row->Department ?>"><?= $row->Department ?></option>
                                             <option value="">select</option>
                                             <?php while ($row2 = mysqli_fetch_object($queryDept)) : ?>
-                                                <option value="<?= $row2->Department ?>"><?= $row2->Department ?></option>
+                                                <option value="<?= $row2->DeptID ?>"><?= $row2->Department ?></option>
                                             <?php endwhile; ?>
                                         </select>
                                     </div>

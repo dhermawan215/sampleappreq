@@ -131,7 +131,7 @@ if (!isset($_SESSION['user'])) {
                                         <select name="Department" id="" class="form-control">
                                             <option value="">select</option>
                                             <?php while ($row = mysqli_fetch_object($queryDept)) : ?>
-                                                <option value="<?= $row->Department ?>"><?= $row->Department ?></option>
+                                                <option value="<?= $row->DeptID ?>"><?= $row->Department ?></option>
                                             <?php endwhile; ?>
                                         </select>
                                     </div>
