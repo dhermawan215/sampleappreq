@@ -91,14 +91,14 @@ if ($queryEditData->num_rows == 0) {
                                 <div class="col-lg-4 col-md-6 col-sm-12">
                                     <div class="card-body rounded-1">
                                         <label for="">Subject</label>
-                                        <input type="text" name="subject" id="" class="form-control" placeholder="input sample request subject" value="<?= $row->subject ?>">
+                                        <input type="text" name="subject" id="" class="form-control" placeholder="input sample request subject" value="<?= $row->subject ?>" required>
                                     </div>
                                 </div>
                                 <div class="col-lg-4 col-md-6 col-sm-12">
                                     <div class="card-body rounded-1">
                                         <label for="">Requestor</label>
 
-                                        <input type="text" name="requestor" id="" class="form-control" value="<?= $row->requestor ?>">
+                                        <input type="text" name="requestor" id="" class="form-control" value="<?= $row->requestor ?>" required>
                                     </div>
                                 </div>
                             </div>
@@ -106,7 +106,7 @@ if ($queryEditData->num_rows == 0) {
                                 <div class="col-lg-12 col-md-12 col-sm-12">
                                     <div class="card-body rounded-1">
                                         <label for="">Customers </label>
-                                        <select name="id_customer" id="" class="selectpicker form-control" data-live-search="true">
+                                        <select name="id_customer" id="id_customer" class="custom-select form-control" data-live-search="true" required>
                                             <option value="<?= $row->id_customer ?>" selected><?= $row->CustomerName ?></option>
                                             <option disabled>Select Customers</option>
                                             <?php
@@ -123,19 +123,19 @@ if ($queryEditData->num_rows == 0) {
                                 <div class="col-lg-4 col-md-6 col-sm-12">
                                     <div class="card-body rounded-1">
                                         <label for="">Customers Recipient</label>
-                                        <input type="text" name="pic_customer" id="" class="form-control" placeholder="input customer recipient" value="<?= $row->pic_customer ?>">
+                                        <input type="text" name="pic_customer" id="" class="form-control" placeholder="input customer recipient" value="<?= $row->pic_customer ?>" required>
                                     </div>
                                 </div>
                                 <div class="col-lg-4 col-md-6 col-sm-12">
                                     <div class="card-body rounded-1">
                                         <label for="">Date Required</label>
-                                        <input type="date" name="date_required" id="" class="form-control" value="<?= $row->date_required ?>">
+                                        <input type="date" name="date_required" id="" class="form-control" value="<?= $row->date_required ?>" required>
                                     </div>
                                 </div>
                                 <div class="col-lg-4 col-md-6 col-sm-12">
                                     <div class="card-body rounded-1">
                                         <label for="">Delivery Date</label>
-                                        <input type="date" name="delivery_date" id="" class="form-control" value="<?= $row->delivery_date ?>">
+                                        <input type="date" name="delivery_date" id="" class="form-control" value="<?= $row->delivery_date ?>" required>
                                     </div>
                                 </div>
                             </div>
@@ -143,7 +143,7 @@ if ($queryEditData->num_rows == 0) {
                                 <div class="col-lg-12 col-md-12 col-sm-12">
                                     <div class="card-body rounded-1">
                                         <label for="">Delivery Address</label>
-                                        <input type="text" name="delivery_address" id="" class="form-control" placeholder="input customers delivery address" value="<?= $row->delivery_address ?>">
+                                        <input type="text" name="delivery_address" id="" class="form-control" placeholder="input customers delivery address" value="<?= $row->delivery_address ?>" required>
                                     </div>
                                 </div>
                             </div>
@@ -151,13 +151,13 @@ if ($queryEditData->num_rows == 0) {
                                 <div class="col-lg-6 col-md-6 col-sm-12">
                                     <div class="card-body rounded-1">
                                         <label for="">Delivery By</label>
-                                        <input type="text" name="delivery_by" id="" class="form-control" placeholder="input shipping method of delivery" value="<?= $row->delivery_by ?>">
+                                        <input type="text" name="delivery_by" id="" class="form-control" placeholder="input shipping method of delivery" value="<?= $row->delivery_by ?>" required>
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-12">
                                     <div class="card-body rounded-1">
                                         <label for="">Customers PO</label>
-                                        <input type="text" name="customer_po" id="" class="form-control" placeholder="input customer po" value="<?= $row->customer_po ?>">
+                                        <input type="text" name="customer_po" id="" class="form-control" placeholder="input customer po" value="<?= $row->customer_po ?>" required>
                                     </div>
                                 </div>
                             </div>
@@ -178,6 +178,12 @@ if ($queryEditData->num_rows == 0) {
 
         <!-- js -->
         <?php include('../layouts/js.php'); ?>
+        <script>
+            $("#id_customer").select2({
+                responsive: true,
+                width: '100%'
+            });
+        </script>
         <!-- query save -->
         <?php
         if (isset($_POST['update']) && $_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -200,7 +206,7 @@ if ($queryEditData->num_rows == 0) {
 
             if ($queryUpdateSample) {
                 echo "<script>
-                        swal('Data Saved!', 'Click OK to continue', 'success')
+                        swal('Data was updated!', 'Click OK to continue', 'success')
                         .then((value) => {
                          document.location.href='/pages/staff/sample-request.php';
                         });

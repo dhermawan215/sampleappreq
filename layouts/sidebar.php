@@ -102,7 +102,6 @@
                         </a>
                         <ul class="submenu">
                             <li><a href="/pages/staff/sample-request.php">Dashboard</a></li>
-                            <li><a href="form-wizard.html">Add Sample Request Detail</a></li>
                         </ul>
                     </li>
                     <div class="sidebar-small-cap m-2">R&D Menu</div>

@@ -87,13 +87,13 @@ $sample_no = $huruf . $bulanTgl . $zki . sprintf("%04s", $urutan);
                                 <div class="col-lg-4 col-md-6 col-sm-12">
                                     <div class="card-body rounded-1">
                                         <label for="">Subject</label>
-                                        <input type="text" name="subject" id="" class="form-control" placeholder="input sample request subject">
+                                        <input type="text" name="subject" id="" class="form-control" placeholder="input sample request subject" required>
                                     </div>
                                 </div>
                                 <div class="col-lg-4 col-md-6 col-sm-12">
                                     <div class="card-body rounded-1">
                                         <label for="">Requestor</label>
-                                        <input type="text" name="requestor" id="" class="form-control" value="<?= $_SESSION['user']['fname'] . ' ' .  $_SESSION['user']['lname'] ?>">
+                                        <input type="text" name="requestor" id="" class="form-control" value="<?= $_SESSION['user']['fname'] . ' ' .  $_SESSION['user']['lname'] ?>" required>
                                     </div>
                                 </div>
                             </div>
@@ -101,7 +101,7 @@ $sample_no = $huruf . $bulanTgl . $zki . sprintf("%04s", $urutan);
                                 <div class="col-lg-12 col-md-12 col-sm-12">
                                     <div class="card-body rounded-1">
                                         <label for="">Customers </label>
-                                        <select name="id_customer" id="" class="selectpicker form-control" data-live-search="true">
+                                        <select name="id_customer" id="id_customer" class="custom-select form-control" data-live-search="true" required>
                                             <option disabled selected>Select Customers</option>
                                             <?php
                                             $dataCustomers = mysqli_query($conn, "SELECT * FROM customer");
@@ -117,19 +117,19 @@ $sample_no = $huruf . $bulanTgl . $zki . sprintf("%04s", $urutan);
                                 <div class="col-lg-4 col-md-6 col-sm-12">
                                     <div class="card-body rounded-1">
                                         <label for="">Customers Recipient</label>
-                                        <input type="text" name="pic_customer" id="" class="form-control" placeholder="input customer recipient">
+                                        <input type="text" name="pic_customer" id="" class="form-control" placeholder="input customer recipient" required>
                                     </div>
                                 </div>
                                 <div class="col-lg-4 col-md-6 col-sm-12">
                                     <div class="card-body rounded-1">
                                         <label for="">Date Required</label>
-                                        <input type="date" name="date_required" id="" class="form-control">
+                                        <input type="date" name="date_required" id="" class="form-control" required>
                                     </div>
                                 </div>
                                 <div class="col-lg-4 col-md-6 col-sm-12">
                                     <div class="card-body rounded-1">
                                         <label for="">Delivery Date</label>
-                                        <input type="date" name="delivery_date" id="" class="form-control">
+                                        <input type="date" name="delivery_date" id="" class="form-control" required>
                                     </div>
                                 </div>
                             </div>
@@ -137,7 +137,7 @@ $sample_no = $huruf . $bulanTgl . $zki . sprintf("%04s", $urutan);
                                 <div class="col-lg-12 col-md-12 col-sm-12">
                                     <div class="card-body rounded-1">
                                         <label for="">Delivery Address</label>
-                                        <input type="text" name="delivery_address" id="" class="form-control" placeholder="input customers delivery address">
+                                        <input type="text" name="delivery_address" id="" class="form-control" placeholder="input customers delivery address" required>
                                     </div>
                                 </div>
                             </div>
@@ -145,13 +145,13 @@ $sample_no = $huruf . $bulanTgl . $zki . sprintf("%04s", $urutan);
                                 <div class="col-lg-6 col-md-6 col-sm-12">
                                     <div class="card-body rounded-1">
                                         <label for="">Delivery By</label>
-                                        <input type="text" name="delivery_by" id="" class="form-control" placeholder="input shipping method of delivery">
+                                        <input type="text" name="delivery_by" id="" class="form-control" placeholder="input shipping method of delivery" required>
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-12">
                                     <div class="card-body rounded-1">
                                         <label for="">Customers PO</label>
-                                        <input type="text" name="customer_po" id="" class="form-control" placeholder="input customer po">
+                                        <input type="text" name="customer_po" id="" class="form-control" placeholder="input customer po" required>
                                     </div>
                                 </div>
                             </div>
@@ -172,6 +172,12 @@ $sample_no = $huruf . $bulanTgl . $zki . sprintf("%04s", $urutan);
 
         <!-- js -->
         <?php include('../layouts/js.php'); ?>
+        <script>
+            $("#id_customer").select2({
+                responsive: true,
+                width: '100%'
+            });
+        </script>
         <!-- query save -->
         <?php
         if (isset($_POST['save']) && $_SERVER['REQUEST_METHOD'] == 'POST') {

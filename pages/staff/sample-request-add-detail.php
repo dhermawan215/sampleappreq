@@ -64,8 +64,11 @@ if ($queryDetailData->num_rows == 0) {
                                     <li class="breadcrumb-item" aria-current="page">
                                         <a class="text-decoration-none" href="/pages/staff/sample-request.php">Sample Request</a>
                                     </li>
-                                    <li class="breadcrumb-item active" aria-current="page">
+                                    <li class="breadcrumb-item " aria-current="page">
                                         Detail
+                                    </li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        Add Detail Sample Request
                                     </li>
                                 </ol>
                             </nav>
@@ -135,36 +138,165 @@ if ($queryDetailData->num_rows == 0) {
                             </div>
                             <div class="row col-12 mt-2">
                                 <div class="col-md-12">
-                                    <label class="" for="">Product</label>
-                                    <select name="id_barang" id="id-produk" class="form-control custom-select" autocomplete="off" data-live-search="true" size="5">
+                                    <label class="font-weight-bold" for="">Product</label>
+                                    <select name="id_barang" id="id-produk" class="form-control custom-select" autocomplete="off" data-live-search="true" size="5" required>
                                         <option disabled selected>Select Product</option>
 
                                         <!-- query produk -->
                                         <?php
                                         $queryProductData = mysqli_query($conn, "SELECT * FROM inventory");
-
                                         while ($rowProduct = mysqli_fetch_object($queryProductData)) :
-
                                         ?>
-                                            <option value=""><?= $rowProduct->InvName ?></option>
-
+                                            <option value="<?= $rowProduct->InvId ?>"><?= $rowProduct->InvName ?></option>
                                         <?php endwhile; ?>
-
                                     </select>
                                 </div>
-
                             </div>
 
                             <div class="row col-12 mt-2">
                                 <div class="col-lg-6 col-md-6 col-sm-12">
-                                    <label class="" for="">Qty Produk</label>
-                                    <input type="number" class="form-control">
+                                    <label class="font-weight-bold" for="">Qty Produk</label>
+                                    <input type="number" class="form-control" name="qty" placeholder="input qty product" required>
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-12">
+                                    <label class="font-weight-bold" for="">Unit Product</label>
+                                    <select name="unit" id="unit-produk" class="form-control custom-select" autocomplete="off" data-live-search="true" size="5" required>
+                                        <option disabled selected>Select Unit Product</option>
 
+                                        <?php
+                                        $queryUnit1 = mysqli_query($conn, "SELECT * FROM unit");
+                                        while ($rowUnit1 = mysqli_fetch_object($queryUnit1)) :
+                                        ?>
+                                            <option value="<?= $rowUnit1->Unit ?>"><?= $rowUnit1->Unit ?></option>
+                                        <?php endwhile ?>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row col-12 mt-2">
+                                <div class="col-lg-6 col-md-6 col-sm-12">
+                                    <label class="font-weight-bold" for="">Qty Pack</label>
+                                    <input type="number" class="form-control" name="qty_pack" placeholder="input qty pack" required>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-12">
+                                    <label class="font-weight-bold" for="">Unit Pack</label>
+                                    <select name="unit_pack" id="unit-produk-pack" class="form-control custom-select" autocomplete="off" data-live-search="true" size="5" required>
+                                        <option disabled selected>Select Unit Pack</option>
+
+                                        <?php
+                                        $queryUnit2 = mysqli_query($conn, "SELECT * FROM unit");
+                                        while ($rowUnit2 = mysqli_fetch_object($queryUnit2)) :
+                                        ?>
+                                            <option value="<?= $rowUnit2->Unit ?>"><?= $rowUnit2->Unit ?></option>
+                                        <?php endwhile ?>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row col-12 mt-2">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <label class="font-weight-bold" for="">Description</label>
+                                    <input type="text" name="deskripsi" id="" class="form-control" placeholder="input description" required>
+                                </div>
+                            </div>
+                            <div class="row col-12 mt-2">
+                                <div class="col-lg-6 col-md-6 col-sm-12">
+                                    <label class="font-weight-bold" for="">Label Name</label>
+                                    <input type="text" name="nama_label" id="" class="form-control" placeholder="input label name" required>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-12">
+                                    <label class="font-weight-bold" for="">Kop Surat</label>
+                                    <input type="text" name="kop_surat" id="" class="form-control" placeholder="input kop surat" required>
+                                </div>
+                            </div>
+                            <div class="row col-12 mt-3">
+                                <div class="col-lg-12 ">
+                                    <div class="d-flex text-center justify-content-center">
+                                        <button type="submit" class="btn btn-primary ml-2" name="save_details">Save</button>
+                                        <button type="reset" class="btn btn-outline-danger ml-2">Reset</button>
+                                    </div>
                                 </div>
                             </div>
                         </form>
+                    </div>
+                </div>
+
+                <!-- tabel isi detail sampel reqesuest -->
+                <!-- querytabeldetailsamplerequest -->
+                <?php
+                $queryDetailTabelSampleReq = mysqli_query($conn, "SELECT * FROM sample_request_details INNER JOIN inventory ON sample_request_details.id_barang = inventory.InvId WHERE id_sample_req='$row->id'");
+                $norow = 1;
+                ?>
+                <div class="card-box mb-30">
+                    <div class="pd-20">
+                        <div class="row mb-3">
+                            <div class="col-lg-12 ">
+                                <h5 class="text-primary" style="font-size: 18px;">Data Details Sample Request</h5>
+                            </div>
+                        </div>
+                        <?php if ($queryDetailTabelSampleReq->num_rows != 0) : ?>
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <div class="table-responsive">
+                                        <table class="table table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">#</th>
+                                                    <th scope="col">Action</th>
+                                                    <th scope="col">Product</th>
+                                                    <th scope="col">Qty Product</th>
+                                                    <th scope="col">Unit Product</th>
+                                                    <th scope="col">Qty Unit</th>
+                                                    <th scope="col">Unit Pack</th>
+                                                    <th scope="col">Description</th>
+                                                    <th scope="col">Label Name</th>
+                                                    <th scope="col">Kop Surat</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php while ($fetchDetailsTabel = mysqli_fetch_object($queryDetailTabelSampleReq)) : ?>
+                                                    <tr>
+                                                        <th scope="row"><?= $norow++ ?></th>
+                                                        <td>
+                                                            <div class="dropdown">
+                                                                <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
+                                                                    <i class="dw dw-more"></i>
+                                                                </a>
+                                                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+                                                                    <a class="dropdown-item" href="/pages/staff/sample-request-details-edit.php?cc=<?= $fetchDetailsTabel->id_det ?>"><i class="dw dw-edit2"></i> Edit</a>
+                                                                    <form action="/pages/staff/sample-request-details-delete.php" method="post" class="m-1 px-1 py-1">
+                                                                        <input type="hidden" name="id" value="<?= $fetchDetailsTabel->id_det ?>">
+                                                                        <input type="hidden" name="no_sample" value="<?= $row->no_sample ?>">
+                                                                        <button class="dw dw-delete-3 btn-sm btn show_confirm" name="delete" type="delete" onclick="return confirm('Apakah anda yakin ingin menghapus?')">
+                                                                            Delete
+                                                                        </button>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td><?= $fetchDetailsTabel->InvName ?></td>
+                                                        <td><?= $fetchDetailsTabel->qty ?></td>
+                                                        <td><?= $fetchDetailsTabel->unit ?></td>
+                                                        <td><?= $fetchDetailsTabel->qty_pack ?></td>
+                                                        <td><?= $fetchDetailsTabel->unit_pack ?></td>
+                                                        <td><?= $fetchDetailsTabel->deskripsi ?></td>
+                                                        <td><?= $fetchDetailsTabel->nama_label ?></td>
+                                                        <td><?= $fetchDetailsTabel->kop_surat ?></td>
+                                                    </tr>
+                                                <?php endwhile ?>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php else : ?>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="text-center">
+                                        <b class="text-danger">Data Not Found</b>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php endif ?>
                     </div>
                 </div>
             </div>
@@ -178,7 +310,71 @@ if ($queryDetailData->num_rows == 0) {
                 responsive: true,
                 width: '100%'
             });
+            $("#unit-produk").select2({
+                responsive: true,
+                width: '100%'
+            });
+            $("#unit-produk-pack").select2({
+                responsive: true,
+                width: '100%'
+            });
         </script>
+
+        <?php
+        if (isset($_SESSION['success'])) {
+            echo "<script>
+                        swal('Data was deleted', 'Click OK to continue', 'success');
+                        </script>";
+            unset($_SESSION['success']);
+        }
+        //cek sesion data kosong
+        if (isset($_SESSION['danger'])) {
+            echo "<script>
+                        swal('Sory, Something Went Wrong', 'Click OK to continue', 'success');
+                        </script>";
+            unset($_SESSION['danger']);
+        }
+        //cek sesion data tidak ada di db
+        if (isset($_SESSION['warning'])) {
+            echo "<script>
+                        swal('Sory, Data Not Found', 'Click OK to continue', 'success');
+                        </script>";
+            unset($_SESSION['warning']);
+        }
+
+        ?>
+
+        <!-- querysavesamplereqdetails -->
+        <?php
+        if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['save_details'])) {
+            $id_sample_req = $_POST['id_sample_req'];
+            $id_barang = $_POST['id_barang'];
+            $qty_product = $_POST['qty'];
+            $unit_product = $_POST['unit'];
+            $qty_pack = $_POST['qty_pack'];
+            $unit_pack = $_POST['unit_pack'];
+            $deskripsi = $_POST['deskripsi'];
+            $nama_label = $_POST['nama_label'];
+            $kop_surat = $_POST['kop_surat'];
+
+            $querySaveDetailSampleReq = mysqli_query($conn, "INSERT INTO sample_request_details(id_sample_req, id_barang, qty, qty_pack, unit, unit_pack, nama_label, deskripsi, kop_surat)
+            VALUES($id_sample_req, $id_barang, $qty_product, $qty_pack, '$unit_product', '$unit_pack', '$nama_label', '$deskripsi', '$kop_surat')");
+
+            if ($querySaveDetailSampleReq) {
+                echo "<script>
+                swal('Data Saved!', 'Click OK to continue', 'success')
+                .then((value) => {
+                document.location.href='/pages/staff/sample-request-add-detail.php?cc=$row->no_sample';
+                });
+                </script>";
+            } else {
+                echo "<script>alert('Something went wrong, try again!');
+                document.location.href='/pages/staff/sample-request-add-detail.php?cc=$row->no_sample';
+                        </script>";
+            }
+        }
+
+        ?>
 
 
 </body>
