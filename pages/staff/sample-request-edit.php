@@ -84,19 +84,19 @@ if ($queryEditData->num_rows == 0) {
                                 <input type="hidden" name="id" value="<?= $row->id ?>">
                                 <div class="col-lg-4 col-md-6 col-sm-12">
                                     <div class="card-body rounded-1">
-                                        <label for="">No Sample</label>
+                                        <label for="" class="font-weight-bold">No Sample</label>
                                         <input type="text" name="no_sample" id="" class="form-control" readonly value="<?= $row->no_sample ?>">
                                     </div>
                                 </div>
                                 <div class="col-lg-4 col-md-6 col-sm-12">
                                     <div class="card-body rounded-1">
-                                        <label for="">Subject</label>
+                                        <label for="" class="font-weight-bold">Subject</label>
                                         <input type="text" name="subject" id="" class="form-control" placeholder="input sample request subject" value="<?= $row->subject ?>" required>
                                     </div>
                                 </div>
                                 <div class="col-lg-4 col-md-6 col-sm-12">
                                     <div class="card-body rounded-1">
-                                        <label for="">Requestor</label>
+                                        <label for="" class="font-weight-bold">Requestor</label>
 
                                         <input type="text" name="requestor" id="" class="form-control" value="<?= $row->requestor ?>" required>
                                     </div>
@@ -105,7 +105,7 @@ if ($queryEditData->num_rows == 0) {
                             <div class="row col-12 mt-2">
                                 <div class="col-lg-12 col-md-12 col-sm-12">
                                     <div class="card-body rounded-1">
-                                        <label for="">Customers </label>
+                                        <label for="" class="font-weight-bold">Customers </label>
                                         <select name="id_customer" id="id_customer" class="custom-select form-control" data-live-search="true" required>
                                             <option value="<?= $row->id_customer ?>" selected><?= $row->CustomerName ?></option>
                                             <option disabled>Select Customers</option>
@@ -122,19 +122,19 @@ if ($queryEditData->num_rows == 0) {
                             <div class="row col-12 mt-2">
                                 <div class="col-lg-4 col-md-6 col-sm-12">
                                     <div class="card-body rounded-1">
-                                        <label for="">Customers Recipient</label>
+                                        <label for="" class="font-weight-bold">Customers Recipient</label>
                                         <input type="text" name="pic_customer" id="" class="form-control" placeholder="input customer recipient" value="<?= $row->pic_customer ?>" required>
                                     </div>
                                 </div>
                                 <div class="col-lg-4 col-md-6 col-sm-12">
                                     <div class="card-body rounded-1">
-                                        <label for="">Date Required</label>
+                                        <label for="" class="font-weight-bold">Date Required</label>
                                         <input type="date" name="date_required" id="" class="form-control" value="<?= $row->date_required ?>" required>
                                     </div>
                                 </div>
                                 <div class="col-lg-4 col-md-6 col-sm-12">
                                     <div class="card-body rounded-1">
-                                        <label for="">Delivery Date</label>
+                                        <label for="" class="font-weight-bold">Delivery Date</label>
                                         <input type="date" name="delivery_date" id="" class="form-control" value="<?= $row->delivery_date ?>" required>
                                     </div>
                                 </div>
@@ -142,22 +142,55 @@ if ($queryEditData->num_rows == 0) {
                             <div class="row mt-2 col-12">
                                 <div class="col-lg-12 col-md-12 col-sm-12">
                                     <div class="card-body rounded-1">
-                                        <label for="">Delivery Address</label>
+                                        <label for="" class="font-weight-bold">Delivery Address</label>
                                         <input type="text" name="delivery_address" id="" class="form-control" placeholder="input customers delivery address" value="<?= $row->delivery_address ?>" required>
                                     </div>
                                 </div>
                             </div>
                             <div class="row mt-2 col-12">
+                                <?php
+                                $status_delivery = $row->delivery_by;
+                                switch ($status_delivery) {
+                                    case 1:
+                                        $status_message_delivery = "EKSPEDISI";
+                                        break;
+
+                                    case 2:
+                                        $status_message_delivery = "BY SALES";
+                                        break;
+
+                                    default:
+                                        $status_message_delivery = "PICK UP";
+                                        break;
+                                }
+                                ?>
+
+
                                 <div class="col-lg-6 col-md-6 col-sm-12">
                                     <div class="card-body rounded-1">
-                                        <label for="">Delivery By</label>
-                                        <input type="text" name="delivery_by" id="" class="form-control" placeholder="input shipping method of delivery" value="<?= $row->delivery_by ?>" required>
+
+                                        <label class="font-weight-bold" for="">Delivery By</label>
+                                        <select name="delivery_by" id="" class="form-control">
+                                            <option value="<?= $row->delivery_by ?>" selected><?= $status_message_delivery ?></option>
+                                            <option disabled>Select Delivery</option>
+                                            <option value="0">PICK UP</option>
+                                            <option value="1">EKSPEDISI</option>
+                                            <option value="2">BY SALES</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-12">
                                     <div class="card-body rounded-1">
-                                        <label for="">Customers PO</label>
+                                        <label for="" class="font-weight-bold">Customers PO</label>
                                         <input type="text" name="customer_po" id="" class="form-control" placeholder="input customer po" value="<?= $row->customer_po ?>" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-2 col-12">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <div class="card-body rounded-1">
+                                        <label for="" class="font-weight-bold">Sales Note</label>
+                                        <input type="text" name="sales_note" id="" class="form-control" placeholder="input customer po" value="<?= $row->sales_note ?>" required>
                                     </div>
                                 </div>
                             </div>
@@ -199,16 +232,18 @@ if ($queryEditData->num_rows == 0) {
             $delivery_by = $_POST['delivery_by'];
             $customer_po = $_POST['customer_po'];
 
+            $sales_note = $_POST['sales_note'];
+
             $queryUpdateSample = mysqli_query($conn, "UPDATE sample_request SET no_sample='$no_sample',
             subject='$subject', requestor='$requestor', id_customer=$customers_id, pic_customer='$pic_customer',
             date_required='$date_required', delivery_date='$delivery_date', delivery_by='$delivery_by',
-            delivery_address='$delivery_address', customer_po='$customer_po' WHERE id='$id'");
+            delivery_address='$delivery_address', customer_po='$customer_po', sales_note='$sales_note' WHERE id='$id'");
 
             if ($queryUpdateSample) {
                 echo "<script>
                         swal('Data was updated!', 'Click OK to continue', 'success')
                         .then((value) => {
-                         document.location.href='/pages/staff/sample-request.php';
+                        document.location.href='/pages/staff/sample-request.php';
                         });
                         </script>";
             } else {

@@ -97,7 +97,8 @@ if (!isset($_SESSION['user'])) {
                                                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
                                                     <a class="dropdown-item" href="sample-request-edit.php?cc=<?= $row->no_sample ?>"><i class="dw dw-edit2"></i> Edit</a>
                                                     <a class="dropdown-item" href="sample-request-detail.php?cc=<?= $row->no_sample ?>"><i class="dw dw dw-eye"></i>Detail</a>
-                                                    <a class="dropdown-item" href="sample-request-add-detail.php?cc=<?= $row->no_sample ?>"><i class="bi bi-folder-plus"></i></i>Add Sample Details</a>
+                                                    <a class="dropdown-item" href="sample-request-add-detail.php?cc=<?= $row->no_sample ?>"><i class="bi bi-folder-plus"></i>Add Sample Details</a>
+                                                    <a class="dropdown-item" href="sample-request-change-status.php?cc=<?= $row->no_sample ?>"><i class="bi bi-dash-circle"></i>Change Status</a>
 
                                                     <form action="sample-request-delete.php" method="post" class="m-1 px-1 py-1">
                                                         <input type="hidden" name="id" value="<?= $row->id ?>">

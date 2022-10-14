@@ -80,27 +80,27 @@ $sample_no = $huruf . $bulanTgl . $zki . sprintf("%04s", $urutan);
                             <div class="row col-12">
                                 <div class="col-lg-4 col-md-6 col-sm-12">
                                     <div class="card-body rounded-1">
-                                        <label for="">No Sample</label>
+                                        <label class="font-weight-bold" for="">No Sample</label>
                                         <input type="text" name="no_sample" id="" class="form-control" readonly value="<?= $sample_no ?>">
                                     </div>
                                 </div>
                                 <div class="col-lg-4 col-md-6 col-sm-12">
                                     <div class="card-body rounded-1">
-                                        <label for="">Subject</label>
+                                        <label class="font-weight-bold" for="">Subject</label>
                                         <input type="text" name="subject" id="" class="form-control" placeholder="input sample request subject" required>
                                     </div>
                                 </div>
                                 <div class="col-lg-4 col-md-6 col-sm-12">
                                     <div class="card-body rounded-1">
-                                        <label for="">Requestor</label>
-                                        <input type="text" name="requestor" id="" class="form-control" value="<?= $_SESSION['user']['fname'] . ' ' .  $_SESSION['user']['lname'] ?>" required>
+                                        <label class="font-weight-bold" for="">Requestor</label>
+                                        <input type="text" name="requestor" id="" class="form-control" value="<?= $_SESSION['user']['fname'] . ' ' .  $_SESSION['user']['lname'] ?>" readonly required>
                                     </div>
                                 </div>
                             </div>
                             <div class="row col-12 mt-2">
                                 <div class="col-lg-12 col-md-12 col-sm-12">
                                     <div class="card-body rounded-1">
-                                        <label for="">Customers </label>
+                                        <label class="font-weight-bold" for="">Customers </label>
                                         <select name="id_customer" id="id_customer" class="custom-select form-control" data-live-search="true" required>
                                             <option disabled selected>Select Customers</option>
                                             <?php
@@ -116,19 +116,19 @@ $sample_no = $huruf . $bulanTgl . $zki . sprintf("%04s", $urutan);
                             <div class="row col-12 mt-2">
                                 <div class="col-lg-4 col-md-6 col-sm-12">
                                     <div class="card-body rounded-1">
-                                        <label for="">Customers Recipient</label>
+                                        <label class="font-weight-bold" for="">Customers Recipient</label>
                                         <input type="text" name="pic_customer" id="" class="form-control" placeholder="input customer recipient" required>
                                     </div>
                                 </div>
                                 <div class="col-lg-4 col-md-6 col-sm-12">
                                     <div class="card-body rounded-1">
-                                        <label for="">Date Required</label>
+                                        <label class="font-weight-bold" for="">Date Required</label>
                                         <input type="date" name="date_required" id="" class="form-control" required>
                                     </div>
                                 </div>
                                 <div class="col-lg-4 col-md-6 col-sm-12">
                                     <div class="card-body rounded-1">
-                                        <label for="">Delivery Date</label>
+                                        <label class="font-weight-bold" for="">Delivery Date</label>
                                         <input type="date" name="delivery_date" id="" class="form-control" required>
                                     </div>
                                 </div>
@@ -136,22 +136,43 @@ $sample_no = $huruf . $bulanTgl . $zki . sprintf("%04s", $urutan);
                             <div class="row mt-2 col-12">
                                 <div class="col-lg-12 col-md-12 col-sm-12">
                                     <div class="card-body rounded-1">
-                                        <label for="">Delivery Address</label>
-                                        <input type="text" name="delivery_address" id="" class="form-control" placeholder="input customers delivery address" required>
+                                        <label class="font-weight-bold" for="">Delivery Address</label>
+                                        <textarea name="delivery_address" id="" cols="30" rows="10" class="form-control" placeholder="input delivery address"></textarea>
                                     </div>
                                 </div>
                             </div>
                             <div class="row mt-2 col-12">
                                 <div class="col-lg-6 col-md-6 col-sm-12">
                                     <div class="card-body rounded-1">
-                                        <label for="">Delivery By</label>
-                                        <input type="text" name="delivery_by" id="" class="form-control" placeholder="input shipping method of delivery" required>
+                                        <label class="font-weight-bold" for="">Delivery By</label>
+                                        <select name="delivery_by" id="" class="form-control">
+                                            <option disabled selected>Select Delivery</option>
+                                            <option value="0">PICK UP</option>
+                                            <option value="1">EKSPEDISI</option>
+                                            <option value="2">BY SALES</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-12">
                                     <div class="card-body rounded-1">
-                                        <label for="">Customers PO</label>
+                                        <label class="font-weight-bold" for="">Customers PO</label>
                                         <input type="text" name="customer_po" id="" class="form-control" placeholder="input customer po" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-2 col-12">
+                                <div class="col-lg-6 col-md-6 col-sm-12">
+                                    <div class="card-body rounded-1">
+                                        <label class="font-weight-bold" for="">Status Sample Request</label>
+                                        <select name="status" id="" class="form-control">
+                                            <option selected value="0">Requested</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-12">
+                                    <div class="card-body rounded-1">
+                                        <label class="font-weight-bold" for="">Sales Note</label>
+                                        <input type="text" name="sales_note" id="" class="form-control" placeholder="input sales not for this sample request">
                                     </div>
                                 </div>
                             </div>
@@ -191,9 +212,11 @@ $sample_no = $huruf . $bulanTgl . $zki . sprintf("%04s", $urutan);
             $delivery_address = $_POST['delivery_address'];
             $delivery_by = $_POST['delivery_by'];
             $customer_po = $_POST['customer_po'];
+            $status = $_POST['status'];
+            $sales_note = $_POST['sales_note'];
 
-            $querySaveSample = mysqli_query($conn, "INSERT INTO sample_request(no_sample, subject, requestor, id_customer, pic_customer, date_required, delivery_date, delivery_by, delivery_address, customer_po)
-            VALUES('$no_sample', '$subject', '$requestor', $customers_id, '$pic_customer', '$date_required', '$delivery_date', '$delivery_by', '$delivery_address', '$customer_po') ");
+            $querySaveSample = mysqli_query($conn, "INSERT INTO sample_request(no_sample, subject, requestor, id_customer, pic_customer, date_required, delivery_date, delivery_by, delivery_address, customer_po, status, sales_note)
+            VALUES('$no_sample', '$subject', '$requestor', $customers_id, '$pic_customer', '$date_required', '$delivery_date', '$delivery_by', '$delivery_address', '$customer_po', $status, '$sales_note') ");
 
             if ($querySaveSample) {
                 echo "<script>

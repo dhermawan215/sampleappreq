@@ -131,15 +131,71 @@ if ($queryDetailData->num_rows == 0) {
                         </div>
 
                         <div class="row col-12 mt-2">
+                            <?php
+                            $status_delivery = $row->delivery_by;
+                            switch ($status_delivery) {
+                                case 1:
+                                    $status_message_delivery = "EKSPEDISI";
+                                    break;
+
+                                case 2:
+                                    $status_message_delivery = "BY SALES";
+                                    break;
+
+                                default:
+                                    $status_message_delivery = "PICK UP";
+                                    break;
+                            }
+                            ?>
                             <div class="col-lg-6 col-md-6 col-sm-12">
                                 <div class="card-body border rounded-1">
-                                    Delivery By (method of delivery): <?= $row->delivery_by ?>
+                                    Delivery By (method of delivery): <?= $status_message_delivery ?>
                                 </div>
                             </div>
 
                             <div class="col-lg-6 col-md-6 col-sm-12">
                                 <div class="card-body border rounded-1">
                                     Customers PO: <?= $row->customer_po ?>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row col-12 mt-2">
+                            <?php
+                            $status =  $row->status;
+                            switch ($status) {
+                                case 1:
+                                    $status_messages = "In Progress";
+                                    break;
+                                case 2:
+                                    $status_messages = "Ready";
+                                    break;
+                                case 3:
+                                    $status_messages = "Pick Up";
+                                    break;
+                                case 4:
+                                    $status_messages = "Accepted by Customer";
+                                    break;
+                                case 5:
+                                    $status_messages = "Reviewed";
+                                    break;
+                                case 6:
+                                    $status_messages = "Completed";
+                                    break;
+
+                                default:
+                                    $status_messages = "Requested";
+                                    break;
+                            }
+                            ?>
+                            <div class="col-lg-6 col-md-6 col-sm-12">
+                                <div class="card-body border rounded-1">
+                                    Status: <?= $status_messages ?>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6 col-md-6 col-sm-12">
+                                <div class="card-body border rounded-1">
+                                    Sales Note: <?= $row->sales_note ?>
                                 </div>
                             </div>
                         </div>

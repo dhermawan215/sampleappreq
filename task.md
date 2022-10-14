@@ -4,4 +4,5 @@
 --> fitur login, register dan deleted accont change password sudah selesai
 --> fitur employee, sudah selesai
 --> fitur inventory sudah selesai
---> fitur sample request kurang detail+add detail sample request
+--> fitur sample request selesai
+--> next: fitur change request dan set ekspedisi
