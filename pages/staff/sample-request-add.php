@@ -169,12 +169,22 @@ $sample_no = $huruf . $bulanTgl . $zki . sprintf("%04s", $urutan);
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-lg-6 col-md-6 col-sm-12">
-                                    <div class="card-body rounded-1">
-                                        <label class="font-weight-bold" for="">Sales Note</label>
-                                        <input type="text" name="sales_note" id="" class="form-control" placeholder="input sales not for this sample request">
+                                <?php if ($_SESSION['user']['dept'] == 'MK') : ?>
+                                    <div class="col-lg-6 col-md-6 col-sm-12">
+                                        <div class="card-body rounded-1">
+                                            <label class="font-weight-bold" for="">Sales Note</label>
+                                            <input type="text" name="sales_note" id="" class="form-control" placeholder="input sales note for this sample request">
+                                        </div>
                                     </div>
-                                </div>
+                                <?php elseif ($_SESSION['user']['dept'] == 'CS') : ?>
+                                    <div class="col-lg-6 col-md-6 col-sm-12">
+                                        <div class="card-body rounded-1">
+                                            <label class="font-weight-bold" for="">CS Note</label>
+                                            <input type="text" name="cs_note" id="" class="form-control" placeholder="input cs note for this sample request">
+                                        </div>
+                                    </div>
+                                <?php else : ?>
+                                <?php endif; ?>
                             </div>
                             <div class="row col-12">
                                 <div class="col-lg-6 col-md-6 col-sm-12 d-flex m-2 p-2">

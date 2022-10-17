@@ -30,7 +30,7 @@ if ($queryEditData->num_rows == 0) {
 <head>
     <!-- Basic Page Info -->
     <meta charset="utf-8" />
-    <title>Sample Request App - Customers-Add</title>
+    <title>Sample Request App - Sample Request-Edit</title>
 
     <?php include('../layouts/css.php') ?>
 </head>
