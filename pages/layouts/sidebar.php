@@ -94,7 +94,7 @@
                         <span class="micon bi bi-house"></span><span class="mtext">Home</span>
                     </a>
                 </li>
-                <?php if ($_SESSION['user']['role'] == 'Staff') : ?>
+                <?php if ($_SESSION['user']['role'] == 'Staff' && ($_SESSION['user']['dept'] == 'MK' || $_SESSION['user']['dept'] == 'CS')) : ?>
                     <div class="sidebar-small-cap m-2">Sales Menu</div>
                     <li class="dropdown">
                         <a href="javascript:;" class="dropdown-toggle">
@@ -105,16 +105,14 @@
 
                         </ul>
                     </li>
+                <?php elseif ($_SESSION['user']['role'] == 'Staff' && $_SESSION['user']['dept'] == 'RD') : ?>
                     <div class="sidebar-small-cap m-2">R&D Menu</div>
                     <li class="dropdown">
                         <a href="javascript:;" class="dropdown-toggle">
-                            <span class="micon bi bi-pie-chart"></span><span class="mtext">Charts</span>
+                            <span class="micon bi bi-pie-chart"></span><span class="mtext">Sample Request</span>
                         </a>
                         <ul class="submenu">
-                            <li><a href="highchart.html">Highchart</a></li>
-                            <li><a href="knob-chart.html">jQuery Knob</a></li>
-                            <li><a href="jvectormap.html">jvectormap</a></li>
-                            <li><a href="apexcharts.html">Apexcharts</a></li>
+                            <li><a href="highchart.html">Dashboard</a></li>
                         </ul>
                     </li>
                     <div class="sidebar-small-cap m-2">Customer</div>

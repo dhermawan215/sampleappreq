@@ -12,6 +12,8 @@ if (isset($_GET["cc"]) == null) {
     document.location.href='/pages/staff/sample-request.php';
     </script>";
 }
+// var_dump($_POST);
+// exit;
 
 $code_sample = $_GET["cc"];
 $queryEditData = mysqli_query($conn, "SELECT * FROM sample_request INNER JOIN customer ON sample_request.id_customer=customer.CustomerId WHERE no_sample='$code_sample'");
@@ -102,7 +104,7 @@ if ($queryEditData->num_rows == 0) {
                                         $status_messages = "Reviewed";
                                         break;
                                     case 6:
-                                        $status_messages = "Completed";
+                                        $status_messages = "Cancel";
                                         break;
 
                                     default:
@@ -128,13 +130,15 @@ if ($queryEditData->num_rows == 0) {
                                             <label class="form-check-label" for="flexRadioDefault2"> PICK UP </label>
                                         </div>
                                     <?php elseif ($row->status >= 3 && $_SESSION['user']['dept'] == 'MK') : ?>
-                                        <label for="">Select Sample Request Status</label>
+
                                         <?php if ($row->status == 3 && $_SESSION['user']['dept'] == 'MK') : ?>
+                                            <label for="">Select Sample Request Status</label>
                                             <div class="form-check">
                                                 <input class="form-check-input" type="radio" name="status" id="flexRadioDefault1" value="4" />
                                                 <label class="form-check-label" for="flexRadioDefault1"> ACCEPTED BY CUSTOMERS </label>
                                             </div>
                                         <?php elseif ($row->status <= 4 && $_SESSION['user']['dept'] == 'MK') : ?>
+                                            <label for="">Select Sample Request Status</label>
                                             <div class="form-check">
                                                 <input class="form-check-input" type="radio" name="status" id="flexRadioDefault2" value="5" />
                                                 <label class="form-check-label" for="flexRadioDefault2"> REVIEWED </label>
@@ -154,13 +158,49 @@ if ($queryEditData->num_rows == 0) {
                                 </div>
 
                             </div>
+                            <?php if ($row->status == 3  && $_SESSION['user']['dept'] == 'MK') : ?>
+                                <civ class="row col-12 mt-2">
+                                    <div class="row col-12 mt-3">
+                                        <div class="col-lg-12 col-md-12 col-sm-12">
+                                            <label for="" class="font-weight-bold">Cs Note (saat status pickup)</label>
+                                            <textarea readonly name="cs_note" id="" cols="30" rows="10" class="form-control"><?= $row->cs_note ?></textarea>
+                                        </div>
+                                    </div>
+                                </civ>
+                            <?php endif ?>
+
                             <!-- untuksales -->
                             <?php if ($row->status >= 3  && $_SESSION['user']['dept'] == 'MK') : ?>
-                                <?php if ($row->status >= 5) : ?>
+                                <?php if ($row->status == 4) : ?>
+                                    <div class="row col-12 mt-3">
+                                        <div class="col-lg-12 col-md-12 col-sm-12">
+                                            <label for="" class="font-weight-bold">Sales Note (saat status Accepted by Customers)</label>
+                                            <textarea readonly name="sales_note" id="" cols="30" rows="10" class="form-control"><?= $row->sales_note ?></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="row col-12 mt-3">
+                                        <div class="col-lg-12 col-md-12 col-sm-12">
+                                            <label for="" class="font-weight-bold">Customers Note</label>
+                                            <textarea name="customer_note" id="" cols="30" rows="10" class="form-control"><?= $row->customer_note ?></textarea>
+                                        </div>
+                                    </div>
+                                <?php elseif ($row->status >= 5) : ?>
+                                    <div class="row col-12 mt-3">
+                                        <div class="col-lg-12 col-md-12 col-sm-12">
+                                            <label for="" class="font-weight-bold">Customer Note</label>
+                                            <textarea readonly name="customer_note" id="" cols="30" rows="10" class="form-control"><?= $row->customer_note ?></textarea>
+                                        </div>
+                                    </div>
                                     <div class="row col-12 mt-3">
                                         <div class="col-lg-12 col-md-12 col-sm-12">
                                             <label for="" class="font-weight-bold">Sales Note</label>
                                             <textarea readonly name="sales_note" id="" cols="30" rows="10" class="form-control"><?= $row->sales_note ?></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="row col-12 mt-3">
+                                        <div class="col-lg-12 col-md-12 col-sm-12">
+                                            <label for="" class="font-weight-bold">CS Note</label>
+                                            <textarea readonly name="cs_note" id="" cols="30" rows="10" class="form-control"><?= $row->cs_note ?></textarea>
                                         </div>
                                     </div>
                                 <?php else : ?>
@@ -206,7 +246,7 @@ if ($queryEditData->num_rows == 0) {
                             $qudeliver = mysqli_query($conn, "SELECT * FROM delivery WHERE id_sample_req='$row->id'");
                             $fetchDeliver = mysqli_fetch_object($qudeliver);
 
-                            if ($row->delivery_by == 1 && $qudeliver->num_rows == 0 && $_SESSION['user']['dept'] == 'CS') : ?>
+                            if (($row->delivery_by == 1 && $row->status == 2) && ($qudeliver->num_rows == 0 && $_SESSION['user']['dept'] == 'CS')) : ?>
                                 <div class="row d-flex col-12">
 
                                     <div class="col-lg-6 col-md-6 col-sm-12">
@@ -224,10 +264,20 @@ if ($queryEditData->num_rows == 0) {
                             <div class="row col-12 d-flex">
                                 <div class="col-lg-6 col-md-6 col-sm-12 d-flex m-2 p-2">
                                     <div class="card-body d-flex">
-                                        <?php if (($row->status == 2 && $_SESSION['user']['dept'] == 'CS') || ($row->status >= 3  && $_SESSION['user']['dept'] == 'MK')) : ?>
+                                        <?php if ($row->status == 2 && $_SESSION['user']['dept'] == 'CS') : ?>
                                             <button type="submit" class="btn btn-primary ml-2" name="update">Change Status</button>
                                             <button type="reset" class="btn btn-danger ml-2" name="save">Reset</button>
                                         <?php endif; ?>
+
+                                        <?php if ($row->status == 3  && $_SESSION['user']['dept'] == 'MK') : ?>
+                                            <button type="submit" class="btn btn-primary ml-2" name="update">Change Status</button>
+                                            <button type="reset" class="btn btn-danger ml-2" name="save">Reset</button>
+                                        <?php elseif ($row->status == 4  && $_SESSION['user']['dept'] == 'MK') : ?>
+                                            <button type="submit" class="btn btn-primary ml-2" name="update">Change Status</button>
+                                            <button type="reset" class="btn btn-danger ml-2" name="save">Reset</button>
+                                        <?php endif; ?>
+
+
                                         <?php if ($qudeliver->num_rows != 0) : ?>
                                             <a href="" class="btn btn-info ml-2">Print Surat Jalan</a>
                                         <?php endif; ?>
@@ -258,7 +308,11 @@ if ($queryEditData->num_rows == 0) {
             $status = $_POST['status'];
             $cs_note = $_POST['cs_note'];
             $sales_note = $_POST['sales_note'];
-
+            $customer_note = $_POST['customer_note'];
+            // var_dump($status);
+            // var_dump($cs_note);
+            // var_dump($sales_note);
+            // exit;
             //data for delivery
             if ($qudeliver->num_rows == 0) {
                 $delivery_name = $_POST['delivery_name'];
@@ -279,8 +333,16 @@ if ($queryEditData->num_rows == 0) {
                 VALUES($id, '$delivery_name', '$resi', '$resi_ekspedisi')");
             }
 
+            if ($cs_note != null) {
+                $queryUpdateSample = mysqli_query($conn, "UPDATE sample_request SET status=$status, cs_note='$cs_note' WHERE id='$id'");
+            }
 
-            $queryUpdateSample = mysqli_query($conn, "UPDATE sample_request SET status=$status, sales_note='$sales_note', cs_note='$cs_note' WHERE id='$id'");
+            if ($sales_note != null) {
+                $queryUpdateSample = mysqli_query($conn, "UPDATE sample_request SET status=$status, sales_note='$sales_note'  WHERE id='$id'");
+            }
+            if ($customer_note != null) {
+                $queryUpdateSample = mysqli_query($conn, "UPDATE sample_request SET status=$status, customer_note='$customer_note'  WHERE id='$id'");
+            }
 
             if ($queryUpdateSample || $queryDelivery) {
                 echo "<script>

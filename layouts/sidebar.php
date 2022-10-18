@@ -79,8 +79,8 @@
 <div class="left-side-bar">
     <div class="brand-logo">
         <a href="index.html">
-            <img src="public/vendors/images/deskapp-logo.svg" alt="" class="dark-logo" />
-            <img src="public/vendors/images/deskapp-logo-white.svg" alt="" class="light-logo" />
+            <img src="public/img/new.png" alt="" class="dark-logo" />
+            <img src="public/img/new.png" alt="" class="light-logo" />
         </a>
         <div class="close-sidebar" data-toggle="left-sidebar-close">
             <i class="ion-close-round"></i>
@@ -94,7 +94,7 @@
                         <span class="micon bi bi-house"></span><span class="mtext">Home</span>
                     </a>
                 </li>
-                <?php if ($_SESSION['user']['role'] == 'Staff') : ?>
+                <?php if ($_SESSION['user']['role'] == 'Staff' && ($_SESSION['user']['dept'] == 'MK' || $_SESSION['user']['dept'] == 'CS')) : ?>
                     <div class="sidebar-small-cap m-2">Sales Menu</div>
                     <li class="dropdown">
                         <a href="javascript:;" class="dropdown-toggle">
@@ -104,18 +104,17 @@
                             <li><a href="/pages/staff/sample-request.php">Dashboard</a></li>
                         </ul>
                     </li>
+                <?php elseif ($_SESSION['user']['role'] == 'Staff' && $_SESSION['user']['dept'] == 'RD') : ?>
                     <div class="sidebar-small-cap m-2">R&D Menu</div>
                     <li class="dropdown">
                         <a href="javascript:;" class="dropdown-toggle">
-                            <span class="micon bi bi-pie-chart"></span><span class="mtext">Charts</span>
+                            <span class="micon bi bi-pie-chart"></span><span class="mtext">Sample Request</span>
                         </a>
                         <ul class="submenu">
-                            <li><a href="highchart.html">Highchart</a></li>
-                            <li><a href="knob-chart.html">jQuery Knob</a></li>
-                            <li><a href="jvectormap.html">jvectormap</a></li>
-                            <li><a href="apexcharts.html">Apexcharts</a></li>
+                            <li><a href="highchart.html">Dashboard</a></li>
                         </ul>
                     </li>
+
                     <div class="sidebar-small-cap m-2">Customer</div>
                     <li class="dropdown">
                         <a href="javascript:;" class="dropdown-toggle">

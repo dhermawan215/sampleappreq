@@ -179,7 +179,7 @@ if ($queryDetailData->num_rows == 0) {
                                     $status_messages = "Reviewed";
                                     break;
                                 case 6:
-                                    $status_messages = "Completed";
+                                    $status_messages = "Cancel";
                                     break;
 
                                 default:
