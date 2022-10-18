@@ -129,33 +129,48 @@ if ($queryEditData->num_rows == 0) {
                                         </div>
                                     <?php elseif ($row->status >= 3 && $_SESSION['user']['dept'] == 'MK') : ?>
                                         <label for="">Select Sample Request Status</label>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="status" id="flexRadioDefault1" value="4" />
-                                            <label class="form-check-label" for="flexRadioDefault1"> ACCEPTED BY CUSTOMERS </label>
-                                        </div>
+                                        <?php if ($row->status == 3 && $_SESSION['user']['dept'] == 'MK') : ?>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="status" id="flexRadioDefault1" value="4" />
+                                                <label class="form-check-label" for="flexRadioDefault1"> ACCEPTED BY CUSTOMERS </label>
+                                            </div>
+                                        <?php elseif ($row->status <= 4 && $_SESSION['user']['dept'] == 'MK') : ?>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="status" id="flexRadioDefault2" value="5" />
+                                                <label class="form-check-label" for="flexRadioDefault2"> REVIEWED </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="status" id="flexRadioDefault2" value="6" />
+                                                <label class="form-check-label" for="flexRadioDefault2"> CANCEL</label>
+                                            </div>
+                                        <?php endif; ?>
+
+
 
                                         <!-- Default checked radio -->
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="status" id="flexRadioDefault2" value="5" />
-                                            <label class="form-check-label" for="flexRadioDefault2"> REVIEWED </label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="status" id="flexRadioDefault2" value="6" />
-                                            <label class="form-check-label" for="flexRadioDefault2"> CANCEL</label>
-                                        </div>
+
                                     <?php else : ?>
                                     <?php endif; ?>
                                 </div>
 
                             </div>
                             <!-- untuksales -->
-                            <?php if ($row->status >= 3 && $_SESSION['user']['dept'] == 'MK') : ?>
-                                <div class="row col-12 mt-3">
-                                    <div class="col-lg-12 col-md-12 col-sm-12">
-                                        <label for="" class="font-weight-bold">Sales Note</label>
-                                        <textarea name="sales_note" id="" cols="30" rows="10" class="form-control"><?= $row->sales_note ?></textarea>
+                            <?php if ($row->status >= 3  && $_SESSION['user']['dept'] == 'MK') : ?>
+                                <?php if ($row->status >= 5) : ?>
+                                    <div class="row col-12 mt-3">
+                                        <div class="col-lg-12 col-md-12 col-sm-12">
+                                            <label for="" class="font-weight-bold">Sales Note</label>
+                                            <textarea readonly name="sales_note" id="" cols="30" rows="10" class="form-control"><?= $row->sales_note ?></textarea>
+                                        </div>
                                     </div>
-                                </div>
+                                <?php else : ?>
+                                    <div class="row col-12 mt-3">
+                                        <div class="col-lg-12 col-md-12 col-sm-12">
+                                            <label for="" class="font-weight-bold">Sales Note</label>
+                                            <textarea name="sales_note" id="" cols="30" rows="10" class="form-control"><?= $row->sales_note ?></textarea>
+                                        </div>
+                                    </div>
+                                <?php endif; ?>
                             <?php elseif ($_SESSION['user']['dept'] == 'CS' && $row->status == 2) : ?>
                                 <!-- untukcustomersservice -->
                                 <div class="row col-12 mt-3">
@@ -191,7 +206,7 @@ if ($queryEditData->num_rows == 0) {
                             $qudeliver = mysqli_query($conn, "SELECT * FROM delivery WHERE id_sample_req='$row->id'");
                             $fetchDeliver = mysqli_fetch_object($qudeliver);
 
-                            if ($row->delivery_by == 1 && $qudeliver->num_rows == 0) : ?>
+                            if ($row->delivery_by == 1 && $qudeliver->num_rows == 0 && $_SESSION['user']['dept'] == 'CS') : ?>
                                 <div class="row d-flex col-12">
 
                                     <div class="col-lg-6 col-md-6 col-sm-12">
@@ -206,11 +221,16 @@ if ($queryEditData->num_rows == 0) {
                                 </div>
                             <?php else : ?>
                             <?php endif; ?>
-                            <div class="row col-12">
+                            <div class="row col-12 d-flex">
                                 <div class="col-lg-6 col-md-6 col-sm-12 d-flex m-2 p-2">
                                     <div class="card-body d-flex">
-                                        <button type="submit" class="btn btn-primary ml-2" name="update">Change Status</button>
-                                        <button type="reset" class="btn btn-danger ml-2" name="save">Reset</button>
+                                        <?php if (($row->status == 2 && $_SESSION['user']['dept'] == 'CS') || ($row->status >= 3  && $_SESSION['user']['dept'] == 'MK')) : ?>
+                                            <button type="submit" class="btn btn-primary ml-2" name="update">Change Status</button>
+                                            <button type="reset" class="btn btn-danger ml-2" name="save">Reset</button>
+                                        <?php endif; ?>
+                                        <?php if ($qudeliver->num_rows != 0) : ?>
+                                            <a href="" class="btn btn-info ml-2">Print Surat Jalan</a>
+                                        <?php endif; ?>
                                     </div>
                                 </div>
                             </div>
@@ -240,27 +260,29 @@ if ($queryEditData->num_rows == 0) {
             $sales_note = $_POST['sales_note'];
 
             //data for delivery
-            $delivery_name = $_POST['delivery_name'];
-            $resi_ekspedisi = $_POST['resi_ekspedisi'];
-            $querydb = mysqli_query($conn, "SELECT MAX(resi) as kode FROM delivery");
-            $fetch = mysqli_fetch_object($querydb);
-            $kodeSampel = $fetch->kode;
-            $bulanTgl = date('md');
-            $huruf = "SJL-";
-            $zki = "/ZKI/";
-            //urutan no sampelnya
-            // SJL-1011/ZKI/001
-            $urutan = (int) substr($kodeSampel, 13, 4);
-            $urutan++;
-            $resi = $huruf . $bulanTgl . $zki . sprintf("%04s", $urutan);
+            if ($qudeliver->num_rows == 0) {
+                $delivery_name = $_POST['delivery_name'];
+                $resi_ekspedisi = $_POST['resi_ekspedisi'];
+                $querydb = mysqli_query($conn, "SELECT MAX(resi) as kode FROM delivery");
+                $fetch = mysqli_fetch_object($querydb);
+                $kodeSampel = $fetch->kode;
+                $bulanTgl = date('md');
+                $huruf = "SJL-";
+                $zki = "/ZKI/";
+                //urutan no sampelnya
+                // SJL-1011/ZKI/001
+                $urutan = (int) substr($kodeSampel, 13, 4);
+                $urutan++;
+                $resi = $huruf . $bulanTgl . $zki . sprintf("%04s", $urutan);
 
-            $queryDelivery = mysqli_query($conn, "INSERT INTO delivery(id_sample_req, delivery_name, resi, resi_ekspedisi)
-            VALUES($id, '$delivery_name', '$resi', '$resi_ekspedisi')");
+                $queryDelivery = mysqli_query($conn, "INSERT INTO delivery(id_sample_req, delivery_name, resi, resi_ekspedisi)
+                VALUES($id, '$delivery_name', '$resi', '$resi_ekspedisi')");
+            }
 
 
             $queryUpdateSample = mysqli_query($conn, "UPDATE sample_request SET status=$status, sales_note='$sales_note', cs_note='$cs_note' WHERE id='$id'");
 
-            if ($queryUpdateSample && $queryDelivery) {
+            if ($queryUpdateSample || $queryDelivery) {
                 echo "<script>
                         swal('Data was updated!', 'Click OK to continue', 'success')
                         .then((value) => {
