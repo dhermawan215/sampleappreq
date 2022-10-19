@@ -102,6 +102,10 @@
                         </a>
                         <ul class="submenu">
                             <li><a href="/pages/staff/sample-request.php">Dashboard</a></li>
+                            <li><a href="/pages/staff/sample-request-completed.php">Completed Sample Request</a></li>
+                            <?php if ($_SESSION['user']['dept'] == 'MK') : ?>
+                                <li><a href="/pages/staff/sample-request-cancel.php">Cancel Sample Request</a></li>
+                            <?php endif; ?>
 
                         </ul>
                     </li>

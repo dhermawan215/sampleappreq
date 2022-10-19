@@ -143,13 +143,7 @@ if ($queryEditData->num_rows == 0) {
                                                 <input class="form-check-input" type="radio" name="status" id="flexRadioDefault2" value="5" />
                                                 <label class="form-check-label" for="flexRadioDefault2"> REVIEWED </label>
                                             </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="status" id="flexRadioDefault2" value="6" />
-                                                <label class="form-check-label" for="flexRadioDefault2"> CANCEL</label>
-                                            </div>
                                         <?php endif; ?>
-
-
 
                                         <!-- Default checked radio -->
 

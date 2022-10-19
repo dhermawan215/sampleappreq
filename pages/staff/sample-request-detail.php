@@ -199,6 +199,28 @@ if ($queryDetailData->num_rows == 0) {
                                 </div>
                             </div>
                         </div>
+                        <div class="row col-12 mt-2">
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <div class="card-body border rounded-1">
+                                    Cs Note: <?= $row->cs_note ?>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row col-12 mt-2">
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <div class="card-body border rounded-1">
+                                    Customer Note: <?= $row->customer_note ?>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row col-12 mt-2">
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <div class="card-body border rounded-1">
+                                    RnD Note: <?= $row->rnd_notes ?>
+                                </div>
+                            </div>
+                        </div>
+
 
                     </div>
                 </div>
