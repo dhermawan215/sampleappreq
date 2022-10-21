@@ -5,4 +5,6 @@
 --> fitur employee, sudah selesai
 --> fitur inventory sudah selesai
 --> fitur sample request selesai
---> next: fitur change request dan set ekspedisi
+--> fitur change request dan set ekspedisi ok
+--> fitur untuk rnd sudah selesai
+--> selanjutnya fitur export to excel dan print surat jalan

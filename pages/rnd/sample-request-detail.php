@@ -7,15 +7,16 @@ if (!isset($_SESSION['user'])) {
             document.location.href='/login.php';
             </script>";
 }
-if ($_SESSION['user']['dept'] != 'CS' && $_SESSION['user']['dept'] != 'MK') {
+if ($_SESSION['user']['dept'] != 'RD') {
     echo "<script>
     document.location.href='/index.php';
     </script>";
 }
 
+
 if (isset($_GET["cc"]) == null) {
     echo "<script>
-    document.location.href='/pages/staff/sample-request.php';
+    document.location.href='/pages/rnd/sample-request.php';
     </script>";
 }
 
@@ -25,7 +26,7 @@ $row = mysqli_fetch_object($queryDetailData);
 
 if ($queryDetailData->num_rows == 0) {
     echo "<script>
-    document.location.href='/pages/staff/sample-request.php';
+    document.location.href='/pages/rnd/sample-request.php';
     </script>";
 }
 
@@ -67,7 +68,7 @@ if ($queryDetailData->num_rows == 0) {
                                         <a href="index.html">Home</a>
                                     </li>
                                     <li class="breadcrumb-item" aria-current="page">
-                                        <a class="text-decoration-none" href="/pages/staff/sample-request.php">Sample Request</a>
+                                        <a class="text-decoration-none" href="/pages/rnd/sample-request.php">Sample Request</a>
                                     </li>
                                     <li class="breadcrumb-item active" aria-current="page">
                                         Detail
@@ -82,7 +83,7 @@ if ($queryDetailData->num_rows == 0) {
                 <div class="card-box mb-30">
                     <div class="pd-20">
                         <h4 class="text-blue h4">Sample Request Detail No : <?= $row->no_sample ?> </h4>
-                        <h5><a href="/pages/staff/sample-request.php" class="text-danger m-2"><i class="bi bi-arrow-left-circle"></i> Back</a></h5>
+                        <h5><a href="/pages/rnd/sample-request.php" class="text-danger m-2"><i class="bi bi-arrow-left-circle"></i> Back</a></h5>
                     </div>
                     <div class="pd-20">
                         <div class="row col-12">

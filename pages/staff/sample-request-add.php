@@ -6,6 +6,11 @@ if (!isset($_SESSION['user'])) {
             document.location.href='/login.php';
             </script>";
 }
+if ($_SESSION['user']['dept'] != 'CS' && $_SESSION['user']['dept'] != 'MK') {
+    echo "<script>
+    document.location.href='/index.php';
+    </script>";
+}
 //query no sample request
 $querydb = mysqli_query($conn, "SELECT MAX(no_sample) as kode FROM sample_request");
 $fetch = mysqli_fetch_object($querydb);

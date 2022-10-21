@@ -7,7 +7,7 @@ if (!isset($_SESSION['user'])) {
             document.location.href='/login.php';
             </script>";
 }
-if (($_SESSION['user']['dept'] != 'MK') && ($_SESSION['user']['dept'] != 'CS')) {
+if ($_SESSION['user']['dept'] != 'RD') {
     echo "<script>
     document.location.href='/index.php';
     </script>";
@@ -15,7 +15,7 @@ if (($_SESSION['user']['dept'] != 'MK') && ($_SESSION['user']['dept'] != 'CS')) 
 
 if (isset($_GET["cc"]) == null) {
     echo "<script>
-    document.location.href='/pages/staff/sample-request.php';
+    document.location.href='/pages/rnd/sample-request.php';
     </script>";
 }
 
@@ -25,7 +25,7 @@ $row = mysqli_fetch_object($queryDetailData);
 
 if ($queryDetailData->num_rows == 0) {
     echo "<script>
-    document.location.href='/pages/staff/sample-request.php';
+    document.location.href='/pages/rnd/sample-request.php';
     </script>";
 }
 
@@ -36,7 +36,7 @@ if ($queryDetailData->num_rows == 0) {
 <head>
     <!-- Basic Page Info -->
     <meta charset="utf-8" />
-    <title>Sample Request App - Sample Request-Add Detail</title>
+    <title>Sample Request App - Sample Request-Detail</title>
 
     <?php include('../layouts/css.php') ?>
 </head>
@@ -67,13 +67,13 @@ if ($queryDetailData->num_rows == 0) {
                                         <a href="index.html">Home</a>
                                     </li>
                                     <li class="breadcrumb-item" aria-current="page">
-                                        <a class="text-decoration-none" href="/pages/staff/sample-request.php">Sample Request</a>
+                                        <a class="text-decoration-none" href="/pages/rnd/sample-request.php">Sample Request</a>
                                     </li>
                                     <li class="breadcrumb-item " aria-current="page">
                                         Detail
                                     </li>
                                     <li class="breadcrumb-item active" aria-current="page">
-                                        Add Detail Sample Request
+                                        Details of Sample Request
                                     </li>
                                 </ol>
                             </nav>
@@ -85,7 +85,7 @@ if ($queryDetailData->num_rows == 0) {
                 <div class="card-box mb-30">
                     <div class="pd-20">
                         <h4 class="text-blue h4">Sample Request Detail No : <?= $row->no_sample ?> </h4>
-                        <h5><a href="/pages/staff/sample-request.php" class="text-danger m-2"><i class="bi bi-arrow-left-circle"></i> Back</a></h5>
+                        <h5><a href="/pages/rnd/sample-request.php" class="text-danger m-2"><i class="bi bi-arrow-left-circle"></i> Back</a></h5>
                     </div>
                     <div class="pd-20">
                         <div class="row col-12">
@@ -130,97 +130,6 @@ if ($queryDetailData->num_rows == 0) {
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-
-                <!-- add details sample request -->
-                <div class="card-box mb-30">
-                    <div class="pd-20">
-                        <form action="" method="POST">
-                            <input type="hidden" name="id_sample_req" value="<?= $row->id ?>">
-                            <div class="row-col-12">
-                                <h5 class="text-primary text-md-left">Details Product For Sample No : <?= $row->no_sample ?></h5>
-                            </div>
-                            <div class="row col-12 mt-2">
-                                <div class="col-md-12">
-                                    <label class="font-weight-bold" for="">Product</label>
-                                    <select name="id_barang" id="id-produk" class="form-control custom-select" autocomplete="off" data-live-search="true" size="5" required>
-                                        <option disabled selected>Select Product</option>
-
-                                        <!-- query produk -->
-                                        <?php
-                                        $queryProductData = mysqli_query($conn, "SELECT * FROM inventory");
-                                        while ($rowProduct = mysqli_fetch_object($queryProductData)) :
-                                        ?>
-                                            <option value="<?= $rowProduct->InvId ?>"><?= $rowProduct->InvName ?></option>
-                                        <?php endwhile; ?>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="row col-12 mt-2">
-                                <div class="col-lg-6 col-md-6 col-sm-12">
-                                    <label class="font-weight-bold" for="">Qty Produk</label>
-                                    <input type="number" class="form-control" name="qty" placeholder="input qty product" required>
-                                </div>
-                                <div class="col-lg-6 col-md-6 col-sm-12">
-                                    <label class="font-weight-bold" for="">Unit Product</label>
-                                    <select name="unit" id="unit-produk" class="form-control custom-select" autocomplete="off" data-live-search="true" size="5" required>
-                                        <option disabled selected>Select Unit Product</option>
-
-                                        <?php
-                                        $queryUnit1 = mysqli_query($conn, "SELECT * FROM unit");
-                                        while ($rowUnit1 = mysqli_fetch_object($queryUnit1)) :
-                                        ?>
-                                            <option value="<?= $rowUnit1->Unit ?>"><?= $rowUnit1->Unit ?></option>
-                                        <?php endwhile ?>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="row col-12 mt-2">
-                                <div class="col-lg-6 col-md-6 col-sm-12">
-                                    <label class="font-weight-bold" for="">Qty Pack</label>
-                                    <input type="number" class="form-control" name="qty_pack" placeholder="input qty pack" required>
-                                </div>
-                                <div class="col-lg-6 col-md-6 col-sm-12">
-                                    <label class="font-weight-bold" for="">Unit Pack</label>
-                                    <select name="unit_pack" id="unit-produk-pack" class="form-control custom-select" autocomplete="off" data-live-search="true" size="5" required>
-                                        <option disabled selected>Select Unit Pack</option>
-
-                                        <?php
-                                        $queryUnit2 = mysqli_query($conn, "SELECT * FROM unit");
-                                        while ($rowUnit2 = mysqli_fetch_object($queryUnit2)) :
-                                        ?>
-                                            <option value="<?= $rowUnit2->Unit ?>"><?= $rowUnit2->Unit ?></option>
-                                        <?php endwhile ?>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="row col-12 mt-2">
-                                <div class="col-lg-12 col-md-12 col-sm-12">
-                                    <label class="font-weight-bold" for="">Description</label>
-                                    <input type="text" name="deskripsi" id="" class="form-control" placeholder="input description" required>
-                                </div>
-                            </div>
-                            <div class="row col-12 mt-2">
-                                <div class="col-lg-6 col-md-6 col-sm-12">
-                                    <label class="font-weight-bold" for="">Label Name</label>
-                                    <input type="text" name="nama_label" id="" class="form-control" placeholder="input label name" required>
-                                </div>
-                                <div class="col-lg-6 col-md-6 col-sm-12">
-                                    <label class="font-weight-bold" for="">Kop Surat</label>
-                                    <input type="text" name="kop_surat" id="" class="form-control" placeholder="input kop surat" required>
-                                </div>
-                            </div>
-                            <div class="row col-12 mt-3">
-                                <div class="col-lg-12 ">
-                                    <div class="d-flex text-center justify-content-center">
-                                        <button type="submit" class="btn btn-primary ml-2" name="save_details">Save</button>
-                                        <button type="reset" class="btn btn-outline-danger ml-2">Reset</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
                     </div>
                 </div>
 
@@ -349,37 +258,7 @@ if ($queryDetailData->num_rows == 0) {
 
         ?>
 
-        <!-- querysavesamplereqdetails -->
-        <?php
-        if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['save_details'])) {
-            $id_sample_req = $_POST['id_sample_req'];
-            $id_barang = $_POST['id_barang'];
-            $qty_product = $_POST['qty'];
-            $unit_product = $_POST['unit'];
-            $qty_pack = $_POST['qty_pack'];
-            $unit_pack = $_POST['unit_pack'];
-            $deskripsi = $_POST['deskripsi'];
-            $nama_label = $_POST['nama_label'];
-            $kop_surat = $_POST['kop_surat'];
 
-            $querySaveDetailSampleReq = mysqli_query($conn, "INSERT INTO sample_request_details(id_sample_req, id_barang, qty, qty_pack, unit, unit_pack, nama_label, deskripsi, kop_surat)
-            VALUES($id_sample_req, $id_barang, $qty_product, $qty_pack, '$unit_product', '$unit_pack', '$nama_label', '$deskripsi', '$kop_surat')");
-
-            if ($querySaveDetailSampleReq) {
-                echo "<script>
-                swal('Data Saved!', 'Click OK to continue', 'success')
-                .then((value) => {
-                document.location.href='/pages/staff/sample-request-add-detail.php?cc=$row->no_sample';
-                });
-                </script>";
-            } else {
-                echo "<script>alert('Something went wrong, try again!');
-                document.location.href='/pages/staff/sample-request-add-detail.php?cc=$row->no_sample';
-                        </script>";
-            }
-        }
-
-        ?>
 
 
 </body>
