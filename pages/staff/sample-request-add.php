@@ -142,7 +142,7 @@ $sample_no = $huruf . $bulanTgl . $zki . sprintf("%04s", $urutan);
                                 <div class="col-lg-12 col-md-12 col-sm-12">
                                     <div class="card-body rounded-1">
                                         <label class="font-weight-bold" for="">Delivery Address</label>
-                                        <textarea name="delivery_address" id="" cols="30" rows="10" class="form-control" placeholder="input delivery address"></textarea>
+                                        <textarea name="delivery_address" id="DeliveryAddress" cols="30" rows="10" class="form-control" placeholder="input delivery address"></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -150,7 +150,7 @@ $sample_no = $huruf . $bulanTgl . $zki . sprintf("%04s", $urutan);
                                 <div class="col-lg-6 col-md-6 col-sm-12">
                                     <div class="card-body rounded-1">
                                         <label class="font-weight-bold" for="">Delivery By</label>
-                                        <select name="delivery_by" id="" class="form-control">
+                                        <select name="delivery_by" id="DeliveryId" class="form-control">
                                             <option disabled selected>Select Delivery</option>
                                             <option value="0">PICK UP</option>
                                             <option value="1">EKSPEDISI</option>
@@ -212,6 +212,18 @@ $sample_no = $huruf . $bulanTgl . $zki . sprintf("%04s", $urutan);
             $("#id_customer").select2({
                 responsive: true,
                 width: '100%'
+            });
+
+            $(document).ready(function() {
+                $('#DeliveryId').change(function(e) {
+                    var id = document.getElementById('DeliveryId').value;
+
+                    if (id == 0) {
+                        document.getElementById('DeliveryAddress').setAttribute('readonly', true);
+                    } else {
+                        document.getElementById('DeliveryAddress').removeAttribute('readonly');
+                    }
+                });
             });
         </script>
         <!-- query save -->
