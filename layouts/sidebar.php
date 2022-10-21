@@ -115,7 +115,7 @@
                             <span class="micon bi bi-pie-chart"></span><span class="mtext">Sample Request</span>
                         </a>
                         <ul class="submenu">
-                            <li><a href="highchart.html">Dashboard</a></li>
+                            <li><a href="/pages/rnd/sample-request.php">Dashboard</a></li>
                         </ul>
                     </li>
 

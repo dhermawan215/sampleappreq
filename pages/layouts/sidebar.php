@@ -79,8 +79,8 @@
 <div class="left-side-bar">
     <div class="brand-logo">
         <a href="index.html">
-            <img src="../../public/vendors/images/deskapp-logo.svg" alt="" class="dark-logo" />
-            <img src="../../public/vendors/images/deskapp-logo-white.svg" alt="" class="light-logo" />
+            <img src="../../public/img/new.png" alt="" class="dark-logo" />
+            <img src="../../public/img/new.png" alt="" class="light-logo" />
         </a>
         <div class="close-sidebar" data-toggle="left-sidebar-close">
             <i class="ion-close-round"></i>
@@ -116,7 +116,7 @@
                             <span class="micon bi bi-pie-chart"></span><span class="mtext">Sample Request</span>
                         </a>
                         <ul class="submenu">
-                            <li><a href="highchart.html">Dashboard</a></li>
+                            <li><a href="/pages/rnd/sample-request.php">Dashboard</a></li>
                         </ul>
                     </li>
                     <div class="sidebar-small-cap m-2">Customer</div>

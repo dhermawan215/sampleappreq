@@ -6,6 +6,11 @@ if (!isset($_SESSION['user'])) {
             document.location.href='/login.php';
             </script>";
 }
+if (($_SESSION['user']['dept'] != 'MK') && ($_SESSION['user']['dept'] != 'CS')) {
+    echo "<script>
+    document.location.href='/index.php';
+    </script>";
+}
 
 
 ?>
