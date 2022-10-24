@@ -129,7 +129,7 @@ if ($query->num_rows == 0) {
 
                                 <div class="col-lg-12">
                                     <h5 class="h5">Delivery Order Date: <?= $rowDelivery->delivery_date ?></h5>
-                                    <h5 class="h5">Deliver Order No:</h5>
+                                    <h5 class="h5">Delivery Order No:</h5>
                                     <p><?= $rowDelivery->resi ?></p>
                                 </div>
                                 <div class="col-lg-12">
@@ -190,7 +190,7 @@ if ($query->num_rows == 0) {
                     <div class="col-lg-6 col-md-6 col-sm-6">
                         <div class="card">
                             <div class="card-body" style="height: 150px;">
-                                <p>
+                                <p class="font-weight-bold">
                                     Received By
                                     <br>
                                 </p>
@@ -201,7 +201,7 @@ if ($query->num_rows == 0) {
                     <div class="col-lg-6 col-md-6 col-sm-6">
                         <div class="card">
                             <div class="card-body" style="height: 150px;">
-                                <p>
+                                <p class="font-weight-bold">
                                     Delivered By
                                     <br>
                                     <span> </span>
