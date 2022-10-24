@@ -60,8 +60,33 @@ if ($_SESSION['user']['dept'] != 'RD') {
                 </div>
 
                 <div class="card-box mb-30">
-                    <div class="col-lg-12 pd-20">
-
+                    <div class="pd-20">
+                        <h4 class="text-blue h4">Print Out / Export Data</h4>
+                        <p class="text-sm">select a time period</p>
+                    </div>
+                    <div class="pd-20">
+                        <form action="sample-request-doc.php" method="get">
+                            <div class="d-flex flex form-row">
+                                <div class="col-lg-10 col-md-10 col-sm-12 d-flex flex form-group">
+                                    <div class="input-group mb-2">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">Start</div>
+                                        </div>
+                                        <input type="date" class="form-control" name="fdate">
+                                    </div>
+                                    <div class="input-group mb-2">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">End</div>
+                                        </div>
+                                        <input type="date" class="form-control" name="ldate">
+                                    </div>
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-sm-12 form-group">
+                                    <button name="xls" class="btn btn-success"><i class="bi bi-file-earmark-excel"></i> Excel</button>
+                                    <button name="pdf" class="btn btn-danger"><i class="bi bi-file-earmark-pdf"></i> Pdf</button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
                 <!-- Simple Datatable start -->

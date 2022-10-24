@@ -278,7 +278,7 @@ if ($queryEditData->num_rows == 0) {
 
 
                                         <?php if ($qudeliver->num_rows != 0) : ?>
-                                            <a href="" class="btn btn-info ml-2">Print Surat Jalan</a>
+                                            <a href="delivery-order-pdf.php?do=<?= $fetchDeliver->id_delivery ?>" class="btn btn-info ml-2">Print Surat Jalan</a>
                                         <?php endif; ?>
                                     </div>
                                 </div>
