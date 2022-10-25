@@ -2,6 +2,7 @@
 include('../../config/config.php');
 $fdate = $_GET['fdate'];
 $ldate = $_GET['ldate'];
+$sts = $_GET['sts'];
 header("Content-type: application/vnd-ms-excel");
 header("Content-Disposition: attachment; filename=Report-All-Sample-Request (" . date('dmY') . ").xls");
 
@@ -46,7 +47,9 @@ header("Content-Disposition: attachment; filename=Report-All-Sample-Request (" .
 
     <h1 style="text-align: center;">Data Sample Request</h1>
     <?php
-    $querydb = mysqli_query($conn, "SELECT id,
+
+    if ($sts == 7) {
+        $querydb = mysqli_query($conn, "SELECT id,
     no_sample,
     date_required,
     delivery_date,
@@ -62,6 +65,26 @@ header("Content-Disposition: attachment; filename=Report-All-Sample-Request (" .
     JOIN sample_request_details on sample_request.id=sample_request_details.id_sample_req 
     JOIN inventory ON sample_request_details.id_barang=inventory.InvId 
     WHERE sample_request.date_required BETWEEN '$fdate' AND '$ldate'");
+    } else {
+        $querydb = mysqli_query($conn, "SELECT id,
+    no_sample,
+    date_required,
+    delivery_date,
+    requestor, 
+    delivery_address, 
+    delivery_by,
+    sample_request.status, 
+    customer.CustomerName, 
+    sample_request_details.qty,
+    sample_request_details.unit,
+    inventory.InvName 
+    FROM sample_request JOIN customer ON sample_request.id_customer=customer.CustomerId 
+    JOIN sample_request_details on sample_request.id=sample_request_details.id_sample_req 
+    JOIN inventory ON sample_request_details.id_barang=inventory.InvId 
+    WHERE sample_request.date_required BETWEEN '$fdate' AND '$ldate'  AND sample_request.status=$sts");
+    }
+
+
     ?>
     <table id="customers">
         <thead>

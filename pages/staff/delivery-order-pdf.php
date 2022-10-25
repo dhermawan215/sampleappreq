@@ -50,7 +50,7 @@ if ($query->num_rows == 0) {
     </style>
 
     <script type="text/javascript">
-        // window.print()
+        window.print()
     </script>
 </head>
 
@@ -165,7 +165,7 @@ if ($query->num_rows == 0) {
                                 <tbody>
                                     <?php
                                     $no = 1;
-                                    $querydetailsDel = mysqli_query($conn, "SELECT * FROM sample_request_details INNER JOIN Inventory ON sample_request_details.id_barang=inventory.InvId WHERE id_sample_req=$rowDelivery->id");
+                                    $querydetailsDel = mysqli_query($conn, "SELECT * FROM sample_request_details INNER JOIN inventory ON sample_request_details.id_barang=inventory.InvId WHERE id_sample_req=$rowDelivery->id");
                                     while ($rowDetails = mysqli_fetch_object($querydetailsDel)) :
                                     ?>
                                         <tr>

@@ -18,15 +18,17 @@ if (isset($_GET['xls'])) {
 
     $fdate = $_GET['fdate'];
     $ldate = $_GET['ldate'];
+    $sts = $_GET['status'];
     echo "<script>
-    document.location.href='/pages/rnd/xls.php?fdate=$fdate&ldate=$ldate';
+    document.location.href='/pages/rnd/xls.php?fdate=$fdate&ldate=$ldate&sts=$sts';
     </script>";
 }
 if (isset($_GET['pdf'])) {
 
     $fdate = $_GET['fdate'];
     $ldate = $_GET['ldate'];
+    $sts = $_GET['status'];
     echo "<script>
-    document.location.href='/pages/rnd/pdf.php?fdate=$fdate&ldate=$ldate';
+    document.location.href='/pages/rnd/pdf.php?fdate=$fdate&ldate=$ldate&sts=$sts';
     </script>";
 }
