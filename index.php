@@ -1,5 +1,6 @@
 <?php
 include('config/config.php');
+
 session_start();
 
 //cek autentikasi login, jika kosong dilarang akses index
@@ -34,6 +35,10 @@ if (!isset($_SESSION['user'])) {
             <div class="loading-text">Loading...</div>
         </div>
     </div> -->
+    <?php
+
+
+    ?>
 
     <!-- header /navbar -->
     <?php include('layouts/header.php') ?>
@@ -109,7 +114,7 @@ if (!isset($_SESSION['user'])) {
                 </div>
                 <div class="col-xl-3 mb-30">
                     <div class="card-box height-100-p widget-style1">
-                        <div class="d-block p-2 px-2 align-items-center">
+                        <div id="requested" name="requested" class="d-block p-2 px-2 align-items-center">
                             <div class="progress">
                                 <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: <?= $percentRequest ?>%;" aria-valuenow="<?= $percentRequest ?>" aria-valuemin="0" aria-valuemax="100"><?= $percentRequest ?> %</div>
                             </div>
@@ -179,7 +184,7 @@ if (!isset($_SESSION['user'])) {
                     <div class="card-box height-100-p widget-style1">
                         <div class="d-block p-2 px-2 align-items-center">
                             <div class="progress">
-                                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: <?= $percentReviewed?>%;" aria-valuenow="<?= $percentReviewed?>" aria-valuemin="0" aria-valuemax="100"><?= $percentReviewed?> %</div>
+                                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: <?= $percentReviewed ?>%;" aria-valuenow="<?= $percentReviewed ?>" aria-valuemin="0" aria-valuemax="100"><?= $percentReviewed ?> %</div>
                             </div>
                             <div class="widget-data mt-1 d-flex flex-wrap p-2 mt-2">
                                 <div class="h4 mb-0"><?= $fetchReviewed->reviewed ?></div>
@@ -192,147 +197,75 @@ if (!isset($_SESSION['user'])) {
 
 
             <div class="card-box mb-30">
-                <h2 class="h4 pd-20">Best Selling Products</h2>
-                <table class="data-table table nowrap">
-                    <thead>
-                        <tr>
-                            <th class="table-plus datatable-nosort">Product</th>
-                            <th>Name</th>
-                            <th>Color</th>
-                            <th>Size</th>
-                            <th>Price</th>
-                            <th>Oty</th>
-                            <th class="datatable-nosort">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="table-plus">
-                                <img src="vendors/images/product-1.jpg" width="70" height="70" alt="" />
-                            </td>
-                            <td>
-                                <h5 class="font-16">Shirt</h5>
-                                by John Doe
-                            </td>
-                            <td>Black</td>
-                            <td>M</td>
-                            <td>$1000</td>
-                            <td>1</td>
-                            <td>
-                                <div class="dropdown">
-                                    <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
-                                        <i class="dw dw-more"></i>
-                                    </a>
-                                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-                                        <a class="dropdown-item" href="#"><i class="dw dw-eye"></i> View</a>
-                                        <a class="dropdown-item" href="#"><i class="dw dw-edit2"></i> Edit</a>
-                                        <a class="dropdown-item" href="#"><i class="dw dw-delete-3"></i> Delete</a>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="table-plus">
-                                <img src="vendors/images/product-2.jpg" width="70" height="70" alt="" />
-                            </td>
-                            <td>
-                                <h5 class="font-16">Boots</h5>
-                                by Lea R. Frith
-                            </td>
-                            <td>brown</td>
-                            <td>9UK</td>
-                            <td>$900</td>
-                            <td>1</td>
-                            <td>
-                                <div class="dropdown">
-                                    <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
-                                        <i class="dw dw-more"></i>
-                                    </a>
-                                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-                                        <a class="dropdown-item" href="#"><i class="dw dw-eye"></i> View</a>
-                                        <a class="dropdown-item" href="#"><i class="dw dw-edit2"></i> Edit</a>
-                                        <a class="dropdown-item" href="#"><i class="dw dw-delete-3"></i> Delete</a>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="table-plus">
-                                <img src="vendors/images/product-3.jpg" width="70" height="70" alt="" />
-                            </td>
-                            <td>
-                                <h5 class="font-16">Hat</h5>
-                                by Erik L. Richards
-                            </td>
-                            <td>Orange</td>
-                            <td>M</td>
-                            <td>$100</td>
-                            <td>4</td>
-                            <td>
-                                <div class="dropdown">
-                                    <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
-                                        <i class="dw dw-more"></i>
-                                    </a>
-                                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-                                        <a class="dropdown-item" href="#"><i class="dw dw-eye"></i> View</a>
-                                        <a class="dropdown-item" href="#"><i class="dw dw-edit2"></i> Edit</a>
-                                        <a class="dropdown-item" href="#"><i class="dw dw-delete-3"></i> Delete</a>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="table-plus">
-                                <img src="vendors/images/product-4.jpg" width="70" height="70" alt="" />
-                            </td>
-                            <td>
-                                <h5 class="font-16">Long Dress</h5>
-                                by Renee I. Hansen
-                            </td>
-                            <td>Gray</td>
-                            <td>L</td>
-                            <td>$1000</td>
-                            <td>1</td>
-                            <td>
-                                <div class="dropdown">
-                                    <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
-                                        <i class="dw dw-more"></i>
-                                    </a>
-                                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-                                        <a class="dropdown-item" href="#"><i class="dw dw-eye"></i> View</a>
-                                        <a class="dropdown-item" href="#"><i class="dw dw-edit2"></i> Edit</a>
-                                        <a class="dropdown-item" href="#"><i class="dw dw-delete-3"></i> Delete</a>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="table-plus">
-                                <img src="vendors/images/product-5.jpg" width="70" height="70" alt="" />
-                            </td>
-                            <td>
-                                <h5 class="font-16">Blazer</h5>
-                                by Vicki M. Coleman
-                            </td>
-                            <td>Blue</td>
-                            <td>M</td>
-                            <td>$1000</td>
-                            <td>1</td>
-                            <td>
-                                <div class="dropdown">
-                                    <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
-                                        <i class="dw dw-more"></i>
-                                    </a>
-                                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-                                        <a class="dropdown-item" href="#"><i class="dw dw-eye"></i> View</a>
-                                        <a class="dropdown-item" href="#"><i class="dw dw-edit2"></i> Edit</a>
-                                        <a class="dropdown-item" href="#"><i class="dw dw-delete-3"></i> Delete</a>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="pd-20">
+                    <h4 class="text-blue h4">Data Completed Sample Request</h4>
+                </div>
+                <div class="pb-20">
+
+                    <!-- query -->
+                    <?php
+                    $no = 1;
+                    $queryInventory = mysqli_query($conn, "SELECT * FROM sample_request INNER JOIN customer ON sample_request.id_customer=customer.CustomerId WHERE sample_request.status<6"); ?>
+                    <table id="dataTable" class="table stripe hover nowrap">
+                        <thead>
+                            <tr>
+                                <th class="table-plus datatable-nosort" style="width: 17px;">No</th>
+                                <th>No Sample</th>
+                                <th>Subject</th>
+                                <th>Customer</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php while ($row = mysqli_fetch_object($queryInventory)) : ?>
+                                <tr>
+                                    <td class="table-plus"><?= $no++ ?></td>
+                                    <td><a href="/pages/staff/sample-request-detail.php?cc=<?= $row->no_sample ?>" class="text-decoration-none"><?= $row->no_sample ?></a></td>
+                                    <td><?= $row->subject ?></td>
+                                    <td><?= $row->CustomerName ?></td>
+                                    <td><?= $row->date_required ?></td>
+                                    <td>
+                                        <?php
+                                        $status =  $row->status;
+                                        switch ($status) {
+                                            case 1:
+                                                $status_messages = "In Progress";
+                                                $color = "text-warning";
+                                                break;
+                                            case 2:
+                                                $status_messages = "Ready";
+                                                $color = "text-warning";
+                                                break;
+                                            case 3:
+                                                $status_messages = "Pick Up";
+                                                $color = "text-info";
+                                                break;
+                                            case 4:
+                                                $status_messages = "Accepted by Customer";
+                                                $color = "text-danger";
+                                                break;
+                                            case 5:
+                                                $status_messages = "Reviewed";
+                                                $color = "text-success";
+                                                break;
+                                            case 6:
+                                                $status_messages = "Cancel";
+                                                break;
+
+                                            default:
+                                                $status_messages = "Requested";
+                                                $color = "text-primary";
+                                                break;
+                                        }
+                                        ?>
+                                        <p class="font-weight-bold <?= $color ?>"><?= $status_messages ?></p>
+                                    </td>
+                                </tr>
+                            <?php endwhile; ?>
+                        </tbody>
+                    </table>
+                </div>
             </div>
             <?php include('layouts/footer.php') ?>
         </div>
@@ -340,6 +273,45 @@ if (!isset($_SESSION['user'])) {
 
     <!-- js -->
     <?php include('layouts/js.php') ?>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            var table = $('#dataTable').DataTable({
+                responsive: false
+            });
+        });
+
+        $(document).ready(function() {
+            $('#requested').click(function() {
+                var id = 0;
+                $.ajax({
+                    //data :{action: "showroom"},
+                    url: "fetch.php",
+                    type: "POST",
+                    dataType: "json",
+                    data: {
+                        status: id,
+
+                    },
+                    success: function(data) {
+                        $('#sample').css("display", "block");
+                        $('#sample_no').text(data.sample_no);
+                        $('#subject').text(data.subject);
+                        $('#customer').text(data.customer);
+                        $('#date').text(data.date);
+                        $('#status').text(data.status);
+                        console.log(data);
+                    }
+                });
+
+            });
+        });
+
+        $(document).ready(function() {
+            $('#datatable').DataTable({
+
+            });
+        });
+    </script>
 
 
     <!-- custom script js -->

@@ -108,7 +108,7 @@
                             <?php endif; ?>
                         </ul>
                     </li>
-                <?php elseif ($_SESSION['user']['role'] == 'Staff' && $_SESSION['user']['dept'] == 'RD') : ?>
+                <?php elseif (($_SESSION['user']['role'] == 'Staff' || $_SESSION['user']['role'] == 'HOD') && $_SESSION['user']['dept'] == 'RD') : ?>
                     <div class="sidebar-small-cap m-2">R&D Menu</div>
                     <li class="dropdown">
                         <a href="javascript:;" class="dropdown-toggle">

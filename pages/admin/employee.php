@@ -93,6 +93,7 @@ if (!isset($_SESSION['user'])) {
                                                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
                                                     <a class="dropdown-item" href="employee-edit.php?cc=<?= $row->emp_id ?>"><i class="dw dw-edit2"></i> Edit</a>
                                                     <a class="dropdown-item" href="employee-detail.php?cc=<?= $row->emp_id ?>"><i class="dw dw dw-eye"></i>Detail</a>
+                                                    <a class="dropdown-item" href="employee-update-password.php?cc=<?= $row->emp_id ?>"><i class="bi bi-pencil-square"></i>Update Password</a>
 
                                                     <form action="employee-delete.php" method="post" class="m-1 px-1 py-1">
                                                         <input type="hidden" name="emp_id" value="<?= $row->emp_id ?>">
