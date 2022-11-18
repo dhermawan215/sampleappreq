@@ -15,4 +15,6 @@
 .qty sampel jadi isi manual
 .kop surat dan deskripsi sampel detail dihapus
 .customer po sudah di hapus
-.
+
+----> update 1.0.1
+.optimasi halaman index(jika data kosong maka tampilan progress bar off)

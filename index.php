@@ -74,131 +74,145 @@ if (!isset($_SESSION['user'])) {
             $fetchTotal = mysqli_fetch_object($queryCountALl);
             $totalSample = $fetchTotal->totalAll;
 
-            //total data sample request when status requested
-            $queryCountRequested = mysqli_query($conn, "SELECT COUNT(no_sample) as totalRequested FROM sample_request WHERE status=0");
-            $fetchRequest = mysqli_fetch_object($queryCountRequested);
-            $percentRequest = number_format(($fetchRequest->totalRequested * 100) / $totalSample);
+            if ($totalSample != 0) {
 
-            $queryCountInProgress = mysqli_query($conn, "SELECT COUNT(no_sample) as inProgress FROM sample_request WHERE status=1");
-            $fetchInProgress = mysqli_fetch_object($queryCountInProgress);
-            $percentInProgress = number_format(($fetchInProgress->inProgress * 100) / $totalSample);
+                //total data sample request when status requested
+                $queryCountRequested = mysqli_query($conn, "SELECT COUNT(no_sample) as totalRequested FROM sample_request WHERE status=0");
+                $fetchRequest = mysqli_fetch_object($queryCountRequested);
+                $percentRequest = number_format(($fetchRequest->totalRequested * 100) / $totalSample);
 
-            $queryCountReady = mysqli_query($conn, "SELECT COUNT(no_sample) as ready FROM sample_request WHERE status=2");
-            $fetchReady = mysqli_fetch_object($queryCountReady);
-            $percentReady = number_format(($fetchReady->ready * 100) / $totalSample);
+                $queryCountInProgress = mysqli_query($conn, "SELECT COUNT(no_sample) as inProgress FROM sample_request WHERE status=1");
+                $fetchInProgress = mysqli_fetch_object($queryCountInProgress);
+                $percentInProgress = number_format(($fetchInProgress->inProgress * 100) / $totalSample);
 
-            $queryPickUp = mysqli_query($conn, "SELECT COUNT(no_sample) as pickUp FROM sample_request WHERE status=3");
-            $fetchPickUp = mysqli_fetch_object($queryPickUp);
-            $percentPickUp = number_format(($fetchPickUp->pickUp * 100) / $totalSample);
+                $queryCountReady = mysqli_query($conn, "SELECT COUNT(no_sample) as ready FROM sample_request WHERE status=2");
+                $fetchReady = mysqli_fetch_object($queryCountReady);
+                $percentReady = number_format(($fetchReady->ready * 100) / $totalSample);
 
-            $queryAccepted = mysqli_query($conn, "SELECT COUNT(no_sample) as acceptedBy FROM sample_request WHERE status=4");
-            $fetchAccepted = mysqli_fetch_object($queryAccepted);
-            $percentAccepted = number_format(($fetchAccepted->acceptedBy * 100) / $totalSample);
+                $queryPickUp = mysqli_query($conn, "SELECT COUNT(no_sample) as pickUp FROM sample_request WHERE status=3");
+                $fetchPickUp = mysqli_fetch_object($queryPickUp);
+                $percentPickUp = number_format(($fetchPickUp->pickUp * 100) / $totalSample);
 
-            $queryReviewed = mysqli_query($conn, "SELECT COUNT(no_sample) as reviewed FROM sample_request WHERE status=5");
-            $fetchReviewed = mysqli_fetch_object($queryReviewed);
-            $percentReviewed = number_format(($fetchReviewed->reviewed * 100) / $totalSample);
+                $queryAccepted = mysqli_query($conn, "SELECT COUNT(no_sample) as acceptedBy FROM sample_request WHERE status=4");
+                $fetchAccepted = mysqli_fetch_object($queryAccepted);
+                $percentAccepted = number_format(($fetchAccepted->acceptedBy * 100) / $totalSample);
+
+                $queryReviewed = mysqli_query($conn, "SELECT COUNT(no_sample) as reviewed FROM sample_request WHERE status=5");
+                $fetchReviewed = mysqli_fetch_object($queryReviewed);
+                $percentReviewed = number_format(($fetchReviewed->reviewed * 100) / $totalSample);
+            }
+
 
 
             ?>
-            <div class="row">
-                <div class="col-xl-3 mb-30">
-                    <div class="card-box height-100-p widget-style1">
-                        <div class="d-block p-2 px-2 align-items-center">
-                            <div class="widget-data mt-1 d-flex flex-wrap p-2 mt-2">
-                                <div class="h4 mb-0"><?= $fetchTotal->totalAll ?></div>
-                                <div class="weight-600 font-14 ml-1">All Sample Request</div>
-                            </div>
+            <?php if ($totalSample == 0) : ?>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="justify-content-center text-center mb-3">
+                            <h6 class="h6 text-primary">Data Not Found!</h6>
                         </div>
                     </div>
                 </div>
-                <div class="col-xl-3 mb-30">
-                    <div class="card-box height-100-p widget-style1">
-                        <div id="requested" name="requested" class="d-block p-2 px-2 align-items-center">
-                            <div class="progress">
-                                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: <?= $percentRequest ?>%;" aria-valuenow="<?= $percentRequest ?>" aria-valuemin="0" aria-valuemax="100"><?= $percentRequest ?> %</div>
-                            </div>
-                            <div class="widget-data mt-1 d-flex flex-wrap p-2 mt-2">
-                                <div class="h4 mb-0"><?= $fetchRequest->totalRequested ?></div>
-                                <div class="weight-600 font-14 ml-1">Requested</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-3 mb-30">
-                    <div class="card-box height-100-p widget-style1">
-                        <div class="d-block p-2 px-2 align-items-center">
-                            <div class="progress">
-                                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: <?= $percentInProgress ?>%;" aria-valuenow="<?= $percentInProgress ?>" aria-valuemin="0" aria-valuemax="100"><?= $percentInProgress ?> %</div>
-                            </div>
-                            <div class="widget-data mt-1 d-flex flex-wrap p-2 mt-2">
-                                <div class="h4 mb-0"><?= $fetchInProgress->inProgress ?></div>
-                                <div class="weight-600 font-14 ml-1">In Progress</div>
+            <?php else : ?>
+                <div class="row">
+                    <div class="col-xl-3 mb-30">
+                        <div class="card-box height-100-p widget-style1">
+                            <div class="d-block p-2 px-2 align-items-center">
+                                <div class="widget-data mt-1 d-flex flex-wrap p-2 mt-2">
+                                    <div class="h4 mb-0"><?= $fetchTotal->totalAll ?></div>
+                                    <div class="weight-600 font-14 ml-1">All Sample Request</div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-xl-3 mb-30">
-                    <div class="card-box height-100-p widget-style1">
-                        <div class="d-block p-2 px-2 align-items-center">
-                            <div class="progress">
-                                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: <?= $percentReady ?>%;" aria-valuenow="<?= $percentReady ?>" aria-valuemin="0" aria-valuemax="100"><?= $percentReady ?> %</div>
-                            </div>
-                            <div class="widget-data mt-1 d-flex flex-wrap p-2 mt-2">
-                                <div class="h4 mb-0"><?= $fetchReady->ready ?></div>
-                                <div class="weight-600 font-14 ml-1">Ready</div>
+                    <div class="col-xl-3 mb-30">
+                        <div class="card-box height-100-p widget-style1">
+                            <div id="requested" name="requested" class="d-block p-2 px-2 align-items-center">
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: <?= $percentRequest ?>%;" aria-valuenow="<?= $percentRequest ?>" aria-valuemin="0" aria-valuemax="100"><?= $percentRequest ?> %</div>
+                                </div>
+                                <div class="widget-data mt-1 d-flex flex-wrap p-2 mt-2">
+                                    <div class="h4 mb-0"><?= $fetchRequest->totalRequested ?></div>
+                                    <div class="weight-600 font-14 ml-1">Requested</div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                    <div class="col-xl-3 mb-30">
+                        <div class="card-box height-100-p widget-style1">
+                            <div class="d-block p-2 px-2 align-items-center">
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: <?= $percentInProgress ?>%;" aria-valuenow="<?= $percentInProgress ?>" aria-valuemin="0" aria-valuemax="100"><?= $percentInProgress ?> %</div>
+                                </div>
+                                <div class="widget-data mt-1 d-flex flex-wrap p-2 mt-2">
+                                    <div class="h4 mb-0"><?= $fetchInProgress->inProgress ?></div>
+                                    <div class="weight-600 font-14 ml-1">In Progress</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 mb-30">
+                        <div class="card-box height-100-p widget-style1">
+                            <div class="d-block p-2 px-2 align-items-center">
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: <?= $percentReady ?>%;" aria-valuenow="<?= $percentReady ?>" aria-valuemin="0" aria-valuemax="100"><?= $percentReady ?> %</div>
+                                </div>
+                                <div class="widget-data mt-1 d-flex flex-wrap p-2 mt-2">
+                                    <div class="h4 mb-0"><?= $fetchReady->ready ?></div>
+                                    <div class="weight-600 font-14 ml-1">Ready</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-            </div>
-            <div class="row">
-                <div class="col-xl-4 mb-30">
-                    <div class="card-box height-100-p widget-style1">
-                        <div class="d-block p-2 px-2 align-items-center">
-                            <div class="progress">
-                                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: <?= $percentPickUp ?>%;" aria-valuenow="<?= $percentPickUp ?>" aria-valuemin="0" aria-valuemax="100"><?= $percentPickUp ?> %</div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-4 mb-30">
+                        <div class="card-box height-100-p widget-style1">
+                            <div class="d-block p-2 px-2 align-items-center">
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: <?= $percentPickUp ?>%;" aria-valuenow="<?= $percentPickUp ?>" aria-valuemin="0" aria-valuemax="100"><?= $percentPickUp ?> %</div>
+                                </div>
+                                <div class="widget-data mt-1 d-flex flex-wrap p-2 mt-2">
+                                    <div class="h4 mb-0"><?= $fetchPickUp->pickUp ?></div>
+                                    <div class="weight-600 font-14 ml-1">Pick Up</div>
+                                </div>
                             </div>
-                            <div class="widget-data mt-1 d-flex flex-wrap p-2 mt-2">
-                                <div class="h4 mb-0"><?= $fetchPickUp->pickUp ?></div>
-                                <div class="weight-600 font-14 ml-1">Pick Up</div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 mb-30">
+                        <div class="card-box height-100-p widget-style1">
+                            <div class="d-block p-2 px-2 align-items-center">
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: <?= $percentAccepted ?>%;" aria-valuenow="<?= $percentAccepted ?>" aria-valuemin="0" aria-valuemax="100"><?= $percentAccepted ?> %</div>
+                                </div>
+                                <div class="widget-data mt-1 d-flex flex-wrap p-2 mt-2">
+                                    <div class="h4 mb-0"><?= $fetchAccepted->acceptedBy ?></div>
+                                    <div class="weight-600 font-14 ml-1">Accepted By Customers</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 mb-30">
+                        <div class="card-box height-100-p widget-style1">
+                            <div class="d-block p-2 px-2 align-items-center">
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: <?= $percentReviewed ?>%;" aria-valuenow="<?= $percentReviewed ?>" aria-valuemin="0" aria-valuemax="100"><?= $percentReviewed ?> %</div>
+                                </div>
+                                <div class="widget-data mt-1 d-flex flex-wrap p-2 mt-2">
+                                    <div class="h4 mb-0"><?= $fetchReviewed->reviewed ?></div>
+                                    <div class="weight-600 font-14 ml-1">Reviewed</div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-xl-4 mb-30">
-                    <div class="card-box height-100-p widget-style1">
-                        <div class="d-block p-2 px-2 align-items-center">
-                            <div class="progress">
-                                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: <?= $percentAccepted ?>%;" aria-valuenow="<?= $percentAccepted ?>" aria-valuemin="0" aria-valuemax="100"><?= $percentAccepted ?> %</div>
-                            </div>
-                            <div class="widget-data mt-1 d-flex flex-wrap p-2 mt-2">
-                                <div class="h4 mb-0"><?= $fetchAccepted->acceptedBy ?></div>
-                                <div class="weight-600 font-14 ml-1">Accepted By Customers</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-4 mb-30">
-                    <div class="card-box height-100-p widget-style1">
-                        <div class="d-block p-2 px-2 align-items-center">
-                            <div class="progress">
-                                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: <?= $percentReviewed ?>%;" aria-valuenow="<?= $percentReviewed ?>" aria-valuemin="0" aria-valuemax="100"><?= $percentReviewed ?> %</div>
-                            </div>
-                            <div class="widget-data mt-1 d-flex flex-wrap p-2 mt-2">
-                                <div class="h4 mb-0"><?= $fetchReviewed->reviewed ?></div>
-                                <div class="weight-600 font-14 ml-1">Reviewed</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <?php endif; ?>
 
 
             <div class="card-box mb-30">
                 <div class="pd-20">
-                    <h4 class="text-blue h4">Data Completed Sample Request</h4>
+                    <h4 class="text-blue h4">Data Top 10 Newest Sample Request</h4>
                 </div>
                 <div class="pb-20">
 
