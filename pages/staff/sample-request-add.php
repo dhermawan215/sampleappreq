@@ -98,7 +98,8 @@ $sample_no = $huruf . $bulanTgl . $zki . sprintf("%04s", $urutan);
                                 <div class="col-lg-4 col-md-6 col-sm-12">
                                     <div class="card-body rounded-1">
                                         <label class="font-weight-bold" for="">Requestor</label>
-                                        <input type="text" name="requestor" id="" class="form-control" value="<?= $_SESSION['user']['fname'] . ' ' .  $_SESSION['user']['lname'] ?>" readonly required>
+                                        <input type="text" name="requestor_name" id="" class="form-control" value="<?= $_SESSION['user']['fname'] . ' ' .  $_SESSION['user']['lname'] ?>" readonly required>
+                                        <input type="hidden" name="requestor" id="" class="form-control" value="<?= $_SESSION['user']['id'] ?>" readonly required>
                                     </div>
                                 </div>
                             </div>
@@ -147,7 +148,7 @@ $sample_no = $huruf . $bulanTgl . $zki . sprintf("%04s", $urutan);
                                 </div>
                             </div>
                             <div class="row mt-2 col-12">
-                                <div class="col-lg-6 col-md-6 col-sm-12">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
                                     <div class="card-body rounded-1">
                                         <label class="font-weight-bold" for="">Delivery By</label>
                                         <select name="delivery_by" id="DeliveryId" class="form-control">
@@ -158,12 +159,7 @@ $sample_no = $huruf . $bulanTgl . $zki . sprintf("%04s", $urutan);
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-lg-6 col-md-6 col-sm-12">
-                                    <div class="card-body rounded-1">
-                                        <label class="font-weight-bold" for="">Customers PO</label>
-                                        <input type="text" name="customer_po" id="" class="form-control" placeholder="input customer po" required>
-                                    </div>
-                                </div>
+
                             </div>
                             <div class="row mt-2 col-12">
                                 <div class="col-lg-6 col-md-6 col-sm-12">
@@ -238,13 +234,12 @@ $sample_no = $huruf . $bulanTgl . $zki . sprintf("%04s", $urutan);
             $delivery_date = $_POST['delivery_date'];
             $delivery_address = $_POST['delivery_address'];
             $delivery_by = $_POST['delivery_by'];
-            $customer_po = $_POST['customer_po'];
             $status = $_POST['status'];
             $sales_note = $_POST['sales_note'];
+            $cs_note = $_POST['cs_note'];
 
-            $querySaveSample = mysqli_query($conn, "INSERT INTO sample_request(no_sample, subject, requestor, id_customer, pic_customer, date_required, delivery_date, delivery_by, delivery_address, customer_po, status, sales_note)
-            VALUES('$no_sample', '$subject', '$requestor', $customers_id, '$pic_customer', '$date_required', '$delivery_date', '$delivery_by', '$delivery_address', '$customer_po', $status, '$sales_note') ");
-
+            $querySaveSample = mysqli_query($conn, "INSERT INTO sample_request(no_sample, subject, requestor, id_customer, pic_customer, date_required, delivery_date, delivery_by, delivery_address, status, sales_note, cs_note)
+            VALUES('$no_sample', '$subject', '$requestor', $customers_id, '$pic_customer', '$date_required', '$delivery_date', '$delivery_by', '$delivery_address', $status, '$sales_note', '$cs_note') ");
             if ($querySaveSample) {
                 echo "<script>
                         swal('Data Saved!', 'Click OK to continue', 'success')

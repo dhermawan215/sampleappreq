@@ -1,5 +1,18 @@
 <?php
 include('../../config/config.php');
+
+if (!isset($_SESSION['user'])) {
+    echo "<script>
+            document.location.href='/login.php';
+            </script>";
+}
+
+if ($_SESSION['user']['dept'] != 'RD') {
+    echo "<script>
+    document.location.href='/index.php';
+    </script>";
+}
+
 $fdate = $_GET['fdate'];
 $ldate = $_GET['ldate'];
 $sts = $_GET['sts'];

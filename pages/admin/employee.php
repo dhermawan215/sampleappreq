@@ -84,7 +84,7 @@ if (!isset($_SESSION['user'])) {
                                     <tr>
                                         <td class="table-plus"><?= $no++ ?></td>
                                         <td><?= $row->NIP ?></td>
-                                        <td><?= $row->FirstName ?></td>
+                                        <td><?= $row->FirstName . ' ' . $row->LastName ?></td>
                                         <td>
                                             <div class="dropdown">
                                                 <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">

@@ -113,59 +113,15 @@ if ($queryEditDataDetails->num_rows == 0) {
                             </div>
 
                             <div class="row col-12 mt-2">
-                                <div class="col-lg-6 col-md-6 col-sm-12">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
                                     <label class="font-weight-bold" for="">Qty Produk</label>
-                                    <input type="number" class="form-control" name="qty" placeholder="input qty product" value="<?= $row->qty ?>" required>
-                                </div>
-                                <div class="col-lg-6 col-md-6 col-sm-12">
-                                    <label class="font-weight-bold" for="">Unit Product</label>
-                                    <select name="unit" id="unit-produk" class="form-control custom-select" autocomplete="off" data-live-search="true" size="5" required>
-                                        <option value="<?= $row->unit ?>" selected><?= $row->unit ?></option>
-                                        <option disabled>Select Unit Product</option>
-
-                                        <?php
-                                        $queryUnit1 = mysqli_query($conn, "SELECT * FROM unit");
-                                        while ($rowUnit1 = mysqli_fetch_object($queryUnit1)) :
-                                        ?>
-                                            <option value="<?= $rowUnit1->Unit ?>"><?= $rowUnit1->Unit ?></option>
-                                        <?php endwhile ?>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="row col-12 mt-2">
-                                <div class="col-lg-6 col-md-6 col-sm-12">
-                                    <label class="font-weight-bold" for="">Qty Pack</label>
-                                    <input type="number" class="form-control" name="qty_pack" placeholder="input qty pack" value="<?= $row->qty_pack ?>" required>
-                                </div>
-                                <div class="col-lg-6 col-md-6 col-sm-12">
-                                    <label class="font-weight-bold" for="">Unit Pack</label>
-                                    <select name="unit_pack" id="unit-produk-pack" class="form-control custom-select" autocomplete="off" data-live-search="true" size="5" required>
-                                        <option value="<?= $row->unit_pack ?>" selected><?= $row->unit_pack ?></option>
-                                        <option disabled>Select Unit Pack</option>
-
-                                        <?php
-                                        $queryUnit2 = mysqli_query($conn, "SELECT * FROM unit");
-                                        while ($rowUnit2 = mysqli_fetch_object($queryUnit2)) :
-                                        ?>
-                                            <option value="<?= $rowUnit2->Unit ?>"><?= $rowUnit2->Unit ?></option>
-                                        <?php endwhile ?>
-                                    </select>
+                                    <input type="text" class="form-control" name="qty" placeholder="input qty product" value="<?= $row->qty ?>" required>
                                 </div>
                             </div>
                             <div class="row col-12 mt-2">
                                 <div class="col-lg-12 col-md-12 col-sm-12">
-                                    <label class="font-weight-bold" for="">Description</label>
-                                    <input type="text" name="deskripsi" id="" class="form-control" placeholder="input description" value="<?= $row->deskripsi ?>" required>
-                                </div>
-                            </div>
-                            <div class="row col-12 mt-2">
-                                <div class="col-lg-6 col-md-6 col-sm-12">
                                     <label class="font-weight-bold" for="">Label Name</label>
                                     <input type="text" name="nama_label" id="" class="form-control" placeholder="input label name" value="<?= $row->nama_label ?>" required>
-                                </div>
-                                <div class="col-lg-6 col-md-6 col-sm-12">
-                                    <label class="font-weight-bold" for="">Kop Surat</label>
-                                    <input type="text" name="kop_surat" id="" class="form-control" placeholder="input kop surat(opsional)" value="<?= $row->kop_surat ?>" required>
                                 </div>
                             </div>
                             <div class="row col-12 mt-3">
@@ -218,7 +174,7 @@ if ($queryEditDataDetails->num_rows == 0) {
             $kop_surat = $_POST['kop_surat'];
 
             $queryUpdateDataDetails = mysqli_query($conn, "UPDATE sample_request_details SET
-            id_sample_req=$id_sample_req, id_barang=$id_barang, qty=$qty_product, qty_pack=$qty_pack, unit='$unit_product', unit_pack='$unit_pack', nama_label='$nama_label', deskripsi='$deskripsi', kop_surat='$kop_surat'
+            id_sample_req=$id_sample_req, id_barang=$id_barang, qty='$qty_product', nama_label='$nama_label'
             WHERE id_det='$id'");
 
             if ($queryUpdateDataDetails) {

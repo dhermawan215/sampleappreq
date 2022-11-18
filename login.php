@@ -108,7 +108,8 @@ if (isset($_SESSION['user'])) {
                     'role' => $row->roles,
                     'fname' => $row->FirstName,
                     'lname' => $row->LastName,
-                    'dept' => $row->Department
+                    'dept' => $row->Department,
+                    'id' => $row->emp_id
                 ];
 
                 echo "<script>

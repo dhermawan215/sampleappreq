@@ -61,20 +61,21 @@ if (!isset($_SESSION['user'])) {
                 <!-- Simple Datatable start -->
                 <div class="card-box mb-30">
                     <div class="pd-20">
-                        <h4 class="text-blue h4">Data Customers</h4>
+                        <h4 class="text-blue h4">Data Your Customers</h4>
                     </div>
-                    <div class="pb-20">
 
+                    <div class="pb-20 pd-20">
                         <!-- query -->
                         <?php
                         $no = 1;
-                        $queryCustomer = mysqli_query($conn, "SELECT * FROM customer");
+                        $idSales = $_SESSION['user']['id'];
+                        $queryCustomer = mysqli_query($conn, "SELECT * FROM customer WHERE id_users_sales='$idSales'");
                         ?>
                         <table class="data-table table stripe hover nowrap">
                             <thead>
                                 <tr>
                                     <th class="table-plus datatable-nosort" style="width: 17px;">No</th>
-                                    <th>Customers Code</th>
+
                                     <th>Name</th>
                                     <th class="datatable-nosort">Action</th>
                                 </tr>
@@ -83,19 +84,19 @@ if (!isset($_SESSION['user'])) {
                                 <?php while ($row = mysqli_fetch_object($queryCustomer)) : ?>
                                     <tr>
                                         <td class="table-plus"><?= $no++ ?></td>
-                                        <td><?= $row->CustomerCode ?></td>
                                         <td><?= $row->CustomerName ?></td>
+
                                         <td>
                                             <div class="dropdown">
                                                 <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
                                                     <i class="dw dw-more"></i>
                                                 </a>
                                                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-                                                    <a class="dropdown-item" href="customers-edit.php?cc=<?= $row->CustomerCode ?>"><i class="dw dw-edit2"></i> Edit</a>
-                                                    <a class="dropdown-item" href="customers-detail.php?cc=<?= $row->CustomerCode ?>"><i class="dw dw dw-eye"></i>Detail</a>
+                                                    <a class="dropdown-item" href="customers-edit.php?cc=<?= $row->CustomerId ?>"><i class="dw dw-edit2"></i> Edit</a>
+                                                    <a class="dropdown-item" href="customers-detail.php?cc=<?= $row->CustomerId ?>"><i class="dw dw dw-eye"></i>Detail</a>
 
                                                     <form action="customers-delete.php" method="post" class="m-1 px-1 py-1">
-                                                        <input type="hidden" name="CustomerCode" value="<?= $row->CustomerCode ?>">
+                                                        <input type="hidden" name="CustomerCode" value="<?= $row->CustomerId ?>">
                                                         <button class="dw dw-delete-3 btn-sm btn show_confirm" name="delete" type="delete" onclick="return confirm('Apakah anda yakin ingin menghapus?')">
                                                             Delete
                                                         </button>
@@ -110,39 +111,41 @@ if (!isset($_SESSION['user'])) {
                         </table>
                     </div>
                 </div>
+
             </div>
-            <?php include('../layouts/footer.php'); ?>
-
-
         </div>
+        <?php include('../layouts/footer.php'); ?>
 
-        <!-- js -->
-        <?php include('../layouts/js.php'); ?>
-        <!-- cek session delete -->
-        <?php
-        if (isset($_SESSION['success'])) {
-            echo "<script>
+
+    </div>
+
+    <!-- js -->
+    <?php include('../layouts/js.php'); ?>
+    <!-- cek session delete -->
+    <?php
+    if (isset($_SESSION['success'])) {
+        echo "<script>
                         swal('Data was deleted', 'Click OK to continue', 'success');
                         </script>";
-            unset($_SESSION['success']);
-        }
-        //cek sesion data kosong
-        if (isset($_SESSION['danger'])) {
-            echo "<script>
+        unset($_SESSION['success']);
+    }
+    //cek sesion data kosong
+    if (isset($_SESSION['danger'])) {
+        echo "<script>
                         swal('Sory, Something Went Wrong', 'Click OK to continue', 'success');
                         </script>";
-            unset($_SESSION['danger']);
-        }
-        //cek sesion data tidak ada di db
-        if (isset($_SESSION['warning'])) {
-            echo "<script>
+        unset($_SESSION['danger']);
+    }
+    //cek sesion data tidak ada di db
+    if (isset($_SESSION['warning'])) {
+        echo "<script>
                         swal('Sory, Data Not Found', 'Click OK to continue', 'success');
                         </script>";
-            unset($_SESSION['warning']);
-        }
+        unset($_SESSION['warning']);
+    }
 
 
-        ?>
+    ?>
 </body>
 
 </html>

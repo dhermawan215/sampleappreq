@@ -20,7 +20,7 @@ if (isset($_GET["cc"]) == null) {
 }
 
 $code_sample = $_GET["cc"];
-$queryDetailData = mysqli_query($conn, "SELECT * FROM sample_request INNER JOIN customer ON sample_request.id_customer=customer.CustomerId WHERE no_sample='$code_sample'");
+$queryDetailData = mysqli_query($conn, "SELECT * FROM sample_request INNER JOIN customer ON sample_request.id_customer=customer.CustomerId JOIN tblemployees ON sample_request.requestor=tblemployees.emp_id  WHERE no_sample='$code_sample'");
 $row = mysqli_fetch_object($queryDetailData);
 
 if ($queryDetailData->num_rows == 0) {
@@ -98,7 +98,7 @@ if ($queryDetailData->num_rows == 0) {
                             </div>
                             <div class="col-lg-4 col-md-6 col-sm-12">
                                 <div class="card-body border rounded-1">
-                                    Requestor: <?= $row->requestor ?>
+                                    Requestor: <?= $row->FirstName ?> <span></span><?= $row->LastName ?>
                                 </div>
                             </div>
                         </div>
@@ -158,18 +158,14 @@ if ($queryDetailData->num_rows == 0) {
                                 </div>
                             </div>
 
-                            <div class="col-lg-6 col-md-6 col-sm-12">
-                                <div class="card-body border rounded-1">
-                                    Customers PO: <?= $row->customer_po ?>
-                                </div>
-                            </div>
+
                         </div>
                         <div class="row col-12 mt-2">
                             <?php
                             $status =  $row->status;
                             switch ($status) {
                                 case 1:
-                                    $status_messages = "In Progress";
+                                    $status_messages = "Confirm";
                                     break;
                                 case 2:
                                     $status_messages = "Ready";

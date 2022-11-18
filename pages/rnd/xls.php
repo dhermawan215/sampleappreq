@@ -1,10 +1,24 @@
 <?php
 include('../../config/config.php');
+
+if (!isset($_SESSION['user'])) {
+    echo "<script>
+            document.location.href='/login.php';
+            </script>";
+}
+
+if ($_SESSION['user']['dept'] != 'RD') {
+    echo "<script>
+    document.location.href='/index.php';
+    </script>";
+}
+
+
 $fdate = $_GET['fdate'];
 $ldate = $_GET['ldate'];
 $sts = $_GET['sts'];
-header("Content-type: application/vnd-ms-excel");
-header("Content-Disposition: attachment; filename=Report-All-Sample-Request (" . date('dmY') . ").xls");
+// header("Content-type: application/vnd-ms-excel");
+// header("Content-Disposition: attachment; filename=Report-All-Sample-Request (" . date('dmY') . ").xls");
 
 ?>
 <!DOCTYPE html>
@@ -76,7 +90,6 @@ header("Content-Disposition: attachment; filename=Report-All-Sample-Request (" .
     sample_request.status, 
     customer.CustomerName, 
     sample_request_details.qty,
-    sample_request_details.unit,
     inventory.InvName 
     FROM sample_request JOIN customer ON sample_request.id_customer=customer.CustomerId 
     JOIN sample_request_details on sample_request.id=sample_request_details.id_sample_req 
@@ -140,7 +153,7 @@ header("Content-Disposition: attachment; filename=Report-All-Sample-Request (" .
                     $status =  $row->status;
                     switch ($status) {
                         case 1:
-                            $status_messages = "In Progress";
+                            $status_messages = "Confirm";
                             break;
                         case 2:
                             $status_messages = "Ready";
@@ -167,7 +180,6 @@ header("Content-Disposition: attachment; filename=Report-All-Sample-Request (" .
                     <td><?= $status_messages ?></td>
                     <td><?= $row->CustomerName ?></td>
                     <td><?= $row->qty ?></td>
-                    <td><?= $row->unit ?></td>
                     <td><?= $row->InvName ?></td>
 
                 </tr>

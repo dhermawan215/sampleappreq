@@ -78,7 +78,7 @@
 
 <div class="left-side-bar">
     <div class="brand-logo">
-        <a href="index.html">
+        <a href="/">
             <img src="../../public/img/new.png" alt="" class="dark-logo" />
             <img src="../../public/img/new.png" alt="" class="light-logo" />
         </a>
@@ -109,6 +109,15 @@
 
                         </ul>
                     </li>
+                    <li class="dropdown">
+                        <a href="javascript:;" class="dropdown-toggle">
+                            <span class="micon bi bi-back"></span><span class="mtext">Customers</span>
+                        </a>
+                        <ul class="submenu">
+                            <li><a href="/pages/admin/customers.php">Your Dashboard</a></li>
+                            <li><a href="/pages/admin/customers-all.php">Customers Dashboard</a></li>
+                        </ul>
+                    </li>
                 <?php elseif ($_SESSION['user']['dept'] == 'RD') : ?>
                     <div class="sidebar-small-cap m-2">R&D Menu</div>
                     <li class="dropdown">
@@ -119,16 +128,12 @@
                             <li><a href="/pages/rnd/sample-request.php">Dashboard</a></li>
                         </ul>
                     </li>
-                    <div class="sidebar-small-cap m-2">Customer</div>
                     <li class="dropdown">
                         <a href="javascript:;" class="dropdown-toggle">
-                            <span class="micon bi bi-file-earmark-text"></span><span class="mtext">Additional Pages</span>
+                            <span class="micon bi bi-file-earmark-text"></span><span class="mtext">Product</span>
                         </a>
                         <ul class="submenu">
-                            <li><a href="video-player.html">Video Player</a></li>
-                            <li><a href="login.html">Login</a></li>
-                            <li><a href="forgot-password.html">Forgot Password</a></li>
-                            <li><a href="reset-password.html">Reset Password</a></li>
+                            <li><a href="/pages/admin/produk.php">Dashboard Produk</a></li>
                         </ul>
                     </li>
                 <?php elseif ($_SESSION['user']['role'] == 'Admin') : ?>
@@ -153,14 +158,7 @@
                             <li><a href="/pages/admin/departemen.php">Dashboard</a></li>
                         </ul>
                     </li>
-                    <li class="dropdown">
-                        <a href="javascript:;" class="dropdown-toggle">
-                            <span class="micon bi bi-back"></span><span class="mtext">Customers</span>
-                        </a>
-                        <ul class="submenu">
-                            <li><a href="/pages/admin/customers.php">Dashboard</a></li>
-                        </ul>
-                    </li>
+
 
                     <li class="dropdown">
                         <a href="javascript:;" class="dropdown-toggle">

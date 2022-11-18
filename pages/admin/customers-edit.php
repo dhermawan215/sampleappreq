@@ -16,7 +16,7 @@ if (isset($_GET['cc']) == null) {
 }
 
 $code = $_GET["cc"];
-$queryDetails = mysqli_query($conn, "SELECT * FROM customer WHERE CustomerCode='$code'");
+$queryDetails = mysqli_query($conn, "SELECT * FROM customer WHERE CustomerId='$code'");
 $row = mysqli_fetch_object($queryDetails);
 //jika data di db kosong
 if ($queryDetails->num_rows == 0) {
@@ -86,113 +86,16 @@ if ($queryDetails->num_rows == 0) {
                         <form action="" method="post">
                             <input type="hidden" name="CustomerId" value="<?= $row->CustomerId ?>">
                             <div class="row col-12">
-                                <div class="col-lg-3 col-md-6 col-sm-12">
-                                    <div class="card-body rounded-1">
-                                        <label for="">Customers Code</label>
-                                        <input type="text" name="CustomerCode" id="" class="form-control" placeholder="last customers code: " value="<?= $row->CustomerCode ?>">
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-md-6 col-sm-12">
+
+                                <div class="col-lg-12 col-md-12 col-sm-12">
                                     <div class="card-body rounded-1">
                                         <label for="">Customers Name</label>
                                         <input type="text" name="CustomerName" id="" class="form-control" placeholder="input customers name" value="<?= $row->CustomerName ?>">
                                     </div>
                                 </div>
-                                <div class="col-lg-3 col-md-6 col-sm-12">
-                                    <div class="card-body rounded-1">
-                                        <label for="">Customers City</label>
-                                        <input type="text" name="CustomerCity" id="" class="form-control" placeholder="input customers city" value="<?= $row->CustomerCity ?>">
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-md-6 col-sm-12">
-                                    <div class="card-body rounded-1">
-                                        <label for="">Customers Country</label>
-                                        <input type="text" name="CustomerCountry" id="" class="form-control" placeholder="input customers Country" value="<?= $row->CustomerCountry ?>">
-                                    </div>
-                                </div>
+
                             </div>
-                            <div class="row col-12 mt-2">
-                                <div class="col-lg-12 col-md-12 col-sm-12">
-                                    <div class="card-body rounded-1">
-                                        <label for="">Customers Address</label>
-                                        <input type="text" name="CustomerAddress" id="" class="form-control" placeholder="input customers address" value="<?= $row->CustomerAddress ?>">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row col-12 mt-2">
-                                <div class="col-lg-3 col-md-6 col-sm-12">
-                                    <div class="card-body rounded-1">
-                                        <label for="">Customers ZipCode</label>
-                                        <input type="text" name="Zipcode" id="" class="form-control" placeholder="input customers zipcode" value="<?= $row->Zipcode ?>">
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-md-6 col-sm-12">
-                                    <div class="card-body rounded-1">
-                                        <label for="">Contact Person 1</label>
-                                        <input type="text" name="ContactPerson1" id="" class="form-control" placeholder="input customers contact person" value="<?= $row->ContactPerson1 ?>">
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-md-6 col-sm-12">
-                                    <div class="card-body rounded-1">
-                                        <label for="">Contact Person 2</label>
-                                        <input type="text" name="ContactPerson2" id="" class="form-control" placeholder="input customers contact person" value="<?= $row->ContactPerson2 ?>">
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-md-6 col-sm-12">
-                                    <div class="card-body rounded-1">
-                                        <label for="">Customers Phone 1</label>
-                                        <input type="text" name="Phone1" id="" class="form-control" placeholder="input customers phone" value="<?= $row->Phone1 ?>">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row col-12 mt-2">
-                                <div class="col-lg-3 col-md-6 col-sm-12">
-                                    <div class="card-body rounded-1">
-                                        <label for="">Customers Phone 2</label>
-                                        <input type="text" name="Phone2" id="" class="form-control" placeholder="input customers phone" value="<?= $row->Phone2 ?>">
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-md-6 col-sm-12">
-                                    <div class="card-body rounded-1">
-                                        <label for="">Customers Fax</label>
-                                        <input type="text" name="Fax" id="" class="form-control" placeholder="input customers fax" value="<?= $row->Fax ?>">
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-md-6 col-sm-12">
-                                    <div class="card-body rounded-1">
-                                        <label for="">Customers Email</label>
-                                        <input type="email" name="Email" id="" class="form-control" placeholder="input customers email" value="<?= $row->Email ?>">
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-md-6 col-sm-12">
-                                    <div class="card-body rounded-1">
-                                        <label for="">AcAR</label>
-                                        <input type="text" name="AcAR" id="" class="form-control" placeholder="input AcAR" value="<?= $row->AcAR ?>">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row mt-2 col-12">
-                                <div class="col-lg-12 col-md-12 col-sm-12">
-                                    <div class="card-body rounded-1">
-                                        <label for="">Customers Tax Address</label>
-                                        <input type="text" name="TaxAddress" id="" class="form-control" placeholder="input customers tax address" value="<?= $row->TaxAddress ?>">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row mt-2 col-12">
-                                <div class="col-lg-6 col-md-6 col-sm-12">
-                                    <div class="card-body rounded-1">
-                                        <label for="">NPWP</label>
-                                        <input type="text" name="NPWP" id="" class="form-control" placeholder="input customers npwp" value="<?= $row->NPWP ?>">
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 col-md-6 col-sm-12">
-                                    <div class="card-body rounded-1">
-                                        <label for="">Profit Center No</label>
-                                        <input type="text" name="ProfitCenterNo" id="" class="form-control" placeholder="input profit center no" value="<?= $row->ProfitCenterNo ?>">
-                                    </div>
-                                </div>
-                            </div>
+
                             <div class="row col-12">
                                 <div class="col-lg-6 col-md-6 col-sm-12 d-flex m-2 p-2">
                                     <div class="card-body d-flex">
@@ -216,42 +119,12 @@ if ($queryDetails->num_rows == 0) {
         <?php
         if (isset($_POST['update'])) {
             $id = $_POST['CustomerId'];
-            $CustomerCode = htmlspecialchars($_POST['CustomerCode']);
+
             $CustomerName = htmlspecialchars($_POST['CustomerName']);
-            $CustomerCity = htmlspecialchars($_POST['CustomerCity']);
-            $CustomerCountry = htmlspecialchars($_POST['CustomerCountry']);
-            $CustomerAddress = htmlspecialchars($_POST['CustomerAddress']);
-            $Zipcode = htmlspecialchars($_POST['Zipcode']);
-            $cp1 = htmlspecialchars($_POST['ContactPerson1']);
-            $cp2 = htmlspecialchars($_POST['ContactPerson2']);
-            $phone1 = htmlspecialchars($_POST['Phone1']);
-            $phone2 = htmlspecialchars($_POST['Phone2']);
-            $fax = htmlspecialchars($_POST['Fax']);
-            $email = htmlspecialchars($_POST['Email']);
-            $AcAR = htmlspecialchars($_POST['AcAR']);
-            $taxAddress = htmlspecialchars($_POST['TaxAddress']);
-            $npwp = htmlspecialchars($_POST['NPWP']);
-            $pfNO = htmlspecialchars($_POST['ProfitCenterNo']);
 
             $querySave = mysqli_query(
                 $conn,
-                "UPDATE customer SET CustomerCode='$CustomerCode',
-                CustomerName='$CustomerName',
-                CustomerAddress='$CustomerAddress',
-                CustomerCity='$CustomerCity',
-                CustomerCountry='$CustomerCountry',
-                Zipcode='$Zipcode',
-                ContactPerson1='$cp1',
-                ContactPerson2='$cp2',
-                Phone1='$phone1',
-                Phone2='$phone2',
-                Fax='$fax',
-                Email='$email',
-                AcAR='$AcAR',
-                NPWP='$npwp',
-                TaxAddress='$taxAddress',
-                ProfitCenterNo='$pfNO' 
-                WHERE CustomerId='$id'"
+                "UPDATE customer SET CustomerName='$CustomerName' WHERE CustomerId='$id'"
             );
 
             if ($querySave) {

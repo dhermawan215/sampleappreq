@@ -147,7 +147,15 @@ if ($queryDetails->num_rows == 0) {
                                 <div class="col-lg-12 col-md-12 col-sm-12">
                                     <div class="card-body rounded-1">
                                         <label for="">Address</label>
-                                        <input type="text" name="Address" id="" class="form-control" placeholder="input address" value="<?= $row->Address ?>">
+                                        <input type="text" name="email" id="" class="form-control" placeholder="input address" value="<?= $row->Address ?>">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-2 col-12">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <div class="card-body rounded-1">
+                                        <label for="">Email</label>
+                                        <input type="email" name="Address" id="" class="form-control" placeholder="input address" value="<?= $row->EmailId ?>">
                                     </div>
                                 </div>
                             </div>
@@ -189,6 +197,7 @@ if ($queryDetails->num_rows == 0) {
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST' || isset($_POST['update'])) {
             $emp_id = $code;
+            $email = $_POST['email'];
             $NIP = htmlspecialchars($_POST['NIP']);
             $FirstName = htmlspecialchars($_POST['FirstName']);
             $LastName = htmlspecialchars($_POST['LastName']);
@@ -203,7 +212,7 @@ if ($queryDetails->num_rows == 0) {
 
             $queryUpdateData = mysqli_query($conn, "UPDATE tblemployees SET
             NIP='$NIP', FirstName='$FirstName', LastName='$LastName',
-            NickName='$NickName', Gender='$Gender', Dob='$Dob', Department='$Department',
+            NickName='$NickName', EmailId='$email', Gender='$Gender', Dob='$Dob', Department='$Department',
             Address='$Address', Phonenumber='$Phonenumber', roles='$roles'
             WHERE emp_id='$emp_id'");
 

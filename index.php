@@ -230,7 +230,7 @@ if (!isset($_SESSION['user'])) {
                                         $status =  $row->status;
                                         switch ($status) {
                                             case 1:
-                                                $status_messages = "In Progress";
+                                                $status_messages = "Confirm";
                                                 $color = "text-warning";
                                                 break;
                                             case 2:

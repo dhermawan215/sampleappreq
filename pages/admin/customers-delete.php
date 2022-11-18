@@ -7,7 +7,8 @@ if (isset($_POST['delete'])) {
     $CustomersCode = $_POST['CustomerCode'];
 
     // query delete data
-    $queryDelete = mysqli_query($conn, "DELETE FROM customer WHERE CustomerCode='$CustomersCode'");
+    $queryDelete = mysqli_query($conn, "DELETE FROM customer WHERE CustomerId=$CustomersCode");
+    $queryDelete = mysqli_query($conn, "DELETE FROM customerS_detail WHERE customers_id=$CustomersCode");
     if ($queryDelete != false) {
         $_SESSION['success'] = [
             "message" => "Data Was Deleted"

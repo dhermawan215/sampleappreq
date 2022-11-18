@@ -94,7 +94,7 @@ if ($queryEditData->num_rows == 0) {
                                 $status =  $row->status;
                                 switch ($status) {
                                     case 1:
-                                        $status_messages = "In Progress";
+                                        $status_messages = "Confirm";
                                         break;
                                     case 2:
                                         $status_messages = "Ready";
@@ -132,7 +132,7 @@ if ($queryEditData->num_rows == 0) {
                                         <div class="form-check">
 
                                             <input class="form-check-input" type="radio" name="status" id="flexRadioDefault2" value="1" />
-                                            <label class="form-check-label" for="flexRadioDefault2"> IN PROGRESS </label>
+                                            <label class="form-check-label" for="flexRadioDefault2"> Confirm </label>
                                         </div>
                                     <?php elseif ($_SESSION['user']['dept'] == 'RD' && $row->status == 1) : ?>
                                         <label for="">Select Sample Request Status</label>
