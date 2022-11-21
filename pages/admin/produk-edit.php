@@ -14,7 +14,7 @@ if (isset($_GET["cc"]) == null) {
 }
 
 $id = $_GET["cc"];
-$queryEdit = mysqli_query($conn, "SELECT * FROM inventory WHERE InvId='$id'");
+$queryEdit = mysqli_query($conn, "SELECT * FROM products WHERE id_product='$id'");
 $rowData = mysqli_fetch_object($queryEdit);
 
 //jika data di db kosong
@@ -82,72 +82,28 @@ if ($queryEdit->num_rows == 0) {
                     <div class="pd-20">
                         <form action="" method="POST">
                             <div class="row col-12">
-                                <input type="hidden" name="InvId" value="<?= $rowData->InvId ?>">
-                                <div class="col-lg-4 col-md-6 col-sm-12">
+                                <input type="hidden" name="InvId" value="<?= $rowData->id_product ?>">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
                                     <div class="card-body rounded-1">
-                                        <label for="">Part No</label>
-                                        <input type="text" name="PartNo" id="" class="form-control" placeholder="input part number" value="<?= $rowData->PartNo ?>">
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-6 col-sm-12">
-                                    <div class="card-body rounded-1">
-                                        <label for="">Product Name</label>
-                                        <input type="text" name="InvName" id="" class="form-control" placeholder="input product name" value="<?= $rowData->InvName ?>">
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-6 col-sm-12">
-                                    <div class="card-body rounded-1">
-                                        <label for="">Inventory Other Name</label>
-                                        <input type="text" name="InvOtherName" id="" class="form-control" placeholder="input other name" value="<?= $rowData->InvOtherName ?>">
+                                        <label for="">Kode Produk</label>
+                                        <input type="text" name="kode_produk" id="" class="form-control" placeholder="input product name" value="<?= $rowData->kode_produk ?>">
                                     </div>
                                 </div>
                             </div>
 
                             <div class="row col-12 mt-2">
-                                <div class="col-lg-4 col-md-6 col-sm-12">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
                                     <div class="card-body rounded-1">
-                                        <?php
-                                        //query select departemen
-                                        $queryDept = mysqli_query($conn, "SELECT * FROM unit");
-                                        ?>
-                                        <label for="">Unit</label>
-                                        <select name="Unit1" id="" class="form-control">
-                                            <option selected value="<?= $rowData->Unit1 ?>"><?= $rowData->Unit1 ?></option>
-                                            <option value="">select</option>
-                                            <?php while ($row = mysqli_fetch_object($queryDept)) : ?>
-                                                <option value="<?= $row->Unit ?>"><?= $row->Unit ?></option>
-                                            <?php endwhile; ?>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-6 col-sm-12">
-                                    <div class="card-body rounded-1">
-                                        <label for="">Weight</label>
-                                        <input type="number" name="Weight" id="" class="form-control" placeholder="input date of birth" value="<?= $rowData->Weight ?>">
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-6 col-sm-12">
-                                    <div class="card-body rounded-1">
-                                        <?php
-                                        //query select departemen
-                                        $queryDept = mysqli_query($conn, "SELECT * FROM unit");
-                                        ?>
-                                        <label for="">Unit Pack</label>
-                                        <select name="UnitPack" id="" class="form-control">
-                                            <option value="<?= $rowData->UnitPack ?>"><?= $rowData->UnitPack ?></option>
-                                            <option value="">select</option>
-                                            <?php while ($row = mysqli_fetch_object($queryDept)) : ?>
-                                                <option value="<?= $row->Unit ?>"><?= $row->Unit ?></option>
-                                            <?php endwhile; ?>
-                                        </select>
+                                        <label for="">Fungsi</label>
+                                        <input type="text" name="fungsi" id="" class="form-control" placeholder="input date of birth" value="<?= $rowData->fungsi ?>">
                                     </div>
                                 </div>
                             </div>
                             <div class="row mt-2 col-12">
                                 <div class="col-lg-12 col-md-12 col-sm-12">
                                     <div class="card-body rounded-1">
-                                        <label for="">Description</label>
-                                        <textarea name="Description" class="form-control" id="" cols="30" rows="10" placeholder="input description of product"><?= $rowData->Description ?></textarea>
+                                        <label for="">Aplikasi</label>
+                                        <input type="text" name="aplikasi" value="<?= $rowData->aplikasi ?>" id="" class="form-control">
                                     </div>
                                 </div>
                             </div>
@@ -173,18 +129,11 @@ if ($queryEdit->num_rows == 0) {
 
         <?php
         if (isset($_POST['update']) && $_SERVER['REQUEST_METHOD'] == 'POST') {
-            $part_no = $_POST['PartNo'];
-            $product_name = $_POST['InvName'];
-            $other_name = $_POST['InvOtherName'];
-            $unit = $_POST['Unit1'];
-            $unit_pack = $_POST['UnitPack'];
-            $weight = $_POST['Weight'];
-            $desc = $_POST['Description'];
-            $InvId = $_POST['InvId'];
+            $code = $_POST['kode_produk'];
+            $fungsi = $_POST['fungsi'];
+            $aplikasi = $_POST['aplikasi'];
 
-            $queryUpdate = mysqli_query($conn, "UPDATE inventory SET PartNo='$part_no',
-            InvName='$product_name', InvOtherName='$other_name', Unit1='$unit', UnitPack='$unit_pack', Weight='$weight',
-            Description='$desc' WHERE InvId='$id'");
+            $queryUpdate = mysqli_query($conn, "UPDATE products SET kode_produk='$code', fungsi='$fungsi', aplikasi='$aplikasi' WHERE id_product='$id'");
             if ($queryUpdate) {
                 echo "<script>
                         swal('Data was updated!', 'Click OK to continue', 'success')

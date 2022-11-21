@@ -5,7 +5,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete'])) {
     session_start();
     $id = $_POST['InvId'];
 
-    $queryDelete = mysqli_query($conn, "DELETE FROM inventory WHERE InvId='$id'");
+    $queryDelete = mysqli_query($conn, "DELETE FROM products WHERE id_product='$id'");
 
     if ($queryDelete != false) {
         $_SESSION['success'] = [

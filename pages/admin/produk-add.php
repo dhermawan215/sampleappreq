@@ -65,69 +65,26 @@ if (!isset($_SESSION['user'])) {
                     <div class="pd-20">
                         <form action="" method="POST">
                             <div class="row col-12">
-                                <div class="col-lg-4 col-md-6 col-sm-12">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
                                     <div class="card-body rounded-1">
-                                        <label for="">Part No</label>
-                                        <input type="text" name="PartNo" id="" class="form-control" placeholder="input part number" required>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-6 col-sm-12">
-                                    <div class="card-body rounded-1">
-                                        <label for="">Product Name</label>
-                                        <input type="text" name="InvName" id="" class="form-control" placeholder="input product name" required>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-6 col-sm-12">
-                                    <div class="card-body rounded-1">
-                                        <label for="">Inventory Other Name</label>
-                                        <input type="text" name="InvOtherName" id="" class="form-control" placeholder="input other name" required>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row col-12 mt-2">
-                                <div class="col-lg-4 col-md-6 col-sm-12">
-                                    <div class="card-body rounded-1">
-                                        <?php
-                                        //query select departemen
-                                        $queryDept = mysqli_query($conn, "SELECT * FROM unit");
-                                        ?>
-                                        <label for="">Unit</label>
-                                        <select name="Unit1" id="" class="form-control selectpicker" data-live-search="true">
-                                            <option value="">select</option>
-                                            <?php while ($row = mysqli_fetch_object($queryDept)) : ?>
-                                                <option value="<?= $row->Unit ?>"><?= $row->Unit ?></option>
-                                            <?php endwhile; ?>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-6 col-sm-12">
-                                    <div class="card-body rounded-1">
-                                        <label for="">Weight</label>
-                                        <input type="number" name="Weight" id="" class="form-control" placeholder="input weight of product">
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-6 col-sm-12">
-                                    <div class="card-body rounded-1">
-                                        <?php
-                                        //query select departemen
-                                        $queryDept = mysqli_query($conn, "SELECT * FROM unit");
-                                        ?>
-                                        <label for="">Unit Pack</label>
-                                        <select name="UnitPack" id="" class="form-control selectpicker" data-live-search="true">
-                                            <option value="">select</option>
-                                            <?php while ($row = mysqli_fetch_object($queryDept)) : ?>
-                                                <option value="<?= $row->Unit ?>"><?= $row->Unit ?></option>
-                                            <?php endwhile; ?>
-                                        </select>
+                                        <label for="">Kode Produk</label>
+                                        <input type="text" name="kode_produk" id="" class="form-control" placeholder="input kode produk" required>
                                     </div>
                                 </div>
                             </div>
                             <div class="row mt-2 col-12">
                                 <div class="col-lg-12 col-md-12 col-sm-12">
                                     <div class="card-body rounded-1">
-                                        <label for="">Description</label>
-                                        <textarea name="Description" class="form-control" id="" cols="30" rows="10" placeholder="input description of product"></textarea>
+                                        <label for="">Fungsi</label>
+                                        <input type="text" name="fungsi" id="" class="form-control" placeholder="input fungsi produk">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-2 col-12">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <div class="card-body rounded-1">
+                                        <label for="">Aplikasi</label>
+                                        <input type="text" name="aplikasi" id="" class="form-control" placeholder="input aplikasi ">
                                     </div>
                                 </div>
                             </div>
@@ -153,16 +110,11 @@ if (!isset($_SESSION['user'])) {
 
         <?php
         if (isset($_POST['save'])) {
-            $part_no = $_POST['PartNo'];
-            $product_name = $_POST['InvName'];
-            $other_name = $_POST['InvOtherName'];
-            $unit = $_POST['Unit1'];
-            $unit_pack = $_POST['UnitPack'];
-            $weight = $_POST['Weight'];
-            $desc = $_POST['Description'];
+            $code = $_POST['kode_produk'];
+            $fungsi = $_POST['fungsi'];
+            $aplikasi = $_POST['aplikasi'];
 
-            $querySave = mysqli_query($conn, "INSERT INTO inventory(PartNo, InvName, InvOtherName, Unit1, UnitPack, Weight, Description)
-            VALUES('$part_no', '$product_name', '$other_name', '$unit', '$unit_pack', $weight, '$desc')");
+            $querySave = mysqli_query($conn, "INSERT INTO products(kode_produk, fungsi, aplikasi) VALUES('$code', '$fungsi', '$aplikasi')");
 
             if ($querySave) {
                 echo "<script>

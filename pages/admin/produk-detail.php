@@ -15,7 +15,7 @@ if (isset($_GET["cc"]) == null) {
 }
 
 $code = $_GET["cc"];
-$queryDetails = mysqli_query($conn, "SELECT * FROM inventory WHERE InvId='$code'");
+$queryDetails = mysqli_query($conn, "SELECT * FROM products WHERE id_product='$code'");
 $row = mysqli_fetch_object($queryDetails);
 
 //jika data di url tidak ada di db
@@ -78,51 +78,33 @@ if ($queryDetails->num_rows == 0) {
                 <!-- Simple Datatable start -->
                 <div class="card-box mb-30">
                     <div class="pd-20">
-                        <h4 class="text-blue h4">Detail Inventory produk </h4>
+                        <h4 class="text-blue h4">Detail data produk: <?= $row->kode_produk ?> </h4>
                         <h5><a href="/pages/admin/produk.php" class="text-danger m-2"><i class="bi bi-arrow-left-circle"></i> Back</a></h5>
                     </div>
                     <div class="pd-20">
                         <div class="row col-12">
-                            <div class="col-lg-4 col-md-6 col-sm-12">
+                            <div class="col-lg-12 col-md-6 col-sm-12">
                                 <div class="card-body border rounded-1">
-                                    Part No: <?= $row->PartNo ?>
+                                    Kode Produk: <?= $row->kode_produk ?>
                                 </div>
                             </div>
-                            <div class="col-lg-4 col-md-6 col-sm-12">
-                                <div class="card-body border rounded-1">
-                                    Name: <?= $row->InvName ?>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-6 col-sm-12">
-                                <div class="card-body border rounded-1">
-                                    Other Name: <?= $row->InvOtherName ?>
-                                </div>
-                            </div>
+
                         </div>
                         <div class="row col-12 mt-2">
                             <div class="col-lg-12 col-md-12 col-sm-12">
                                 <div class="card-body border rounded-1">
-                                    Description: <?= $row->Description ?>
+                                    fungsi: <?= $row->fungsi ?>
                                 </div>
                             </div>
                         </div>
 
                         <div class="row col-12 mt-2">
-                            <div class="col-lg-4 col-md-6 col-sm-12">
+                            <div class="col-lg-12 col-md-12 col-sm-12">
                                 <div class="card-body border rounded-1">
-                                    Unit: <?= $row->Unit1 ?>
+                                    Aplikasi: <?= $row->aplikasi ?>
                                 </div>
                             </div>
-                            <div class="col-lg-4 col-md-6 col-sm-12">
-                                <div class="card-body border rounded-1">
-                                    Unit Pack: <?= $row->UnitPack ?>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-6 col-sm-12">
-                                <div class="card-body border rounded-1">
-                                    Weight: <?= $row->Weight ?>
-                                </div>
-                            </div>
+
                         </div>
 
 

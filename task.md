@@ -18,3 +18,6 @@
 
 ----> update 1.0.1
 .optimasi halaman index(jika data kosong maka tampilan progress bar off)
+
+---> update 1.0.2
+.update dan perbaikan fitur amin produk untuk rnd dept
