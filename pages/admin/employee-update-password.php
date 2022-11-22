@@ -9,6 +9,12 @@ if (!isset($_SESSION['user'])) {
             </script>";
 }
 
+if ($_SESSION['user']['dept'] != 'IT') {
+    echo "<script>
+    document.location.href='/';
+    </script>";
+}
+
 if (isset($_GET["cc"]) == null) {
     echo "<script>
     document.location.href='/pages/admin/employee.php';

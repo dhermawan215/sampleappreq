@@ -147,7 +147,7 @@ if ($queryDetails->num_rows == 0) {
                                 <div class="col-lg-12 col-md-12 col-sm-12">
                                     <div class="card-body rounded-1">
                                         <label for="">Address</label>
-                                        <input type="text" name="email" id="" class="form-control" placeholder="input address" value="<?= $row->Address ?>">
+                                        <input type="text" name="Address" id="" class="form-control" placeholder="input address" value="<?= $row->Address ?>">
                                     </div>
                                 </div>
                             </div>
@@ -155,7 +155,7 @@ if ($queryDetails->num_rows == 0) {
                                 <div class="col-lg-12 col-md-12 col-sm-12">
                                     <div class="card-body rounded-1">
                                         <label for="">Email</label>
-                                        <input type="email" name="Address" id="" class="form-control" placeholder="input address" value="<?= $row->EmailId ?>">
+                                        <input type="email" name="email" id="" class="form-control" placeholder="input address" value="<?= $row->EmailId ?>">
                                     </div>
                                 </div>
                             </div>

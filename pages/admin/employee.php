@@ -7,6 +7,12 @@ if (!isset($_SESSION['user'])) {
             </script>";
 }
 
+if ($_SESSION['user']['dept'] != 'IT') {
+    echo "<script>
+    document.location.href='/';
+    </script>";
+}
+
 
 ?>
 <!DOCTYPE html>
