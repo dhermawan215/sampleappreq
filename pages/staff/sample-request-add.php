@@ -110,7 +110,8 @@ $sample_no = $huruf . $bulanTgl . $zki . sprintf("%04s", $urutan);
                                         <select name="id_customer" id="id_customer" class="custom-select form-control" data-live-search="true" required>
                                             <option disabled selected>Select Customers</option>
                                             <?php
-                                            $dataCustomers = mysqli_query($conn, "SELECT * FROM customer");
+                                            $id_users = $_SESSION['user']['id'];
+                                            $dataCustomers = mysqli_query($conn, "SELECT * FROM customer WHERE id_users_sales='$id_users'");
                                             while ($rowCustomers = mysqli_fetch_object($dataCustomers)) : ?>
                                                 <option value="<?= $rowCustomers->CustomerId ?>"><?= $rowCustomers->CustomerName ?></option>
                                             <?php endwhile; ?>
@@ -120,19 +121,24 @@ $sample_no = $huruf . $bulanTgl . $zki . sprintf("%04s", $urutan);
                                 </div>
                             </div>
                             <div class="row col-12 mt-2">
-                                <div class="col-lg-4 col-md-6 col-sm-12">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
                                     <div class="card-body rounded-1">
-                                        <label class="font-weight-bold" for="">Customers Recipient</label>
-                                        <input type="text" name="pic_customer" id="" class="form-control" placeholder="input customer recipient" required>
+                                        <label class="font-weight-bold" for="pic_customer">Customers Recipient</label>
+                                        <select name="pic_customer" id="pic_customer" class="custom-select form-control">
+                                            <option selected>-Select Recipient-</option>
+                                        </select>
                                     </div>
                                 </div>
-                                <div class="col-lg-4 col-md-6 col-sm-12">
+
+                            </div>
+                            <div class="row col-12 mt-2">
+                                <div class="col-lg-6 col-md-6 col-sm-12">
                                     <div class="card-body rounded-1">
                                         <label class="font-weight-bold" for="">Date Required</label>
                                         <input type="date" name="date_required" id="" class="form-control" required>
                                     </div>
                                 </div>
-                                <div class="col-lg-4 col-md-6 col-sm-12">
+                                <div class="col-lg-6 col-md-6 col-sm-12">
                                     <div class="card-body rounded-1">
                                         <label class="font-weight-bold" for="">Delivery Date</label>
                                         <input type="date" name="delivery_date" id="" class="form-control" required>
@@ -208,6 +214,32 @@ $sample_no = $huruf . $bulanTgl . $zki . sprintf("%04s", $urutan);
             $("#id_customer").select2({
                 responsive: true,
                 width: '100%'
+            });
+            $("#pic_customer").select2({
+                responsive: true,
+                width: '100%'
+            });
+            //untuk data ajax
+            $(document).ready(function() {
+                $('#id_customer').change(function() {
+                    var aid = $('#id_customer').val(); //mengambil nilai jika customer dipilih
+
+                    $.ajax({
+                        url: 'data.php',
+                        method: 'post',
+                        data: 'aid=' + aid,
+                    }).done(function(customers) {
+                        //menampilkan data relasi customer detail jika select option customer dipilih
+
+                        customers2 = JSON.parse(customers);
+                        customers2.forEach(key => {
+                            $('#pic_customer').append('<option value="' + key['id_customer_details'] + '">' + key['pic'] + '</option>');
+                        });
+                        // customers2.for(function(customer) {
+                        //     $('#pic_customer').append('<option>' + customer.pic + '</option>');
+                        // });
+                    });
+                });
             });
 
             $(document).ready(function() {

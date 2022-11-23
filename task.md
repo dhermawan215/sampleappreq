@@ -23,3 +23,6 @@
 .update dan perbaikan fitur amin produk untuk rnd dept
 ---> update 1.0.3
 .update dan perbaikan fitur admin employee untuk admin
+---> update 1.0.4
+.fitur ajax
+.update fitur select option customer dan details customer(bagian pic penerima)
