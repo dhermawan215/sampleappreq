@@ -26,3 +26,8 @@
 ---> update 1.0.4
 .fitur ajax
 .update fitur select option customer dan details customer(bagian pic penerima)
+---> update 1.0.5
+.fitur ajax
+.update fitur select option customer dan details customer(bagian sample request add)
+.update fitur sample-request-add-detail
+.update fitur sample-request-detail-edi

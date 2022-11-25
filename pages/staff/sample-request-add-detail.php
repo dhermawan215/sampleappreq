@@ -148,10 +148,10 @@ if ($queryDetailData->num_rows == 0) {
 
                                         <!-- query produk -->
                                         <?php
-                                        $queryProductData = mysqli_query($conn, "SELECT * FROM inventory");
+                                        $queryProductData = mysqli_query($conn, "SELECT * FROM products");
                                         while ($rowProduct = mysqli_fetch_object($queryProductData)) :
                                         ?>
-                                            <option value="<?= $rowProduct->InvId ?>"><?= $rowProduct->InvName ?></option>
+                                            <option value="<?= $rowProduct->id_product ?>"><?= $rowProduct->kode_produk ?>-<?= $rowProduct->fungsi ?></option>
                                         <?php endwhile; ?>
                                     </select>
                                 </div>
@@ -188,7 +188,7 @@ if ($queryDetailData->num_rows == 0) {
                 <!-- tabel isi detail sampel reqesuest -->
                 <!-- querytabeldetailsamplerequest -->
                 <?php
-                $queryDetailTabelSampleReq = mysqli_query($conn, "SELECT * FROM sample_request_details INNER JOIN inventory ON sample_request_details.id_barang = inventory.InvId WHERE id_sample_req='$row->id'");
+                $queryDetailTabelSampleReq = mysqli_query($conn, "SELECT * FROM sample_request_details INNER JOIN products ON sample_request_details.id_barang = products.id_product WHERE id_sample_req='$row->id'");
                 $norow = 1;
                 ?>
                 <div class="card-box mb-30">
@@ -234,7 +234,7 @@ if ($queryDetailData->num_rows == 0) {
                                                                 </div>
                                                             </div>
                                                         </td>
-                                                        <td><?= $fetchDetailsTabel->InvName ?></td>
+                                                        <td><?= $fetchDetailsTabel->kode_produk ?> - <?= $fetchDetailsTabel->fungsi ?></td>
                                                         <td><?= $fetchDetailsTabel->qty ?></td>
                                                         <td><?= $fetchDetailsTabel->nama_label ?></td>
 

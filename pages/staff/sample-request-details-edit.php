@@ -20,7 +20,7 @@ if (isset($_GET["cc"]) == null) {
 }
 
 $id_url = $_GET["cc"];
-$queryEditDataDetails = mysqli_query($conn, "SELECT * FROM sample_request_details INNER JOIN sample_request ON sample_request_details.id_sample_req=sample_request.id INNER JOIN inventory ON sample_request_details.id_barang=inventory.InvId
+$queryEditDataDetails = mysqli_query($conn, "SELECT * FROM sample_request_details INNER JOIN sample_request ON sample_request_details.id_sample_req=sample_request.id INNER JOIN products ON sample_request_details.id_barang=products.id_product
 WHERE sample_request_details.id_det='$id_url'");
 $row = mysqli_fetch_object($queryEditDataDetails);
 
@@ -98,15 +98,15 @@ if ($queryEditDataDetails->num_rows == 0) {
                                 <div class="col-md-12">
                                     <label class="font-weight-bold" for="">Product</label>
                                     <select name="id_barang" id="id-produk" class="form-control custom-select" autocomplete="off" data-live-search="true" size="5" required>
-                                        <option value="<?= $row->id_barang ?>" selected><?= $row->InvName ?></option>
+                                        <option value="<?= $row->id_barang ?>" selected><?= $row->kode_produk ?> - <?= $row->fungsi ?> </option>
                                         <option disabled>Select Product</option>
 
                                         <!-- query produk -->
                                         <?php
-                                        $queryProductData = mysqli_query($conn, "SELECT * FROM inventory");
+                                        $queryProductData = mysqli_query($conn, "SELECT * FROM products");
                                         while ($rowProduct = mysqli_fetch_object($queryProductData)) :
                                         ?>
-                                            <option value="<?= $rowProduct->InvId ?>"><?= $rowProduct->InvName ?></option>
+                                            <option value="<?= $rowProduct->id_product ?>"><?= $rowProduct->kode_produk ?> - <?= $rowProduct->fungsi ?></option>
                                         <?php endwhile; ?>
                                     </select>
                                 </div>

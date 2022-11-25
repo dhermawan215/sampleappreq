@@ -103,6 +103,20 @@ $sample_no = $huruf . $bulanTgl . $zki . sprintf("%04s", $urutan);
                                     </div>
                                 </div>
                             </div>
+                            <div class="row mt-2 col-12">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <div class="card-body rounded-1">
+                                        <label class="font-weight-bold" for="">Delivery By</label>
+                                        <select name="delivery_by" id="DeliveryId" class="form-control">
+                                            <option disabled selected>Select Delivery</option>
+                                            <option value="0">PICK UP</option>
+                                            <option value="1">EKSPEDISI</option>
+                                            <option value="2">BY SALES</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                            </div>
                             <div class="row col-12 mt-2">
                                 <div class="col-lg-12 col-md-12 col-sm-12">
                                     <div class="card-body rounded-1">
@@ -125,7 +139,7 @@ $sample_no = $huruf . $bulanTgl . $zki . sprintf("%04s", $urutan);
                                     <div class="card-body rounded-1">
                                         <label class="font-weight-bold" for="pic_customer">Customers Recipient</label>
                                         <select name="pic_customer" id="pic_customer" class="custom-select form-control">
-                                            <option selected>-Select Recipient-</option>
+                                            <option disabled selected>-Select Recipient-</option>
                                         </select>
                                     </div>
                                 </div>
@@ -149,24 +163,15 @@ $sample_no = $huruf . $bulanTgl . $zki . sprintf("%04s", $urutan);
                                 <div class="col-lg-12 col-md-12 col-sm-12">
                                     <div class="card-body rounded-1">
                                         <label class="font-weight-bold" for="">Delivery Address</label>
-                                        <textarea name="delivery_address" id="DeliveryAddress" cols="30" rows="10" class="form-control" placeholder="input delivery address"></textarea>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row mt-2 col-12">
-                                <div class="col-lg-12 col-md-12 col-sm-12">
-                                    <div class="card-body rounded-1">
-                                        <label class="font-weight-bold" for="">Delivery By</label>
-                                        <select name="delivery_by" id="DeliveryId" class="form-control">
-                                            <option disabled selected>Select Delivery</option>
-                                            <option value="0">PICK UP</option>
-                                            <option value="1">EKSPEDISI</option>
-                                            <option value="2">BY SALES</option>
-                                        </select>
-                                    </div>
-                                </div>
+                                        <select name="delivery_address" id="DeliveryAddress" class="custom-select form-control">
+                                            <option disabled selected>-Select Delivery Address-</option>
 
+                                        </select>
+
+                                    </div>
+                                </div>
                             </div>
+
                             <div class="row mt-2 col-12">
                                 <div class="col-lg-6 col-md-6 col-sm-12">
                                     <div class="card-body rounded-1">
@@ -219,38 +224,87 @@ $sample_no = $huruf . $bulanTgl . $zki . sprintf("%04s", $urutan);
                 responsive: true,
                 width: '100%'
             });
-            //untuk data ajax
-            $(document).ready(function() {
-                $('#id_customer').change(function() {
-                    var aid = $('#id_customer').val(); //mengambil nilai jika customer dipilih
-
-                    $.ajax({
-                        url: 'data.php',
-                        method: 'post',
-                        data: 'aid=' + aid,
-                    }).done(function(customers) {
-                        //menampilkan data relasi customer detail jika select option customer dipilih
-
-                        customers2 = JSON.parse(customers);
-                        customers2.forEach(key => {
-                            $('#pic_customer').append('<option value="' + key['id_customer_details'] + '">' + key['pic'] + '</option>');
-                        });
-                        // customers2.for(function(customer) {
-                        //     $('#pic_customer').append('<option>' + customer.pic + '</option>');
-                        // });
-                    });
-                });
+            $("#DeliveryAddress").select2({
+                responsive: true,
+                width: '100%'
             });
+            //untuk data ajax
+            // $(document).ready(function() {
+            //     $('#id_customer').change(function() {
+            //         var aid = $('#id_customer').val(); //mengambil nilai jika customer dipilih
+
+            //         $.ajax({
+            //             url: 'data.php',
+            //             method: 'post',
+            //             data: 'aid=' + aid,
+            //         }).done(function(customers) {
+            //             //menampilkan data relasi customer detail jika select option customer dipilih
+
+            //             customers2 = JSON.parse(customers);
+            //             customers2.forEach(key => {
+            //                 $('#pic_customer').append('<option value="' + key['id_customer_details'] + '">' + key['pic'] + '</option>');
+            //                 $('#DeliveryAddress').append('<option value="' + key['id_customer_details'] + '">' + key['pic'] + '</option>');
+
+            //             });
+            //             // customers2.for(function(customer) {
+            //             //     $('#pic_customer').append('<option>' + customer.pic + '</option>');
+            //             // });
+            //         });
+            //     });
+            // });
 
             $(document).ready(function() {
                 $('#DeliveryId').change(function(e) {
+                    //id dropdown delivery by
                     var id = document.getElementById('DeliveryId').value;
 
-                    if (id == 0) {
-                        document.getElementById('DeliveryAddress').setAttribute('readonly', true);
-                    } else {
-                        document.getElementById('DeliveryAddress').removeAttribute('readonly');
-                    }
+                    $('#id_customer').change(function() {
+                        var aid = $('#id_customer').val(); //mengambil nilai jika customer dipilih
+                        $.ajax({
+                            url: 'data.php',
+                            method: 'post',
+                            data: 'aid=' + aid,
+                        }).done(function(customers) {
+                            // customers2 = JSON.parse(customers);
+
+                            // console.log(customers2);
+                            var selectElementPic = document.getElementById("pic_customer");
+
+                            while (selectElementPic.length > 0) {
+                                selectElementPic.remove(0);
+                            }
+
+                            if (id != 0) {
+                                var selectOptionAddrress = document.getElementById("DeliveryAddress");
+
+                                while (selectOptionAddrress.length > 0) {
+                                    selectOptionAddrress.remove(0);
+                                }
+                                customers2 = JSON.parse(customers);
+                                customers2.forEach(key => {
+                                    $('#pic_customer').append('<option value="' + key['pic'] + '">' + key['pic'] + '</option>');
+                                    $('#DeliveryAddress').append('<option value="' + key['customers_address'] + '">' + key['customers_address'] + '</option>');
+                                });
+
+                            } else {
+                                var selectOptionAddrress = document.getElementById("DeliveryAddress");
+
+                                while (selectOptionAddrress.length > 0) {
+                                    selectOptionAddrress.remove(0);
+                                }
+                                customers2 = JSON.parse(customers);
+                                customers2.forEach(key => {
+                                    $('#pic_customer').append('<option selected value="' + key['id_customer_details'] + '">' + key['pic'] + '</option>');
+                                });
+                                $('#DeliveryAddress').append('<option value="PICKUP">PICK UP</option>');
+
+                            }
+                            //menampilkan data relasi customer detail jika select option customer dipilih
+                            // customers2.for(function(customer) {
+                            //     $('#pic_customer').append('<option>' + customer.pic + '</option>');
+                            // });
+                        });
+                    });
                 });
             });
         </script>
