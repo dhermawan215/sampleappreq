@@ -8,13 +8,6 @@ if (!isset($_SESSION['user'])) {
             </script>";
 }
 
-if ($_SESSION['user']['dept'] != 'RD') {
-    echo "<script>
-    document.location.href='/index.php';
-    </script>";
-}
-
-
 $fdate = $_GET['fdate'];
 $ldate = $_GET['ldate'];
 $sts = $_GET['sts'];
@@ -64,15 +57,11 @@ header("Content-Disposition: attachment; filename=Report-All-Sample-Request (" .
     <?php
     if ($sts == 7) {
 
-        $querydb = mysqli_query($conn, "SELECT * FROM sample_request JOIN tblemployees ON sample_request.requestor=tblemployees.emp_id JOIN customer ON sample_request.id_customer=customer.CustomerId 
-        JOIN sample_request_details on sample_request.id=sample_request_details.id_sample_req 
-        JOIN products ON sample_request_details.id_barang=products.id_product 
+        $querydb = mysqli_query($conn, "SELECT * FROM sample_request JOIN tblemployees ON sample_request.requestor=tblemployees.emp_id JOIN customer ON sample_request.id_customer=customer.CustomerId
         WHERE sample_request.date_required BETWEEN '$fdate' AND '$ldate'");
     } else {
 
-        $querydb = mysqli_query($conn, "SELECT * FROM sample_request JOIN tblemployees ON sample_request.requestor=tblemployees.emp_id JOIN customer ON sample_request.id_customer=customer.CustomerId 
-        JOIN sample_request_details on sample_request.id=sample_request_details.id_sample_req 
-        JOIN products ON sample_request_details.id_barang=product.id_product 
+        $querydb = mysqli_query($conn, "SELECT * FROM sample_request JOIN customer ON sample_request.id_customer=customer.CustomerId
         WHERE sample_request.date_required BETWEEN '$fdate' AND '$ldate' AND sample_request.status=$sts");
     }
 
@@ -90,12 +79,6 @@ header("Content-Disposition: attachment; filename=Report-All-Sample-Request (" .
                 <th>Delivery</th>
                 <th>Status</th>
                 <th>Customer</th>
-                <th>Item</th>
-                <th>Qty</th>
-                <th>Sales Note</th>
-                <th>CS Note</th>
-                <th>RND Note</th>
-                <th>Customer Note</th>
             </tr>
         </thead>
         <tbody>
@@ -158,16 +141,8 @@ header("Content-Disposition: attachment; filename=Report-All-Sample-Request (" .
                             break;
                     }
                     ?>
-
                     <td><?= $status_messages ?></td>
                     <td><?= $row->CustomerName ?></td>
-                    <td><?= $row->kode_produk . ' ' . $row->fungsi ?></td>
-                    <td><?= $row->qty ?></td>
-                    <td><?= $row->sales_note ?></td>
-                    <td><?= $row->cs_note ?></td>
-                    <td><?= $row->rnd_notes ?></td>
-                    <td><?= $row->customer_note ?></td>
-
                 </tr>
             <?php endwhile; ?>
         </tbody>

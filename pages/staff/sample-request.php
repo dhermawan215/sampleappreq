@@ -64,6 +64,65 @@ if (($_SESSION['user']['dept'] != 'MK') && ($_SESSION['user']['dept'] != 'CS')) 
                         <a href="/pages/staff/sample-request-add.php" class="btn btn-primary">Add Sample Request</a>
                     </div>
                 </div>
+                <!-- export untuk customer service -->
+                <?php if ($_SESSION['user']['dept'] == 'CS') : ?>
+
+                    <div class="card-box mb-30">
+                        <div class="pd-20">
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <h4 class="text-blue h4">Print Out / Export Data</h4>
+                                <p class="text-sm">select a time period</p>
+                            </div>
+                        </div>
+                        <div class="pd-20">
+                            <form action="sample-request-export.php" method="get">
+                                <div class="row p-2">
+                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                        <label for="status" class="px-2">Status</label>
+                                        <select name="status" id="status" class="form-control px-2">
+                                            <option disabled selected>Select Status</option>
+                                            <option value="0">Requested</option>
+                                            <option value="1">In Progress</option>
+                                            <option value="2">Ready</option>
+                                            <option value="3">Pickup</option>
+                                            <option value="4">Accepted By Customers</option>
+                                            <option value="5">Reviewed</option>
+                                            <option value="6">Cancel<ption>
+                                            <option value="7">All Status Sample Request<ption>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row mt-2 p-2">
+                                    <div class="col-lg-12 col-md-12">
+                                        <div class="row">
+                                            <div class="col-lg-4 col-md-6 col-sm-12">
+                                                <div class="input-group mb-2">
+                                                    <div class="input-group-prepend">
+                                                        <div class="input-group-text">Start</div>
+                                                    </div>
+                                                    <input type="date" class="form-control" name="fdate">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-md-6 col-sm-12">
+                                                <div class="input-group mb-2">
+                                                    <div class="input-group-prepend">
+                                                        <div class="input-group-text">End</div>
+                                                    </div>
+                                                    <input type="date" class="form-control" name="ldate">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-md-6 col-sm-12 mt-sm-2 mt-lg-0 mt-md-0">
+                                                <button name="xls" class="btn btn-success"><i class="bi bi-file-earmark-excel"></i> Excel</button>
+                                                <button name="pdf" class="btn btn-danger"><i class="bi bi-file-earmark-pdf"></i> Pdf</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                <?php endif; ?>
                 <!-- Simple Datatable start -->
                 <div class="card-box mb-30">
                     <div class="pd-20">
