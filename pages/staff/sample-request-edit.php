@@ -19,7 +19,7 @@ if (isset($_GET["cc"]) == null) {
 }
 
 $code_sample = $_GET["cc"];
-$queryEditData = mysqli_query($conn, "SELECT * FROM sample_request INNER JOIN customer ON sample_request.id_customer=customer.CustomerId WHERE no_sample='$code_sample'");
+$queryEditData = mysqli_query($conn, "SELECT * FROM sample_request INNER JOIN customer ON sample_request.id_customer=customer.CustomerId JOIN tblemployees ON sample_request.requestor=tblemployees.emp_id WHERE no_sample='$code_sample'");
 $row = mysqli_fetch_object($queryEditData);
 
 if ($queryEditData->num_rows == 0) {
@@ -103,52 +103,8 @@ if ($queryEditData->num_rows == 0) {
                                     <div class="card-body rounded-1">
                                         <label for="" class="font-weight-bold">Requestor</label>
 
-                                        <input type="text" name="requestor" id="" class="form-control" value="<?= $row->requestor ?>" required>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row col-12 mt-2">
-                                <div class="col-lg-12 col-md-12 col-sm-12">
-                                    <div class="card-body rounded-1">
-                                        <label for="" class="font-weight-bold">Customers </label>
-                                        <select name="id_customer" id="id_customer" class="custom-select form-control" data-live-search="true" required>
-                                            <option value="<?= $row->id_customer ?>" selected><?= $row->CustomerName ?></option>
-                                            <option disabled>Select Customers</option>
-                                            <?php
-                                            $dataCustomers = mysqli_query($conn, "SELECT * FROM customer");
-                                            while ($rowCustomers = mysqli_fetch_object($dataCustomers)) : ?>
-                                                <option value="<?= $rowCustomers->CustomerId ?>"><?= $rowCustomers->CustomerName ?></option>
-                                            <?php endwhile; ?>
-
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row col-12 mt-2">
-                                <div class="col-lg-4 col-md-6 col-sm-12">
-                                    <div class="card-body rounded-1">
-                                        <label for="" class="font-weight-bold">Customers Recipient</label>
-                                        <input type="text" name="pic_customer" id="" class="form-control" placeholder="input customer recipient" value="<?= $row->pic_customer ?>" required>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-6 col-sm-12">
-                                    <div class="card-body rounded-1">
-                                        <label for="" class="font-weight-bold">Date Required</label>
-                                        <input type="date" name="date_required" id="" class="form-control" value="<?= $row->date_required ?>" required>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-6 col-sm-12">
-                                    <div class="card-body rounded-1">
-                                        <label for="" class="font-weight-bold">Delivery Date</label>
-                                        <input type="date" name="delivery_date" id="" class="form-control" value="<?= $row->delivery_date ?>" required>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row mt-2 col-12">
-                                <div class="col-lg-12 col-md-12 col-sm-12">
-                                    <div class="card-body rounded-1">
-                                        <label for="" class="font-weight-bold">Delivery Address</label>
-                                        <input type="text" name="delivery_address" id="" class="form-control" placeholder="input customers delivery address" value="<?= $row->delivery_address ?>" required>
+                                        <input type="text" name="requestor_name" id="" class="form-control" value="<?= $_SESSION['user']['fname'] . ' ' .  $_SESSION['user']['lname'] ?>" readonly required>
+                                        <input type="hidden" name="requestor" id="" class="form-control" value="<?= $_SESSION['user']['id'] ?>" readonly required>
                                     </div>
                                 </div>
                             </div>
@@ -171,11 +127,11 @@ if ($queryEditData->num_rows == 0) {
                                 ?>
 
 
-                                <div class="col-lg-6 col-md-6 col-sm-12">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
                                     <div class="card-body rounded-1">
 
                                         <label class="font-weight-bold" for="">Delivery By</label>
-                                        <select name="delivery_by" id="" class="form-control">
+                                        <select name="delivery_by" id="DeliveryId" class="form-control">
                                             <option value="<?= $row->delivery_by ?>" selected><?= $status_message_delivery ?></option>
                                             <option disabled>Select Delivery</option>
                                             <option value="0">PICK UP</option>
@@ -184,13 +140,64 @@ if ($queryEditData->num_rows == 0) {
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-lg-6 col-md-6 col-sm-12">
+
+                            </div>
+                            <div class="row col-12 mt-2">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
                                     <div class="card-body rounded-1">
-                                        <label for="" class="font-weight-bold">Customers PO</label>
-                                        <input type="text" name="customer_po" id="" class="form-control" placeholder="input customer po" value="<?= $row->customer_po ?>" required>
+                                        <label for="" class="font-weight-bold">Customers </label>
+                                        <select name="id_customer" id="id_customer" class="custom-select form-control" data-live-search="true" required>
+                                            <option value="<?= $row->id_customer ?>" selected><?= $row->CustomerName ?></option>
+                                            <option disabled>Select Customers</option>
+                                            <?php
+                                            $id_users = $_SESSION['user']['id'];
+                                            $dataCustomers = mysqli_query($conn, "SELECT * FROM customer WHERE id_users_sales='$id_users'");
+                                            while ($rowCustomers = mysqli_fetch_object($dataCustomers)) : ?>
+                                                <option value="<?= $rowCustomers->CustomerId ?>"><?= $rowCustomers->CustomerName ?></option>
+                                            <?php endwhile; ?>
+
+                                        </select>
                                     </div>
                                 </div>
                             </div>
+                            <div class="row col-12 mt-2">
+                                <div class="col-lg-6 col-md-6 col-sm-12">
+                                    <div class="card-body rounded-1">
+                                        <label for="" class="font-weight-bold">Date Required</label>
+                                        <input type="date" name="date_required" id="" class="form-control" value="<?= $row->date_required ?>" required>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-12">
+                                    <div class="card-body rounded-1">
+                                        <label for="" class="font-weight-bold">Delivery Date</label>
+                                        <input type="date" name="delivery_date" id="" class="form-control" value="<?= $row->delivery_date ?>" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row col-12 mt-2">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <div class="card-body rounded-1">
+                                        <label for="" class="font-weight-bold">Customers Recipient</label>
+                                        <select name="pic_customer" id="pic_customer" class="custom-select form-control">
+                                            <option value="<?= $row->pic ?>" selected><?= $row->pic_customer ?></option>
+                                            <option disabled>-Select Recipient-</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-2 col-12">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <div class="card-body rounded-1">
+                                        <label for="" class="font-weight-bold">Delivery Address</label>
+                                        <select name="delivery_address" id="DeliveryAddress" class="custom-select form-control">
+                                            <option value="<?= $row->delivery_address ?>"><?= $row->delivery_address ?></option>
+                                            <option disabled>-Select Delivery Address-</option>
+
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="row mt-2 col-12">
                                 <div class="col-lg-12 col-md-12 col-sm-12">
                                     <div class="card-body rounded-1">
@@ -221,6 +228,67 @@ if ($queryEditData->num_rows == 0) {
                 responsive: true,
                 width: '100%'
             });
+            $("#pic_customer").select2({
+                responsive: true,
+                width: '100%'
+            });
+            $("#DeliveryAddress").select2({
+                responsive: true,
+                width: '100%'
+            });
+
+            $(document).ready(function() {
+                $('#DeliveryId').change(function(e) {
+                    //id dropdown delivery by
+                    const id = document.getElementById('DeliveryId').value;
+
+                    $('#id_customer').change(function() {
+                        var aid = $('#id_customer').val(); //mengambil nilai jika customer dipilih
+                        $.ajax({
+                            url: 'ajaxeditdata.php',
+                            method: 'post',
+                            data: 'aid=' + aid,
+                        }).done(function(customers) {
+
+                            const selectElementPic = document.getElementById("pic_customer");
+
+                            while (selectElementPic.length > 0) {
+                                selectElementPic.remove(0);
+                            }
+
+                            if (id != 0) {
+                                const selectOptionAddrress = document.getElementById("DeliveryAddress");
+
+                                while (selectOptionAddrress.length > 0) {
+                                    selectOptionAddrress.remove(0);
+                                }
+                                customers2 = JSON.parse(customers);
+                                customers2.forEach(key => {
+                                    $('#pic_customer').append('<option value="' + key['pic'] + '">' + key['pic'] + '</option>');
+                                    $('#DeliveryAddress').append('<option value="' + key['customers_address'] + '">' + key['customers_address'] + '</option>');
+                                });
+
+                            } else {
+                                const selectOptionAddrress = document.getElementById("DeliveryAddress");
+
+                                while (selectOptionAddrress.length > 0) {
+                                    selectOptionAddrress.remove(0);
+                                }
+                                customers2 = JSON.parse(customers);
+                                customers2.forEach(key => {
+                                    $('#pic_customer').append('<option selected value="' + key['id_customer_details'] + '">' + key['pic'] + '</option>');
+                                });
+                                $('#DeliveryAddress').append('<option value="PICKUP">PICK UP</option>');
+
+                            }
+                            //menampilkan data relasi customer detail jika select option customer dipilih
+                            // customers2.for(function(customer) {
+                            //     $('#pic_customer').append('<option>' + customer.pic + '</option>');
+                            // });
+                        });
+                    });
+                });
+            });
         </script>
         <!-- query save -->
         <?php
@@ -235,14 +303,13 @@ if ($queryEditData->num_rows == 0) {
             $delivery_date = $_POST['delivery_date'];
             $delivery_address = $_POST['delivery_address'];
             $delivery_by = $_POST['delivery_by'];
-            $customer_po = $_POST['customer_po'];
 
             $sales_note = $_POST['sales_note'];
 
-            $queryUpdateSample = mysqli_query($conn, "UPDATE sample_request SET no_sample='$no_sample',
-            subject='$subject', requestor='$requestor', id_customer=$customers_id, pic_customer='$pic_customer',
+            $queryUpdateSample = mysqli_query($conn, "UPDATE sample_request SET 
+            subject='$subject', requestor=$requestor, id_customer=$customers_id, pic_customer='$pic_customer',
             date_required='$date_required', delivery_date='$delivery_date', delivery_by='$delivery_by',
-            delivery_address='$delivery_address', customer_po='$customer_po', sales_note='$sales_note' WHERE id='$id'");
+            delivery_address='$delivery_address', sales_note='$sales_note' WHERE id='$id'");
 
             if ($queryUpdateSample) {
                 echo "<script>
@@ -253,7 +320,7 @@ if ($queryEditData->num_rows == 0) {
                         </script>";
             } else {
                 echo "<script>alert('Something went wrong, try again!');
-                        document.location.href='/pages/staff/sample-request-add.php?cc=$code_sample';
+                        document.location.href='/pages/staff/sample-request-edit.php?cc=$code_sample';
                         </script>";
             }
         }

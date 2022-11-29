@@ -173,12 +173,12 @@ if ($query->num_rows == 0) {
                                     <tbody>
                                         <?php
                                         $no = 1;
-                                        $querydetailsDel = mysqli_query($conn, "SELECT * FROM sample_request_details INNER JOIN inventory ON sample_request_details.id_barang=inventory.InvId WHERE id_sample_req=$rowDelivery->id");
+                                        $querydetailsDel = mysqli_query($conn, "SELECT * FROM sample_request_details INNER JOIN products ON sample_request_details.id_barang=products.id_product WHERE id_sample_req=$rowDelivery->id");
                                         while ($rowDetails = mysqli_fetch_object($querydetailsDel)) :
                                         ?>
                                             <tr>
                                                 <td><?= $no++ ?></td>
-                                                <td><?= $rowDetails->InvName ?></td>
+                                                <td><?= $rowDetails->kode_produk . ' ' . $rowDetails->fungsi ?></td>
                                                 <td><?= $rowDetails->qty ?></td>
                                             </tr>
                                         <?php endwhile; ?>

@@ -30,4 +30,6 @@
 .fitur ajax
 .update fitur select option customer dan details customer(bagian sample request add)
 .update fitur sample-request-add-detail
-.update fitur sample-request-detail-edi
+.update fitur sample-request-detail-edit
+---> update 1.0.6
+.modul sampel request tinggal export data untuk cs

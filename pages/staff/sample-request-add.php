@@ -256,7 +256,7 @@ $sample_no = $huruf . $bulanTgl . $zki . sprintf("%04s", $urutan);
             $(document).ready(function() {
                 $('#DeliveryId').change(function(e) {
                     //id dropdown delivery by
-                    var id = document.getElementById('DeliveryId').value;
+                    const id = document.getElementById('DeliveryId').value;
 
                     $('#id_customer').change(function() {
                         var aid = $('#id_customer').val(); //mengambil nilai jika customer dipilih
@@ -268,14 +268,14 @@ $sample_no = $huruf . $bulanTgl . $zki . sprintf("%04s", $urutan);
                             // customers2 = JSON.parse(customers);
 
                             // console.log(customers2);
-                            var selectElementPic = document.getElementById("pic_customer");
+                            const selectElementPic = document.getElementById("pic_customer");
 
                             while (selectElementPic.length > 0) {
                                 selectElementPic.remove(0);
                             }
 
                             if (id != 0) {
-                                var selectOptionAddrress = document.getElementById("DeliveryAddress");
+                                const selectOptionAddrress = document.getElementById("DeliveryAddress");
 
                                 while (selectOptionAddrress.length > 0) {
                                     selectOptionAddrress.remove(0);
@@ -287,7 +287,7 @@ $sample_no = $huruf . $bulanTgl . $zki . sprintf("%04s", $urutan);
                                 });
 
                             } else {
-                                var selectOptionAddrress = document.getElementById("DeliveryAddress");
+                                const selectOptionAddrress = document.getElementById("DeliveryAddress");
 
                                 while (selectOptionAddrress.length > 0) {
                                     selectOptionAddrress.remove(0);
