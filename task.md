@@ -35,3 +35,5 @@
 .modul sampel request tinggal export data untuk cs
 ---> update 1.0.7
 .penyempurnaa fitur export untuk cs dan rnd
+---> update 1.0.8
+.fitur notifikasi pertama

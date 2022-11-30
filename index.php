@@ -220,7 +220,7 @@ if (!isset($_SESSION['user'])) {
                     <?php
                     $no = 1;
                     $queryInventory = mysqli_query($conn, "SELECT * FROM sample_request INNER JOIN customer ON sample_request.id_customer=customer.CustomerId WHERE sample_request.status<6"); ?>
-                    <table id="dataTable" class="table stripe hover nowrap">
+                    <table id="dataTable" class="table stripe hover nowrap table-responsive-sm table-responsive-md">
                         <thead>
                             <tr>
                                 <th class="table-plus datatable-nosort" style="width: 17px;">No</th>

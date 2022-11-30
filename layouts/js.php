@@ -27,3 +27,38 @@
 <script src="public/src/plugins/datatables/js/vfs_fonts.js"></script>
 <!-- Datatable Setting js -->
 <script src="vendors/scripts/datatable-setting.js"></script>
+
+<script>
+    // counter notification
+    $(document).ready(function() {
+        const ids = <?= $_SESSION['user']['id'] ?>;
+
+        $.ajax({
+            url: 'notificationcountajax.php',
+            method: 'post',
+            data: 'aid=' + ids,
+        }).done(function(notifno) {
+            notif2no = JSON.parse(notifno);
+            let v = notif2no["0"]["COUNT(*)"];
+            $('#notifbox').append(' <span class="badge text-danger font-18 notification-active">' + v + '</span>');
+        });
+    });
+
+    // notification list
+
+    $(document).ready(function() {
+        const id = <?= $_SESSION['user']['id'] ?>;
+        const aid = id;
+        $.ajax({
+            url: 'notificationajax.php',
+            method: 'post',
+            data: 'aid=' + aid,
+        }).done(function(notif) {
+            notif2 = JSON.parse(notif);
+            notif2.forEach(key => {
+                $('#notiflist').append('<li><h5 class="text-primary">' + key['title'] + '</h5><span class="text-info font-12">' + key['category'] + '</span><span class="text-success font-12"> Date: ' + key['created_at'] + '</span><p>' + key['description'] + '</p><hr></li>');
+            });
+
+        });
+    });
+</script>
