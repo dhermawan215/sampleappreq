@@ -8,7 +8,7 @@
 <script src="public/vendors/scripts/script.min.js"></script>
 <script src="public/vendors/scripts/process.js"></script>
 <script src="public/vendors/scripts/layout-settings.js"></script>
-<script src="public/src/plugins/apexcharts/apexcharts.min.js"></script>
+<!-- <script src="public/src/plugins/apexcharts/apexcharts.min.js"></script> -->
 <script src="public/src/plugins/datatables/js/jquery.dataTables.min.js"></script>
 <script src="public/src/plugins/datatables/js/dataTables.bootstrap4.min.js"></script>
 <script src="public/src/plugins/datatables/js/dataTables.responsive.min.js"></script>
@@ -31,34 +31,51 @@
 <script>
     // counter notification
     $(document).ready(function() {
-        const ids = <?= $_SESSION['user']['id'] ?>;
+        counterNotification();
 
+        notifList();
+    });
+
+    function counterNotification() {
+
+        const ids = <?= $_SESSION['user']['id'] ?>;
+        const dept = '<?= $_SESSION['user']['dept'] ?>';
         $.ajax({
             url: 'notificationcountajax.php',
             method: 'post',
-            data: 'aid=' + ids,
+            data: {
+                aid: ids,
+                dept: dept
+            },
+            // data: 'aid=' + ids,
         }).done(function(notifno) {
             notif2no = JSON.parse(notifno);
             let v = notif2no["0"]["COUNT(*)"];
-            $('#notifbox').append(' <span class="badge text-danger font-18 notification-active">' + v + '</span>');
+            $('#notifbox').append(' <span class="font-weight-bold text-danger font-18">' + v + '</span>');
+            $('#notifbox').append(' <span class="badge bdg text-success font-18 notification-active"></span>');
         });
-    });
 
-    // notification list
+    }
 
-    $(document).ready(function() {
+    function notifList() {
         const id = <?= $_SESSION['user']['id'] ?>;
+        const depts = '<?= $_SESSION['user']['dept'] ?>';
         const aid = id;
         $.ajax({
             url: 'notificationajax.php',
             method: 'post',
-            data: 'aid=' + aid,
+            data: {
+                aid: aid,
+                dept: depts
+            },
+            // data: 'aid=' + aid,
         }).done(function(notif) {
             notif2 = JSON.parse(notif);
             notif2.forEach(key => {
                 $('#notiflist').append('<li><h5 class="text-primary">' + key['title'] + '</h5><span class="text-info font-12">' + key['category'] + '</span><span class="text-success font-12"> Date: ' + key['created_at'] + '</span><p>' + key['description'] + '</p><hr></li>');
             });
-
         });
-    });
+    }
+
+    // notification list
 </script>

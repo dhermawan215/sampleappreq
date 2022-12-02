@@ -219,7 +219,7 @@ if (!isset($_SESSION['user'])) {
                     <!-- query -->
                     <?php
                     $no = 1;
-                    $queryInventory = mysqli_query($conn, "SELECT * FROM sample_request INNER JOIN customer ON sample_request.id_customer=customer.CustomerId WHERE sample_request.status<6"); ?>
+                    $queryInventory = mysqli_query($conn, "SELECT * FROM sample_request INNER JOIN customer ON sample_request.id_customer=customer.CustomerId WHERE sample_request.status<6 ORDER BY date_required DESC LIMIT 10"); ?>
                     <table id="dataTable" class="table stripe hover nowrap table-responsive-sm table-responsive-md">
                         <thead>
                             <tr>
@@ -235,7 +235,7 @@ if (!isset($_SESSION['user'])) {
                             <?php while ($row = mysqli_fetch_object($queryInventory)) : ?>
                                 <tr>
                                     <td class="table-plus"><?= $no++ ?></td>
-                                    <td><a href="/pages/staff/sample-request-detail.php?cc=<?= $row->no_sample ?>" class="text-decoration-none"><?= $row->no_sample ?></a></td>
+                                    <td><?= $row->no_sample ?></td>
                                     <td><?= $row->subject ?></td>
                                     <td><?= $row->CustomerName ?></td>
                                     <td><?= $row->date_required ?></td>

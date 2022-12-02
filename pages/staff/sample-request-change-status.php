@@ -94,7 +94,7 @@ if ($queryEditData->num_rows == 0) {
                                 $status =  $row->status;
                                 switch ($status) {
                                     case 1:
-                                        $status_messages = "In Progress";
+                                        $status_messages = "Confirm";
                                         break;
                                     case 2:
                                         $status_messages = "Ready";
@@ -312,6 +312,37 @@ if ($queryEditData->num_rows == 0) {
             // var_dump($cs_note);
             // var_dump($sales_note);
             // exit;
+            //data notifikasi
+
+            $DataSample = mysqli_query($conn, "SELECT * FROM sample_request JOIN tblemployees ON sample_request.requestor=tblemployees.emp_id WHERE sample_request.id=$id");
+            $DataSampleRow = mysqli_fetch_object($DataSample);
+            $no_sample_notif = $DataSampleRow->no_sample;
+            $names = $DataSampleRow->FirstName;
+            $id_employee = $DataSampleRow->requestor;
+
+            switch ($status) {
+                case 3:
+                    $notif_title_account = "Sampel No $no_sample_notif siap di pickup.";
+                    $notif_title_global = "Sampel No $no_sample_notif siap di pickup";
+                    $desc_account = "Dear $names sampel anda siap siap, silahkan cek metode pengiriman dan print sampe request form untuk kebutuhan pengiriman";
+                    $desc_global = "Dear All, Sampel siap di pickup, metode pickup akan disesuaikan saat pembuatan sampel request ini";
+                    break;
+                case 4:
+                    $notif_title_account = "Sampel No $no_sample_notif diterima customers.";
+                    $notif_title_global = "Sampel No $no_sample_notif diterima customers";
+                    $desc_account = "Dear $names sampel anda telah diterima customers, jangan lupa melakukan proses review";
+                    $desc_global = "Dear All, sampel anda telah diterima customers";
+                    break;
+                case 5:
+                    $notif_title_account = "Sampel No $no_sample_notif telah direview";
+                    $notif_title_global = "Sampel No $no_sample_notif telah direview oleh customer";
+                    $desc_account = "Dear $names sampel anda telah direview, terimakasih, proses telah selesai";
+                    $desc_global = "Dear All, Sampel telah direview, untuk melihat hasil review silahkan masuk halaman sample request, lalu pilih detail sample";
+                    break;
+
+                default:
+                    break;
+            }
             //data for delivery
             if ($qudeliver->num_rows == 0) {
                 $delivery_name = $_POST['delivery_name'];
@@ -344,6 +375,14 @@ if ($queryEditData->num_rows == 0) {
             }
 
             if ($queryUpdateSample || $queryDelivery) {
+                $id_categoryNotifaccount = 1;
+                $id_categoryNotifglobal = 2;
+                //insert data notifikasi untuk user yang membuat sample request (sales)
+                $saveNotifAccount = mysqli_query($conn, "INSERT INTO notification(category_id, title, description, id_employee)
+                                    VALUES($id_categoryNotifaccount,'$notif_title_account','$desc_account', $id_employee )");
+
+                $saveNotifGlobal = mysqli_query($conn, "INSERT INTO notification(category_id, title, description)
+                                    VALUES($id_categoryNotifglobal,'$notif_title_global','$desc_global' )");
                 echo "<script>
                         swal('Data was updated!', 'Click OK to continue', 'success')
                         .then((value) => {

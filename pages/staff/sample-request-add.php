@@ -294,7 +294,7 @@ $sample_no = $huruf . $bulanTgl . $zki . sprintf("%04s", $urutan);
                                 }
                                 customers2 = JSON.parse(customers);
                                 customers2.forEach(key => {
-                                    $('#pic_customer').append('<option selected value="' + key['id_customer_details'] + '">' + key['pic'] + '</option>');
+                                    $('#pic_customer').append('<option selected value="' + key['pic'] + '">' + key['pic'] + '</option>');
                                 });
                                 $('#DeliveryAddress').append('<option value="PICKUP">PICK UP</option>');
 
@@ -327,10 +327,33 @@ $sample_no = $huruf . $bulanTgl . $zki . sprintf("%04s", $urutan);
             $querySaveSample = mysqli_query($conn, "INSERT INTO sample_request(no_sample, subject, requestor, id_customer, pic_customer, date_required, delivery_date, delivery_by, delivery_address, status, sales_note, cs_note)
             VALUES('$no_sample', '$subject', '$requestor', $customers_id, '$pic_customer', '$date_required', '$delivery_date', '$delivery_by', '$delivery_address', $status, '$sales_note', '$cs_note') ");
             if ($querySaveSample) {
+                ///untuk notifikasi    
+                $SampleId = mysqli_insert_id($conn);
+                $DataSample = mysqli_query($conn, "SELECT * FROM sample_request JOIN tblemployees ON sample_request.requestor=tblemployees.emp_id WHERE sample_request.id=$SampleId");
+                $DataSampleRow = mysqli_fetch_object($DataSample);
+
+                ///insert ke notifikasi
+                $no_sample_notif = $DataSampleRow->no_sample;
+                $names = $DataSampleRow->FirstName;
+                $id_categoryNotifaccount = 1;
+                $id_categoryNotifglobal = 2;
+                $id_employee = $DataSampleRow->requestor;
+                $notif_title_account = "Sampel No $no_sample_notif berhasil dibuat.";
+                $notif_title_global = "Sampel No $no_sample_notif berhasil ditambahkan!";
+                $desc_account = "Dear $names sampel anda berhasil dibuat, silahkan tambahkan item detail request sampel anda";
+                $desc_global = "Dear RND dan CS, Sampel baru telah diminta/dibuat";
+
+                //insert fata notifikasi untuk user yang membuat sample request (sales)
+                $saveNotifAccount = mysqli_query($conn, "INSERT INTO notification(category_id, title, description, id_employee)
+                                    VALUES($id_categoryNotifaccount,'$notif_title_account','$desc_account', $id_employee )");
+
+                $saveNotifGlobal = mysqli_query($conn, "INSERT INTO notification(category_id, title, description)
+                                    VALUES($id_categoryNotifglobal,'$notif_title_global','$desc_global' )");
+
                 echo "<script>
                         swal('Data Saved!', 'Click OK to continue', 'success')
                         .then((value) => {
-                         document.location.href='/pages/staff/sample-request.php';
+                        document.location.href='/pages/staff/sample-request.php';
                         });
                         </script>";
             } else {

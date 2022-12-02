@@ -20,7 +20,7 @@ if (isset($_GET["cc"]) == null) {
 }
 
 $code_sample = $_GET["cc"];
-$queryDetailData = mysqli_query($conn, "SELECT * FROM sample_request INNER JOIN customer ON sample_request.id_customer=customer.CustomerId WHERE no_sample='$code_sample'");
+$queryDetailData = mysqli_query($conn, "SELECT * FROM sample_request INNER JOIN customer ON sample_request.id_customer=customer.CustomerId JOIN tblemployees ON sample_request.requestor=tblemployees.emp_id WHERE no_sample='$code_sample'");
 $row = mysqli_fetch_object($queryDetailData);
 
 if ($queryDetailData->num_rows == 0) {
@@ -101,7 +101,7 @@ if ($queryDetailData->num_rows == 0) {
                             </div>
                             <div class="col-lg-4 col-md-6 col-sm-12">
                                 <div class="card-body border rounded-1">
-                                    Requestor: <?= $row->requestor ?>
+                                    Requestor: <?= $row->FirstName . ' ' . $row->LastName ?>
                                 </div>
                             </div>
                         </div>
@@ -114,17 +114,12 @@ if ($queryDetailData->num_rows == 0) {
                         </div>
 
                         <div class="row col-12 mt-2">
-                            <div class="col-lg-4 col-md-6 col-sm-12">
-                                <div class="card-body border rounded-1">
-                                    Customers PO: <?= $row->customer_po ?>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-6 col-sm-12">
+                            <div class="col-lg-6 col-md-6 col-sm-12">
                                 <div class="card-body border rounded-1">
                                     Date Required: <?= $row->date_required ?>
                                 </div>
                             </div>
-                            <div class="col-lg-4 col-md-6 col-sm-12">
+                            <div class="col-lg-6 col-md-6 col-sm-12">
                                 <div class="card-body border rounded-1">
                                     Delivery Date: <?= $row->delivery_date ?>
                                 </div>
@@ -136,7 +131,7 @@ if ($queryDetailData->num_rows == 0) {
                 <!-- tabel isi detail sampel reqesuest -->
                 <!-- querytabeldetailsamplerequest -->
                 <?php
-                $queryDetailTabelSampleReq = mysqli_query($conn, "SELECT * FROM sample_request_details INNER JOIN inventory ON sample_request_details.id_barang = inventory.InvId WHERE id_sample_req='$row->id'");
+                $queryDetailTabelSampleReq = mysqli_query($conn, "SELECT * FROM sample_request_details INNER JOIN products ON sample_request_details.id_barang = products.id_product WHERE id_sample_req='$row->id'");
                 $norow = 1;
                 ?>
                 <div class="card-box mb-30">
@@ -157,12 +152,7 @@ if ($queryDetailData->num_rows == 0) {
                                                     <th scope="col">Action</th>
                                                     <th scope="col">Product</th>
                                                     <th scope="col">Qty Product</th>
-                                                    <th scope="col">Unit Product</th>
-                                                    <th scope="col">Qty Unit</th>
-                                                    <th scope="col">Unit Pack</th>
-                                                    <th scope="col">Description</th>
                                                     <th scope="col">Label Name</th>
-                                                    <th scope="col">Kop Surat</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -186,14 +176,9 @@ if ($queryDetailData->num_rows == 0) {
                                                                 </div>
                                                             </div>
                                                         </td>
-                                                        <td><?= $fetchDetailsTabel->InvName ?></td>
+                                                        <td><?= $fetchDetailsTabel->kode_produk . ' ' . $fetchDetailsTabel->fungsi ?></td>
                                                         <td><?= $fetchDetailsTabel->qty ?></td>
-                                                        <td><?= $fetchDetailsTabel->unit ?></td>
-                                                        <td><?= $fetchDetailsTabel->qty_pack ?></td>
-                                                        <td><?= $fetchDetailsTabel->unit_pack ?></td>
-                                                        <td><?= $fetchDetailsTabel->deskripsi ?></td>
                                                         <td><?= $fetchDetailsTabel->nama_label ?></td>
-                                                        <td><?= $fetchDetailsTabel->kop_surat ?></td>
                                                     </tr>
                                                 <?php endwhile ?>
 

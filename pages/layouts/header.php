@@ -11,6 +11,22 @@
                 </a>
             </div>
         </div>
+        <div class="user-notification">
+            <div class="dropdown">
+                <a class="dropdown-toggle no-arrow" id="notifbox" href="#" role="button" data-toggle="dropdown">
+                    <i class="icon-copy dw dw-notification"></i>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right">
+                    <div class="notification-list mx-h-350 customscroll">
+                        <div class="row col-12">
+
+                            <ul id="notiflist">
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <div class="user-info-dropdown">
             <div class="dropdown">

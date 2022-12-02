@@ -202,7 +202,7 @@ if ($queryEditData->num_rows == 0) {
                                 <div class="col-lg-12 col-md-12 col-sm-12">
                                     <div class="card-body rounded-1">
                                         <label for="" class="font-weight-bold">Sales Note</label>
-                                        <input type="text" name="sales_note" id="" class="form-control" placeholder="input customer po" value="<?= $row->sales_note ?>" required>
+                                        <input type="text" name="sales_note" id="" class="form-control" placeholder="sales note" value="<?= $row->sales_note ?>" required>
                                     </div>
                                 </div>
                             </div>
@@ -276,7 +276,7 @@ if ($queryEditData->num_rows == 0) {
                                 }
                                 customers2 = JSON.parse(customers);
                                 customers2.forEach(key => {
-                                    $('#pic_customer').append('<option selected value="' + key['id_customer_details'] + '">' + key['pic'] + '</option>');
+                                    $('#pic_customer').append('<option selected value="' + key['pic'] + '">' + key['pic'] + '</option>');
                                 });
                                 $('#DeliveryAddress').append('<option value="PICKUP">PICK UP</option>');
 

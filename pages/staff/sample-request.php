@@ -132,8 +132,17 @@ if (($_SESSION['user']['dept'] != 'MK') && ($_SESSION['user']['dept'] != 'CS')) 
 
                         <!-- query -->
                         <?php
+                        $requestor = $_SESSION['user']['id'];
                         $no = 1;
-                        $queryInventory = mysqli_query($conn, "SELECT * FROM sample_request INNER JOIN customer ON sample_request.id_customer=customer.CustomerId"); ?>
+
+                        if ($_SESSION['user']['dept'] == 'CS') {
+                            $queryInventory = mysqli_query($conn, "SELECT * FROM sample_request INNER JOIN customer ON sample_request.id_customer=customer.CustomerId");
+                        } else {
+                            $queryInventory = mysqli_query($conn, "SELECT * FROM sample_request INNER JOIN customer ON sample_request.id_customer=customer.CustomerId WHERE sample_request.requestor=$requestor");
+                        }
+
+                        ?>
+
                         <table class="data-table table stripe hover nowrap">
                             <thead>
                                 <tr>

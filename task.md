@@ -37,3 +37,6 @@
 .penyempurnaa fitur export untuk cs dan rnd
 ---> update 1.0.8
 .fitur notifikasi pertama
+---> 1.0.9
+.fitur notifikasi telah disempurnakan
+.kurang fitur read notification

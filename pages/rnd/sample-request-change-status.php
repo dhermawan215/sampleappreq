@@ -177,7 +177,7 @@ if ($queryEditData->num_rows == 0) {
                                 <?php elseif ($row->status == 2) : ?>
                                     <div class="row col-12 mt-3">
                                         <div class="col-lg-12 col-md-12 col-sm-12">
-                                            <label for="" class="font-weight-bold">RnD Note (saat status in progress)</label>
+                                            <label for="" class="font-weight-bold">RnD Note (saat status ready)</label>
                                             <textarea readonly id="" cols="30" rows="10" class="form-control"><?= $row->rnd_notes ?></textarea>
                                         </div>
                                     </div>
@@ -229,6 +229,29 @@ if ($queryEditData->num_rows == 0) {
             // var_dump($sales_note);
             // exit;
             //data for deliverY
+            //data notifikasi
+
+            $DataSample = mysqli_query($conn, "SELECT * FROM sample_request JOIN tblemployees ON sample_request.requestor=tblemployees.emp_id WHERE sample_request.id=$id");
+            $DataSampleRow = mysqli_fetch_object($DataSample);
+            $no_sample_notif = $DataSampleRow->no_sample;
+            $names = $DataSampleRow->FirstName;
+            $id_employee = $DataSampleRow->requestor;
+
+            switch ($status) {
+                case 2:
+                    $notif_title_account = "Sampel No $no_sample_notif telah siap.";
+                    $notif_title_global = "Sampel No $no_sample_notif telah siap";
+                    $desc_account = "Dear $names sampel anda telah siap, proses selanjutkan akan dilakukan oleh customer service";
+                    $desc_global = "Dear CS, Sampel telah siap, silahkan melakukan proses pick up dan melakukan konfirmasi ke RND";
+                    break;
+
+                default:
+                    $notif_title_account = "Sampel No $no_sample_notif berhasil dikonfirmasi Tim RND.";
+                    $notif_title_global = "Sampel No $no_sample_notif telah dikonfirmasi";
+                    $desc_account = "Dear $names sampel berhasil dikonfirmasi RND, proses selanjutnya dilakukan oleh tim RND";
+                    $desc_global = "Sampel berhasil dikonfirmasi oleh Tim RND";
+                    break;
+            }
 
             if ($rnd_notes != null) {
                 $queryUpdateSample = mysqli_query($conn, "UPDATE sample_request SET status=$status, rnd_notes='$rnd_notes' WHERE id='$id'");
@@ -236,6 +259,15 @@ if ($queryEditData->num_rows == 0) {
 
 
             if ($queryUpdateSample) {
+                ///insert ke notifikasi
+                $id_categoryNotifaccount = 1;
+                $id_categoryNotifglobal = 2;
+                //insert data notifikasi untuk user yang membuat sample request (sales)
+                $saveNotifAccount = mysqli_query($conn, "INSERT INTO notification(category_id, title, description, id_employee)
+                                    VALUES($id_categoryNotifaccount,'$notif_title_account','$desc_account', $id_employee )");
+
+                $saveNotifGlobal = mysqli_query($conn, "INSERT INTO notification(category_id, title, description)
+                                    VALUES($id_categoryNotifglobal,'$notif_title_global','$desc_global' )");
                 echo "<script>
                         swal('Data was updated!', 'Click OK to continue', 'success')
                         .then((value) => {

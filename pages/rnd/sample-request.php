@@ -137,6 +137,7 @@ if ($_SESSION['user']['dept'] != 'RD') {
                                 <th>Subject</th>
                                 <th>Customer</th>
                                 <th>Date</th>
+                                <th>Status</th>
                                 <th class="datatable-nosort">Action</th>
                             </tr>
                         </thead>
@@ -148,6 +149,42 @@ if ($_SESSION['user']['dept'] != 'RD') {
                                     <td><?= $row->subject ?></td>
                                     <td><?= $row->CustomerName ?></td>
                                     <td><?= $row->date_required ?></td>
+                                    <td>
+                                        <?php
+                                        $status =  $row->status;
+                                        switch ($status) {
+                                            case 1:
+                                                $status_messages = "Confirm";
+                                                $color = "text-warning";
+                                                break;
+                                            case 2:
+                                                $status_messages = "Ready";
+                                                $color = "text-warning";
+                                                break;
+                                            case 3:
+                                                $status_messages = "Pick Up";
+                                                $color = "text-info";
+                                                break;
+                                            case 4:
+                                                $status_messages = "Accepted by Customer";
+                                                $color = "text-danger";
+                                                break;
+                                            case 5:
+                                                $status_messages = "Reviewed";
+                                                $color = "text-success";
+                                                break;
+                                            case 6:
+                                                $status_messages = "Cancel";
+                                                break;
+
+                                            default:
+                                                $status_messages = "Requested";
+                                                $color = "text-primary";
+                                                break;
+                                        }
+                                        ?>
+                                        <p class="font-weight-bold <?= $color ?>"><?= $status_messages ?></p>
+                                    </td>
                                     <td>
                                         <div class="dropdown">
                                             <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
