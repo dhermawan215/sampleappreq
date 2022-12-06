@@ -23,7 +23,11 @@
 
                             <ul id="notiflist">
                             </ul>
+
                         </div>
+                    </div>
+                    <div class="row col-12">
+                        <a class="text-center m-1 p-1" href="/notification.php">See all notification</a>
                     </div>
                 </div>
             </div>

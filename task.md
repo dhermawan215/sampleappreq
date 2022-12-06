@@ -40,3 +40,6 @@
 ---> 1.0.9
 .fitur notifikasi telah disempurnakan
 .kurang fitur read notification
+
+---> update versi 1.1
+.siap untuk publish

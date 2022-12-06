@@ -53,44 +53,75 @@
 <script>
     // counter notification
     $(document).ready(function() {
+        // counterNotification();
+
+        notifList();
+    });
+
+    function counterNotification() {
+
         const ids = <?= $_SESSION['user']['id'] ?>;
         const dept = '<?= $_SESSION['user']['dept'] ?>';
-
         $.ajax({
-            url: '../../notificationcountajax.php',
+            url: 'notificationcountajax.php',
             method: 'post',
             data: {
                 aid: ids,
                 dept: dept
             },
+            // data: 'aid=' + ids,
         }).done(function(notifno) {
             notif2no = JSON.parse(notifno);
             let v = notif2no["0"]["COUNT(*)"];
-            $('#notifbox').append(' <span class="badge text-danger font-18 notification-active">' + v + '</span>');
+            $('#notifbox').append(' <span class="font-weight-bold text-danger font-18">' + v + '</span>');
+            $('#notifbox').append(' <span class="badge bdg text-success font-18 notification-active"></span>');
         });
-    });
 
-    // notification list
+    }
 
-    $(document).ready(function() {
+    function notifList() {
         const id = <?= $_SESSION['user']['id'] ?>;
         const depts = '<?= $_SESSION['user']['dept'] ?>';
         const aid = id;
         $.ajax({
-            url: '../../notificationajax.php',
+            url: '/../../notificationajax.php',
             method: 'post',
             data: {
                 aid: aid,
                 dept: depts
             },
+            // data: 'aid=' + aid,
         }).done(function(notif) {
             notif2 = JSON.parse(notif);
+            console.info(notif2);
             notif2.forEach(key => {
-                $('#notiflist').append('<li><h5 class="text-primary">' + key['title'] + '</h5><span class="text-info font-12">' + key['category'] + '</span><span class="text-success font-12"> Date: ' + key['created_at'] + '</span><p>' + key['description'] + '</p><hr></li>');
-            });
 
+                $('#notifbox').append(' <span class="badge bdg text-success font-18 notification-active"></span>');
+                $('#notiflist').append('<li><div id="' + key['id_notif'] + '" class="card-body" onclick="reads(this.id)" style="cursor: pointer; background: #C9F0FB;"><h5 class="text-primary">' + key['title'] + '</h5><span class="text-info font-12">' + key['category'] + '</span><span class="text-success font-12"> Date: ' + key['created_at'] + '</span><p>' + key['description'] + '</p><hr></div></li>');
+
+            });
         });
-    });
+    }
+    // notification list
+
+    // function reads(reads_id) {
+    //     const id = <?= $_SESSION['user']['id'] ?>;
+    //     const idnotifs = reads_id;
+
+    //     $.ajax({
+    //         url: 'notificationread.php',
+    //         method: 'post',
+    //         data: {
+    //             aids: id,
+    //             notif: idnotifs
+    //         },
+    //         // data: 'aid=' + aid,
+    //     }).done(function(data) {
+
+    //         console.info(data);
+
+    //     });
+    // }
 </script>
 
 

@@ -281,6 +281,7 @@ if (!isset($_SESSION['user'])) {
                     </table>
                 </div>
             </div>
+
             <?php include('layouts/footer.php') ?>
         </div>
     </div>
