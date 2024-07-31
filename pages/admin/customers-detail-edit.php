@@ -132,9 +132,9 @@ if ($queryDetails->num_rows == 0) {
         if (isset($_POST['update'])) {
             $id = $_POST['id_customer_details'];
 
-            $pic = htmlspecialchars($_POST['pic']);
-            $phone = htmlspecialchars($_POST['phone']);
-            $address = htmlspecialchars($_POST['customers_address']);
+            $pic = mysqli_real_escape_string($conn,  htmlspecialchars($_POST['pic']));
+            $phone = mysqli_real_escape_string($conn, htmlspecialchars($_POST['phone']));
+            $address = mysqli_real_escape_string($conn, htmlspecialchars($_POST['customers_address']));
 
             $querySave = mysqli_query(
                 $conn,

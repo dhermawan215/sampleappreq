@@ -222,9 +222,9 @@ if ($queryDetails->num_rows == 0) {
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['save_details'])) {
             $customers_id  = $_POST['customers_id'];
-            $pic = $_POST['pic'];
-            $phone = $_POST['phone'];
-            $customer_address = $_POST['customer_address'];
+            $pic = mysqli_real_escape_string($conn, $_POST['pic']);
+            $phone = mysqli_real_escape_string($conn, $_POST['phone']);
+            $customer_address = mysqli_real_escape_string($conn, $_POST['customer_address']);
 
             $querySaveDetailsCustomers = mysqli_query($conn, "INSERT INTO customers_detail(customers_id, pic, phone, customers_address)
             VALUES($customers_id, '$pic', '$phone', '$customer_address')");

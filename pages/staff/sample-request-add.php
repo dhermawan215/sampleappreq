@@ -315,13 +315,13 @@ $sample_no = $huruf . $bulanTgl . $zki . sprintf("%04s", $urutan);
             $subject = $_POST['subject'];
             $requestor = $_POST['requestor'];
             $customers_id = $_POST['id_customer'];
-            $pic_customer = $_POST['pic_customer'];
+            $pic_customer = mysqli_real_escape_string($conn, $_POST['pic_customer']);
             $date_required = $_POST['date_required'];
             $delivery_date = $_POST['delivery_date'];
-            $delivery_address = $_POST['delivery_address'];
+            $delivery_address = mysqli_real_escape_string($conn, $_POST['delivery_address']);
             $delivery_by = $_POST['delivery_by'];
             $status = $_POST['status'];
-            $sales_note = $_POST['sales_note'];
+            $sales_note = mysqli_real_escape_string($conn, $_POST['sales_note']);
             $cs_note = $_POST['cs_note'];
 
             $querySaveSample = mysqli_query($conn, "INSERT INTO sample_request(no_sample, subject, requestor, id_customer, pic_customer, date_required, delivery_date, delivery_by, delivery_address, status, sales_note, cs_note)
